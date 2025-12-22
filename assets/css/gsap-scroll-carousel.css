@@ -1,0 +1,229 @@
+/* CGS Scroll Carousel Styles */
+.cgs-carousel-outer {
+  position: relative;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
+  padding: 0;
+  /* Remove default padding */
+}
+
+.cgs-carousel-wrapper {
+  overflow: hidden;
+  width: 100%;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  align-items: center;
+  position: sticky;
+  top: 0;
+}
+
+.cgs-carousel {
+  display: flex;
+  transition: none;
+  gap: 0;
+  padding-left: 0;
+  /* Padding left is now 0 because card width is 100vw */
+}
+
+/* 
+   WRAPPER: This is now the "Slide" (full width container). 
+   It holds the background image.
+*/
+.cgs-carousel-card {
+  /* Default background if no image is set? Transparent */
+  background: transparent;
+
+  /* Full Width slide */
+  width: 100vw;
+  flex: 0 0 100vw;
+  /* Crucial for calc */
+  height: 100vh;
+  /* Wrapper height */
+  box-sizing: border-box;
+  flex-shrink: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  /* Reset old card styles that might interfere */
+  box-shadow: none;
+  border-radius: 0;
+  border: none;
+  margin: 0;
+  /* No margin, it's full width */
+  padding: 20px;
+  /* Outer padding to prevent card touching edge */
+}
+
+/* Background Image Support on Wrapper */
+.cgs-carousel-card.cgs-has-bg-image {
+  position: relative;
+}
+
+/* 
+   INNER CARD: This is the visible card with content.
+*/
+.cgs-card-inner {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  gap: 40px;
+
+  width: 100%;
+  max-width: var(--global-content-width, 1200px);
+  margin: 0 auto;
+
+  box-sizing: border-box;
+  padding: 0;
+
+  max-height: 90vh;
+  /* Don't overflow viewport */
+  overflow-y: auto;
+}
+
+/* Image Positioning classes on Inner Card */
+.cgs-card-inner.cgs-layout-left {
+  flex-direction: row;
+}
+
+.cgs-card-inner.cgs-layout-right {
+  flex-direction: row-reverse;
+}
+
+/* Columns */
+.cgs-card-image-column,
+.cgs-card-content-column {
+  flex: 1;
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.cgs-card-content-column {
+  align-items: flex-start;
+  text-align: left;
+}
+
+/* Ensure max-width doesn't exceed site container */
+@media (min-width: 1240px) {
+  .cgs-card-inner {
+    width: 1200px;
+  }
+}
+
+/* Mobile Stack */
+@media (max-width: 768px) {
+
+  .cgs-card-inner,
+  .cgs-card-inner.cgs-layout-left,
+  .cgs-card-inner.cgs-layout-right {
+    flex-direction: column;
+    justify-content: flex-start;
+    padding: 0;
+    gap: 20px;
+  }
+
+  .cgs-card-image-column,
+  .cgs-card-content-column {
+    width: 100%;
+    flex: unset;
+  }
+
+  .cgs-card-image-column {
+    order: -1;
+  }
+}
+
+.cgs-card-inner h3,
+.cgs-card-inner p {
+  text-align: left;
+  width: 100%;
+}
+
+.cgs-card-image-wrap {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.cgs-card-inner img {
+  max-width: 100%;
+  border-radius: 6px;
+  margin-bottom: 12px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.cgs-card-inner a.button {
+  background: #0073aa;
+  color: #fff;
+  padding: 8px 18px;
+  border-radius: 4px;
+  text-decoration: none;
+  display: inline-block;
+  margin-top: 8px;
+}
+
+.cgs-card-inner a.button:hover {
+  background: #005177;
+}
+
+/* Card header for frontend */
+.cgs-card-header {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+}
+
+/* Vertical Stack Card Design (unchanged logic mostly) */
+.cgs-stack-card {
+  /* ... existing vertical styles ... */
+  /* If vertical layout uses same classes, check conflicts. 
+      Vertical uses .cgs-stack-card, not .cgs-carousel-card usually?
+   */
+}
+
+/* Clean up Vertical specific if generic classes were used */
+.cgs-vertical-container {
+  display: flex;
+  justify-content: center;
+}
+
+.cgs-stack-card {
+  height: fit-content;
+  max-width: var(--global-content-width);
+  width: 1000px;
+  margin: auto;
+  margin-bottom: 50px;
+  background: rgb(253, 0, 0);
+  display: flex;
+  align-items: center;
+}
+
+.cgs-vertical-card-image,
+.cgs-vertical-card-content {
+  width: 50%;
+}
+
+.cgs-vertical-card-content {
+  margin: 0px 20px;
+}
+
+/* Arrows */
+@media (max-width: 600px) {
+
+  .cgs-carousel-arrow.prev,
+  .cgs-carousel-arrow.next {
+    left: 0;
+    right: 0;
+  }
+}

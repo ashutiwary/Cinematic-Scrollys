@@ -1,0 +1,236 @@
+.cgs-carousel-cards {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 20px;
+    margin-top: 20px;
+}
+
+.cgs-carousel-items-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: contents;
+}
+
+.cgs-carousel-item {
+    background: #fff;
+    margin: 10px;
+    padding: 16px 12px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.cgs-image-preview {
+    display: block;
+    margin: 5px 0px;
+}
+
+.cgs-toggle-item {
+    position: absolute;
+    top: 8px;
+    right: 12px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    font-size: 1.2em;
+    line-height: 1;
+    padding: 0;
+    color: #333;
+    z-index: 2;
+    transition: color 0.2s;
+}
+
+.cgs-toggle-item.collapsed {
+    color: #888;
+}
+
+/* Default: Visible so if JS creates it, it's seen. JS logic handles toggling. */
+.cgs-carousel-item-content {
+    transition: all 0.2s;
+    margin-top: 0px;
+    display: block;
+}
+
+/* Initially hide only if we want a "loading" state, but risky if JS fails. 
+   For now, we default to block. */
+
+.cgs-carousel-item {
+    position: relative;
+}
+
+.cgs-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+    position: relative;
+}
+
+.cgs-card-collapsed-title {
+    font-weight: bold;
+    margin-left: 8px;
+}
+
+/* If you really want to hide until ready, uncomment, but strictly managed by JS now */
+/* 
+body.js-cgs-ready .cgs-carousel-item-content {
+    display: block; 
+} 
+*/
+
+/* align all of them in a row */
+.cgs-meta-style-desc {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-weight: 500;
+}
+
+@media (max-width: 900px) {
+    .cgs-carousel-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+@media (max-width: 600px) {
+    .cgs-carousel-cards {
+        grid-template-columns: 1fr;
+    }
+}
+
+.cgs-carousel-item-row {
+    display: flex;
+    gap: 8px;
+    justify-content: space-between;
+    /* Prevent overlap */
+}
+
+/* Pickr Customization */
+.pickr {
+    display: inline-block;
+    vertical-align: middle;
+}
+
+.pickr .pcr-button {
+    border: 1px solid #999 !important;
+    border-radius: 3px !important;
+    /* Slight radius for modern square look */
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    width: 2em !important;
+    height: 2em !important;
+}
+
+/* --- Editor Grid Layout (Redesign) --- */
+.cgs-editor-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: auto auto;
+    gap: 20px;
+    grid-template-areas:
+        "content media"
+        "button button"
+        "style style";
+    margin-top: 15px;
+}
+
+.cgs-section-content {
+    grid-area: content;
+}
+
+.cgs-section-media {
+    grid-area: media;
+}
+
+.cgs-section-button {
+    grid-area: button;
+}
+
+.cgs-section-style {
+    grid-area: style;
+}
+
+.cgs-editor-section {
+    background: #fff;
+    /* Could be #f9f9f9 slightly distinct from card */
+    border: 1px solid #eee;
+    border-radius: 6px;
+    padding: 20px;
+}
+
+.cgs-section-title {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+    border-bottom: 1px solid #eee;
+    padding-bottom: 10px;
+    display: block;
+}
+
+.cgs-form-group {
+    margin-bottom: 15px;
+}
+
+.cgs-form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+}
+
+.cgs-form-group input[type="text"],
+.cgs-form-group textarea,
+.cgs-form-group select {
+    width: 100%;
+}
+
+/* Adjust Style Section */
+.cgs-style-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+}
+
+.cgs-style-item {
+    flex: 1 1 150px;
+    /* Min width 150px */
+}
+
+/* Make labels and inputs inline for style items */
+.cgs-style-item.cgs-form-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.cgs-style-item.cgs-form-group label {
+    margin-bottom: 0;
+    width: auto;
+    font-size: 0.9em;
+    /* Slightly smaller to fit better */
+    color: #555;
+    flex-shrink: 0;
+    /* Prevent label from breaking */
+}
+
+/* Fix for Select in Flex container */
+.cgs-style-item.cgs-form-group select {
+    width: auto !important;
+    /* Override 100% */
+    flex-grow: 1;
+}
+
+@media (max-width: 800px) {
+    .cgs-editor-grid {
+        grid-template-columns: 1fr;
+        grid-template-areas:
+            "content"
+            "media"
+            "button"
+            "style";
+    }
+}

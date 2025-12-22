@@ -484,8 +484,8 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
                 wp_enqueue_style('pickr-css', 'https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css', [], '1.9.1');
                 wp_enqueue_script('pickr-js', 'https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js', [], '1.9.1', true);
                 
-                wp_enqueue_style('cgs-admin-css', CGS_URL . 'assets/css/gsap-scroll-admin.css', [], '1.3.6');
-                wp_enqueue_script('cgs-admin-js', CGS_URL . 'assets/js/gsap-scroll-admin.js', ['jquery', 'pickr-js'], '1.3.6', true);
+                wp_enqueue_style('cgs-admin-css', CGS_URL . 'assets/css/gsap-scroll-admin.css', [], '1.0.0');
+                wp_enqueue_script('cgs-admin-js', CGS_URL . 'assets/js/gsap-scroll-admin.js', ['jquery', 'pickr-js'], '1.0.0', true);
 
                 $items = get_post_meta($post->ID, '_cgs_carousel_items', true);
                 $count = is_array($items) ? count($items) : 0;

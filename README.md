@@ -95,37 +95,18 @@ The GSAP Scroll plugin is a custom WordPress plugin that integrates the GreenSoc
 
 ## Changelog
 
-### 1.3.6
-* **Refined "Button Dimensions" layout**
-  - Cleaned up Radius control (removed redundant "All" input).
-  - Aligned 4-corner inputs for Padding and Radius.
-* **Fixed Admin UI consistency** between PHP and JS.
-
-### 1.3.5
-* **Restored dedicated "Button Settings" section**
-  - Moved button fields (Text, URL, Icon, Colors, Dimensions) to their own section.
-  - Cleaned up "Content Details" and "Styling Options" to remove duplicates.
-* **Updated CSS Grid layout** for better organization.
-
-### 1.3.0 - 1.3.4
-* Added FontAwesome Icon support for buttons.
-* Added Button Dimension controls (Padding, Radius, Width).
-* Added Google Fonts integration with typography controls.
-* Enhanced Admin UI with better sectioning (Content, Media, Button, Style).
-* Fixed various layout and saving bugs.
-
-### 1.0.1
-* Added per-card border customization.
-* Enhanced per-card styling options.
-* Improved image position controls.
-* JavaScript improvements for dynamic card creation.
-* Updated admin interface for better card management.
-
 ### 1.0.0
-* Initial release with GSAP and ScrollTrigger integration.
+* **Initial release**
+* **Dedicated "Button Settings" section**
+* **FontAwesome Icon support**
+* **Comprehensive Button Dimension controls**
+* **Google Fonts integration**
+* **Advanced styling system**
+* **Media library integration**
+* **Responsive design implementation**
 
 ## Version
-1.3.6
+1.0.0
 
 ## Author
 Ashu Tiwary

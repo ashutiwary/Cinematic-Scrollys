@@ -360,8 +360,25 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                         <?php endif; ?>
                         
                         <?php if (! empty($item['button_text']) && ! empty($item['button_url'])) : ?>
+                            <?php 
+                                $icon_html = '';
+                                if(!empty($item['btn_icon_class'])) {
+                                    $icon_html = '<i class="' . esc_attr($item['btn_icon_class']) . '"></i>';
+                                }
+                                $pos = isset($item['btn_icon_pos']) ? $item['btn_icon_pos'] : 'right';
+                                $btn_content = $item['button_text'];
+                                
+                                // Add spacing if icon exists
+                                if($icon_html) {
+                                    if($pos === 'left') {
+                                        $btn_content = $icon_html . ' <span style="margin-left:5px;">' . $btn_content . '</span>';
+                                    } else {
+                                        $btn_content = '<span style="margin-right:5px;">' . $btn_content . '</span> ' . $icon_html;
+                                    }
+                                }
+                            ?>
                             <a href="<?php echo esc_url($item['button_url']); ?>" class="button" target="_blank" rel="noopener" style="<?php echo esc_attr($btn_style); ?>">
-                            <?php echo esc_html($item['button_text']); ?>
+                            <?php echo wp_kses_post($btn_content); ?>
                             </a>
                         <?php endif; ?>
                     </div>

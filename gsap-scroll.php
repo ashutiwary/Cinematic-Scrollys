@@ -1,6 +1,6 @@
 <?php
 /*
-Plugin Name: Cinematic GSAP Scroll
+Plugin Name: Cinematic Scrollys
 Description: Create animated, GSAP-powered scrollable carousels with custom content using a simple shortcode.
 Version: 1.0.0
 Author: Ashu Tiwary

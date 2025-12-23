@@ -64,6 +64,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
       $shd     = get_post_meta($post_id, '_cgs_card_shadow', true) ?: '';
       $img_position = get_post_meta($post_id, '_cgs_img_position', true) ?: 'top';
       $ver_img_position = get_post_meta($post_id, '_cgs_vert_img_position', true) ?: 'right';
+      $content_width = get_post_meta($post_id, '_cgs_content_width', true) ?: '1200px';
 
       // --- GOOGLE FONTS LOADING ---
       // We need to collect all fonts usage to build the request
@@ -182,7 +183,8 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
         "#{$cid} .cgs-card-inner, .cgs-stack-card{background:{$card_bg};color:{$card_txt};"
         . "border-radius:{$r_tl}px {$r_tr}px {$r_br}px {$r_bl}px;box-shadow:{$shd};"
         . "border:{$card_border_width}px {$card_border_style} {$card_border_clr};"
-        . "padding:{$padding_top}px {$padding_right}px {$padding_bottom}px {$padding_left}px;}"
+        . "padding:{$padding_top}px {$padding_right}px {$padding_bottom}px {$padding_left}px;"
+        . "width: 100%; max-width: {$content_width};}"
         . "#{$cid} .cgs-card-inner .button,.cgs-stack-card .button{background-color:{$btn_bg};color:{$btn_txt};{$btn_css_global}}"
         . "#{$cid} .cgs-card-inner .cgs-card-title,.cgs-stack-card .cgs-card-title{color:{$title_txt_colr};}" // Updated selector
         . "#{$cid} .cgs-card-inner img, .cgs-stack-card img{border-radius:{$img_tl}px {$img_tr}px {$img_br}px {$img_bl}px;}"

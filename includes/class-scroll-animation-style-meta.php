@@ -158,6 +158,7 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
             $card_txt     = get_post_meta( $post->ID, '_cgs_txt_colr',    true );
             $button_bg    = get_post_meta( $post->ID, '_cgs_button_bg',   true );
             $button_text  = get_post_meta( $post->ID, '_cgs_button_text', true );
+            $content_width = get_post_meta( $post->ID, '_cgs_content_width', true ) ?: '1200px';
             // Border and radius values
             $card_border_clr = get_post_meta( $post->ID, '_cgs_card_border_clr', true );
             $card_border_width = get_post_meta( $post->ID, '_cgs_card_border_width', true ) ?: '0';
@@ -200,6 +201,22 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                 <input type="text" class="cgs-color-picker" id="cgs_button_text" name="cgs_button_text" value="<?php echo esc_attr( $button_text ); ?>" data-alpha="true"><br><br>
             </p>
 
+            <!-- Global Width Configuration (New Row) -->
+            <!-- Global Width Configuration (New Row) -->
+            <p class="cgs-meta-style-desc" style="border-top:1px dashed #ddd; padding-top:10px; margin-top:10px; display:flex; align-items:center; gap:15px; width: 100%;">
+                <strong style="flex: 0 0 auto;"><?php esc_html_e( 'Global Width Configuration:', 'cinematic-scroll' ); ?></strong>
+                
+                <span style="flex: 1; display:flex; align-items:center; gap:5px;">
+                    <label for="cgs_content_width" style="margin-bottom:0; font-size: 0.9em; white-space:nowrap;"><?php esc_html_e( 'Inside Card Width (Default: 1200px):', 'cinematic-scroll' ); ?></label>
+                    <input type="text" id="cgs_content_width" name="cgs_content_width" value="<?php echo esc_attr( $content_width ); ?>" placeholder="1200px" style="flex:1;">
+                </span>
+
+                <span style="flex: 1; display:flex; align-items:center; gap:5px;">
+                    <label for="cgs_btn_width" style="margin-bottom:0; font-size: 0.9em; white-space:nowrap;"><?php esc_html_e( 'Button Width:', 'cinematic-scroll' ); ?></label>
+                    <input type="text" id="cgs_btn_width" name="cgs_btn_width" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_width', true) ); ?>" placeholder="e.g. 200px" style="flex:1;">
+                </span>
+            </p>
+
             <!-- Button Dimension Settings (New Row) -->
             <p class="cgs-meta-style-desc" style="border-top:1px dashed #ddd; padding-top:10px; margin-top:10px;">
                 <strong><?php esc_html_e( 'Button Dimensions:', 'cinematic-scroll' ); ?></strong><br>
@@ -228,10 +245,6 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                     <label style="font-size:0.9em;"><?php esc_html_e( 'BL', 'cinematic-scroll' ); ?> <input type="number" name="cgs_btn_radius_btm_lt" value="<?php echo esc_attr( $br_bl ); ?>" style="width:50px;"></label>
                 </span>
 
-                <span style="display:inline-block; margin-top:5px; vertical-align:top;">
-                    <strong><?php esc_html_e( 'Width:', 'cinematic-scroll' ); ?></strong><br>
-                    <input type="text" name="cgs_btn_width" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_width', true) ); ?>" placeholder="e.g. 200px or 100%" style="width:150px;">
-                </span>
             </p>
             <!-- Card Border and Radius Settings -->
             <p class="cgs-meta-style-desc">
@@ -432,6 +445,9 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                 }
                 if ( isset( $_POST['cgs_button_text'] ) ) {
                     update_post_meta( $post_id, '_cgs_button_text', sanitize_text_field( $_POST['cgs_button_text'] ) );
+                }
+                if ( isset( $_POST['cgs_content_width'] ) ) {
+                    update_post_meta( $post_id, '_cgs_content_width', sanitize_text_field( $_POST['cgs_content_width'] ) );
                 }
                 
                 // Save Button Padding

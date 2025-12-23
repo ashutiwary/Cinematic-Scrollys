@@ -28,6 +28,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
 
       // Enqueue Scripts & Styles (Loaded from local assets/lib for privacy/performance)
       wp_enqueue_style('cgs-carousel');
+      wp_enqueue_style('cgs-font-awesome');
       wp_enqueue_script('gsap');
       wp_enqueue_script('gsap-scrolltrigger');
       wp_enqueue_script('cgs-carousel-js', CGS_URL . 'assets/js/gsap-scroll-carousel.js', ['jquery', 'gsap', 'gsap-scrolltrigger'], '1.3.1', true);

@@ -73,7 +73,7 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                 __( 'Carousel Style Settings', 'cinematic-scroll' ),
                 [ $this, 'render_style_meta_box' ],
                 'scroll_animation',
-                'side',
+                'normal',
                 'default'
             );
         }

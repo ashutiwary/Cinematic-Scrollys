@@ -1,120 +1,61 @@
-GSAP Scroll Plugin
-==================
+=== GSAP Scroll Plugin ===
+Contributors: ashutiwary
+Tags: gsap, scrolltrigger, animation, carousel, cinematic
+Requires at least: 6.0
+Tested up to: 6.7
+Stable tag: 1.3.1
+Requires PHP: 7.4
+License: GPLv2 or later
 
-Description:
--------------
-The GSAP Scroll plugin is a custom WordPress plugin that integrates the GreenSock Animation Platform (GSAP) with scroll-based animations for your WordPress site. This plugin allows you to create engaging, animated carousels with customizable content cards that smoothly animate as users scroll through your pages. With modular architecture, separate meta box management, and dynamic layout options, it offers a powerful yet user-friendly solution for creating animated content presentations.
+Create animated, GSAP-powered scrollable carousels with custom content using a simple shortcode.
 
-Features:
-----------
-- Architecture & Organization:
-  * Modular code structure with separated components
-  * Independent meta box management
-  * Organized style and card controls
-  * Clean, maintainable codebase
+== Description ==
 
-- Content Management:
-  * Custom post type for carousel creation
-  * Intuitive card-based interface
-  * Individual card content management
-  * Per-card styling customization
-  * Media library integration
-  * Drag-and-drop card ordering
-  * Expand/collapse card interface
-  * Layout selection (Horizontal/Vertical)
+The GSAP Scroll plugin is a premium WordPress plugin that integrates the GreenSock Animation Platform (GSAP) with scroll-based animations. It allows you to create engaging, animated carousels where content cards animate smoothly as users scroll.
 
+With a modular architecture and detailed customization controls, you can build horizontal or vertical scroll experiences without writing code.
 
-- Button Features:
-  * Dedicated "Button Settings" section
-  * FontAwesome Icon support (Class & Position)
-  * Comprehensive Button Dimension controls (Padding, Radius, Width)
-  * Button typography and color customization
+**Key Features:**
 
-- Style Controls:
-  * Comprehensive color settings
-  * Custom border radius controls (Global & Per-card)
-  * Box shadow customization
-  * Typography options (Google Fonts integration)
-  * Real-time style preview
-  * Per-card border customization (color, width, style)
-  * Image position control for both layouts
-  * Individual card styling options
+*   **Dual Layout Modes:** Choose between Horizontal Scroll (side-scrolling) or Vertical Stack layouts.
+*   **Privacy & Performance:** Core libraries (GSAP, ScrollTrigger, Pickr) are now **bundled locally**, eliminating external CDN dependencies for better privacy and reliability.
+*   **Advanced Typography:** deeply customizable typography settings (Font Family, Weight, Style, Transform, etc.) with Google Fonts integration.
+*   **Button Styling:** Dedicated controls for button dimensions, padding, border radius, hover effects, and FontAwesome icons.
+*   **Visual Editor:** Intuitive admin interface with real-time color pickers (Pickr) and drag-and-drop reordering.
+*   **Responsive:** Built-in responsiveness to ensure animations look great on all devices.
+*   **Security:** Audited codebase with strict input sanitization, output escaping, and nonce verification.
 
-- Animation System:
-  * GSAP and ScrollTrigger integration
-  * Layout-specific animations
-  * Smooth scroll transitions
-  * Performance optimized effects
+== Installation ==
 
-- Development Features:
-  * Separated class responsibilities
-  * Enhanced security measures
-  * Clean uninstall process
-  * WordPress coding standards
-  * Proper data sanitization
+1. Upload the `gsap-scroll` folder to the `/wp-content/plugins/` directory.
+2. Activate the plugin through the 'Plugins' menu in WordPress.
+3. Navigate to 'Cinematic Scrolls' in your admin dashboard.
 
-Installation:
---------------
-1. Upload the `gsap-scroll` folder to the `/wp-content/plugins/` directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
-3. Go to 'Cinematic Scrolls' in your admin menu
-4. Click 'Add New' to create your first carousel
-5. Add cards with your content and customize the appearance
-6. Use the provided shortcode to display the carousel in your posts or pages
+== Usage ==
 
-Usage:
--------
-1. Create a new carousel animation from the 'Cinematic Scrolls' menu
-2. Select your layout (Horizontal Scroll or Vertical Stack) at the top of the editor
-3. Use the card management interface:
-   * Click 'Add New Item' to create new cards
-   * Fill in card content (title, text)
-   * Configure Button Settings (Text, URL, Icon, Dimensions, Colors)
-   * Customize per-card Media & Assets (Image, Background Image)
-   * Configure per-card Styling (Colors, Borders, Typography)
-   * Use expand/collapse arrows to manage space
-4. Configure global carousel styles (in the sidebar):
-   * Set default colors for cards and buttons
-   * Customize border radius for cards and images
-   * Add box shadows
-   * Configure padding
-   * Preview changes in real-time
-5. Copy the shortcode [gsap_scroll_animation id="X"] where X is your carousel ID
-6. Paste the shortcode in your posts or pages
+1.  **Create:** Go to 'Cinematic Scrolls' > 'Add New'.
+2.  **Configure:**
+    *   Select Layout: Horizontal or Vertical.
+    *   Add Items: Title, Body, Images, and Buttons.
+    *   Style: Use the meta boxes to set colors, fonts, borders, and shadows.
+3.  **Embed:** Copy the shortcode `[cinematic_scroll id="123"]` and paste it into any Post or Page.
 
-Card Management:
----------------
-1. Expanding/Collapsing:
-   * Use arrow toggles to show/hide card content
-   * Makes managing multiple cards easier
-   * Saves space in admin interface
+== Changelog ==
 
-2. Content Organization:
-   * Drag-and-drop reordering
-   * Individual card preview
-   * Media library integration
-   * Real-time updates
+= 1.3.1 =
+*   **Security:** Completed comprehensive security audit. Refactored asset management for better security compliance.
+*   **Performance:** Bundled GSAP, ScrollTrigger, and Pickr libraries locally to reduce external HTTP requests and improve privacy.
+*   **Feature:** Added centralized Asset Manager class.
+*   **Update:** Unified Admin JavaScript data handling.
 
-Changelog:
------------
+= 1.3.0 =
+*   **Feature:** Added comprehensive Typography controls (Google Fonts support).
+*   **Feature:** Added Vertical Stack layout option.
+*   **UI:** Refined Admin UI with new color picker integration.
+
+= 1.2.0 =
+*   **Feature:** Button Hover Effects (Lift, Scale, Shadow).
+*   **Feature:** Detailed Button Border and Padding controls.
+
 = 1.0.0 =
-* Initial release
-* Dedicated "Button Settings" section
-* FontAwesome Icon support
-* Comprehensive Button Dimension controls
-* Google Fonts integration
-* Advanced styling system
-* Media library integration
-* Responsive design implementation
-
-Version:
----------
-1.0.0
-
-Author:
---------
-Ashu Tiwary
-
-License:
----------
-GPLv2 or later
+*   Initial release.

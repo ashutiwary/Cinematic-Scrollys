@@ -1,14 +1,15 @@
 jQuery(function ($) {
   try {
-    if (typeof CGSAdmin === "undefined") {
+    if (typeof CGS_Admin_Data === "undefined") {
       return;
     }
 
-    const postId = CGSAdmin.postId;
+    // Unified data object provided by Cinematic_Scroll_Assets class
+    const postId = CGS_Admin_Data.postId;
     const storageKey = `cgs_collapse_${postId}`;
     let collapseState = JSON.parse(localStorage.getItem(storageKey) || "{}");
-    let itemIndex = CGSAdmin.itemIndex;
-    const layout = CGSAdmin.layout || "horizontal";
+    let itemIndex = CGS_Admin_Data.itemIndex;
+    const layout = CGS_Admin_Data.layout || "horizontal";
     const $list = $(".cgs-carousel-items-list");
 
     // Helper: Initialize Pickr on a specific element
@@ -114,9 +115,9 @@ jQuery(function ($) {
 
       // Build Font Options using localized data
       let fontOptions = '';
-      if (typeof cgs_admin_vars !== 'undefined' && cgs_admin_vars.available_fonts) {
+      if (typeof CGS_Admin_Data !== 'undefined' && CGS_Admin_Data.available_fonts) {
         // It can be an object or array depending on PHP's wp_localize_script (associative array becomes object).
-        for (const [val, label] of Object.entries(cgs_admin_vars.available_fonts)) {
+        for (const [val, label] of Object.entries(CGS_Admin_Data.available_fonts)) {
           fontOptions += `<option value="${val}">${label}</option>`;
         }
       } else {

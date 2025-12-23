@@ -8,8 +8,6 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
             add_action( 'add_meta_boxes',        [ $this, 'add_style_meta_box' ] );
             // Save all meta when the post is saved
             add_action( 'save_post',             [ $this, 'save_style_meta_box' ] );
-            // Enqueue any admin CSS
-            add_action( 'admin_enqueue_scripts', [ $this, 'enqueue_admin_styles' ] );
             // Render the layout selector under the title field
             add_action( 'edit_form_after_title', [ $this, 'select_layout_option' ], 10, 1 );
         }
@@ -631,24 +629,5 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
             }
         }
 
-        public function enqueue_admin_styles( $hook ) {
-            global $post;
-            if ( in_array( $hook, [ 'post.php', 'post-new.php' ], true ) &&
-                 isset( $post ) && $post->post_type === 'scroll_animation' ) {
-                // Pickr Library (CDN)
-                wp_enqueue_style('pickr-css', 'https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css', [], '1.9.1');
-                wp_enqueue_script('pickr-js', 'https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js', [], '1.9.1', true);
-
-                wp_enqueue_style( 'cgs-admin-css', CGS_URL . 'assets/css/gsap-scroll-admin.css', [], '1.3.0' );
-                
-                // Pass available fonts to JS
-                $available_fonts = self::get_all_fonts();
-                // Map to array of objects for easier JS handling if needed, or just regular object
-                // JS expects array of {value, label} or object
-                wp_localize_script( 'pickr-js', 'cgs_admin_vars', [
-                    'available_fonts' => $available_fonts
-                ]);
-            }
-        }
     }
 }

@@ -12,7 +12,6 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
         {
             add_action('add_meta_boxes',        [$this, 'add_carousel_items_meta_box']);
             add_action('save_post',             [$this, 'save_carousel_items_meta_box']);
-            add_action('admin_enqueue_scripts', [$this, 'enqueue_admin_assets']);
         }
 
         public function add_carousel_items_meta_box()
@@ -558,32 +557,6 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
             update_post_meta($post_id, '_cgs_carousel_items', $clean);
         }
 
-        public function enqueue_admin_assets($hook)
-        {
-            global $post;
-            if (
-                in_array($hook, ['post.php', 'post-new.php'], true)
-                && isset($post) && $post->post_type === 'scroll_animation'
-            ) {
-
-                wp_enqueue_media();
-                // Pickr Library (CDN)
-                wp_enqueue_style('pickr-css', 'https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/themes/classic.min.css', [], '1.9.1');
-                wp_enqueue_script('pickr-js', 'https://cdn.jsdelivr.net/npm/@simonwep/pickr/dist/pickr.min.js', [], '1.9.1', true);
-                
-                wp_enqueue_style('cgs-admin-css', CGS_URL . 'assets/css/gsap-scroll-admin.css', [], '1.0.0');
-                wp_enqueue_script('cgs-admin-js', CGS_URL . 'assets/js/gsap-scroll-admin.js', ['jquery', 'pickr-js'], '1.0.0', true);
-
-                $items = get_post_meta($post->ID, '_cgs_carousel_items', true);
-                $count = is_array($items) ? count($items) : 0;
-                $layout = get_post_meta($post->ID, '_cgs_layout', true) ?: 'horizontal';
-                wp_localize_script('cgs-admin-js', 'CGSAdmin', [
-                    'postId'    => $post->ID,
-                    'itemIndex' => $count,
-                    'layout'    => $layout,
-                ]);
-            }
-        }
     }
 
     new Cinematic_Scroll_Carousel_Items_Meta();

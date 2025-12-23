@@ -11,16 +11,8 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
     public function __construct()
     {
       add_shortcode('cinematic_scroll', [$this, 'render_shortcode']);
-      add_action('wp_enqueue_scripts',    [$this, 'enqueue_frontend_assets']);
     }
 
-    public function enqueue_frontend_assets()
-    {
-      wp_enqueue_style('cgs-carousel',    CGS_URL . 'assets/css/gsap-scroll-carousel.css', [], '1.0');
-      wp_enqueue_script('gsap',                    'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js',     [],         null,  true);
-      wp_enqueue_script('gsap-scrolltrigger',      'https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js', ['gsap'], null,  true);
-      wp_enqueue_script('cgs-carousel-js', CGS_URL . 'assets/js/gsap-scroll-carousel.js',     ['jquery', 'gsap', 'gsap-scrolltrigger'], '1.0', true);
-    }
 
     public function render_shortcode($atts)
     {
@@ -33,6 +25,12 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
       $items = get_post_meta($post_id, '_cgs_carousel_items', true);
       if (! is_array($items) || empty($items)) return '';
       $items = array_reverse(array_values($items));
+
+      // Enqueue Scripts & Styles (Loaded from local assets/lib for privacy/performance)
+      wp_enqueue_style('cgs-carousel');
+      wp_enqueue_script('gsap');
+      wp_enqueue_script('gsap-scrolltrigger');
+      wp_enqueue_script('cgs-carousel-js', CGS_URL . 'assets/js/gsap-scroll-carousel.js', ['jquery', 'gsap', 'gsap-scrolltrigger'], '1.3.1', true);
 
       $layout = get_post_meta($post_id, '_cgs_layout', true);
       // pull style meta option for horizontal (with defaults)
@@ -100,7 +98,6 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
       }
 
       // Enqueue FontAwesome
-      wp_enqueue_style( 'cgs-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', [], '6.5.1' );
 
       // Check Card Settings
       foreach($items as $itm) {

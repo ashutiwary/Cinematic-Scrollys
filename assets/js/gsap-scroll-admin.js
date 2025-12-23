@@ -287,39 +287,53 @@ jQuery(function ($) {
                 <div class="cgs-editor-section cgs-section-button">
                     <span class="cgs-section-title">Button Settings</span>
                     
-                    <div class="cgs-form-group">
-                        <label>Button Text</label>
-                        <input type="text" name="cgs_carousel_items[${idx}][button_text]" class="widefat" value="">
-                    </div>
-
-                    <div class="cgs-form-group">
-                        <label>Button URL</label>
-                        <input type="text" name="cgs_carousel_items[${idx}][button_url]" class="widefat" value="">
-                    </div>
-
-                    <div style="display:flex; gap:15px; margin-bottom:15px;">
-                        <div class="cgs-form-group" style="flex:1;">
-                            <label>Icon Class</label>
-                            <input type="text" name="cgs_carousel_items[${idx}][btn_icon_class]" value="" class="widefat" placeholder="fas fa-arrow-right" />
+                    <!-- Button Settings Grid -->
+                    <!-- Row 1: Text and URL -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        <div class="cgs-form-group" style="margin-bottom:0;">
+                            <label>Button Text</label>
+                            <input type="text" name="cgs_carousel_items[${idx}][button_text]" class="widefat" value="">
                         </div>
-                        <div class="cgs-form-group" style="width:120px;">
-                            <label>Icon Pos</label>
-                            <select name="cgs_carousel_items[${idx}][btn_icon_pos]" class="widefat">
-                                <option value="right">Right</option>
-                                <option value="left">Left</option>
-                            </select>
+                        <div class="cgs-form-group" style="margin-bottom:0;">
+                            <label>Button URL</label>
+                            <input type="text" name="cgs_carousel_items[${idx}][button_url]" class="widefat" value="">
                         </div>
                     </div>
 
-                    <div class="cgs-style-grid">
-                        <div class="cgs-style-item cgs-form-group">
-                            <label>Button BG</label>
-                            <input type="text" class="cgs-color-picker" name="cgs_carousel_items[${idx}][btn_bg_color]" value="" data-alpha="true" />
+                    <!-- Row 2: Icons and Colors -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                        
+                        <!-- Column 1: Icon Settings -->
+                        <div>
+                            <div class="cgs-form-group" style="margin-bottom: 15px;">
+                                <label>Icon Class</label>
+                                <input type="text" name="cgs_carousel_items[${idx}][btn_icon_class]" value="" class="widefat" placeholder="fas fa-arrow-right" />
+                            </div>
+                            <div class="cgs-form-group" style="margin-bottom: 0;">
+                                <label>Icon Pos</label>
+                                <select name="cgs_carousel_items[${idx}][btn_icon_pos]" class="widefat">
+                                    <option value="right">Right</option>
+                                    <option value="left">Left</option>
+                                </select>
+                            </div>
                         </div>
 
-                        <div class="cgs-style-item cgs-form-group">
-                            <label>Text Color</label>
-                            <input type="text" class="cgs-color-picker" name="cgs_carousel_items[${idx}][btn_text_color]" value="" data-alpha="true" />
+                        <!-- Column 2: Color Settings -->
+                        <div>
+                            <div class="cgs-style-item cgs-form-group" style="margin-bottom: 10px; display:flex; align-items:center; gap:10px;">
+                                <label style="width: 140px; margin-bottom:0;">Button Background</label>
+                                <input type="text" class="cgs-color-picker" name="cgs_carousel_items[${idx}][btn_bg_color]" value="" data-alpha="true" />
+                            </div>
+
+                            <div class="cgs-style-item cgs-form-group" style="display:flex; align-items:center; gap:10px;">
+                                <label style="width: 140px; margin-bottom:0;">Text Color</label>
+                                <input type="text" class="cgs-color-picker" name="cgs_carousel_items[${idx}][btn_text_color]" value="" data-alpha="true" />
+                            </div>
+
+                            <div class="cgs-form-group" style="margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+                                <label style="width: 140px; margin-bottom: 0;">Button Width</label>
+                                <input type="text" name="cgs_carousel_items[${idx}][btn_width]" value="" placeholder="e.g. 200px" style="width: 100px;">
+                            </div>
                         </div>
                     </div>
 
@@ -348,12 +362,6 @@ jQuery(function ($) {
                                     <label style="font-size:0.9em;">BR <input type="number" name="cgs_carousel_items[${idx}][btn_radius_btm_rt]" value="" style="width:40px;"></label>
                                     <label style="font-size:0.9em;">BL <input type="number" name="cgs_carousel_items[${idx}][btn_radius_btm_lt]" value="" style="width:40px;"></label>
                                 </div>
-                            </div>
-
-                            <!-- Width -->
-                            <div>
-                                <strong style="font-size:0.9em; display:block; margin-bottom:5px;">Width:</strong>
-                                <input type="text" name="cgs_carousel_items[${idx}][btn_width]" value="" placeholder="e.g. 200px" style="width:100px;">
                             </div>
                         </div>
                     </div>

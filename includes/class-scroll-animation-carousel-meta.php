@@ -155,39 +155,53 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
                             <div class="cgs-editor-section cgs-section-button">
                                 <span class="cgs-section-title"><?php esc_html_e('Button Settings', 'cinematic-scroll'); ?></span>
                                 
-                                <div class="cgs-form-group">
-                                    <label><?php esc_html_e('Button Text', 'cinematic-scroll'); ?></label>
-                                    <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][button_text]" class="widefat" value="<?php echo esc_attr($itm['button_text']); ?>">
-                                </div>
-
-                                <div class="cgs-form-group">
-                                    <label><?php esc_html_e('Button URL', 'cinematic-scroll'); ?></label>
-                                    <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][button_url]" class="widefat" value="<?php echo esc_attr($itm['button_url']); ?>">
-                                </div>
-
-                                <div style="display:flex; gap:15px; margin-bottom:15px;">
-                                    <div class="cgs-form-group" style="flex:1;">
-                                        <label><?php esc_html_e( 'Icon Class', 'cinematic-scroll' ); ?></label>
-                                        <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][btn_icon_class]" value="<?php echo esc_attr($itm['btn_icon_class'] ?? ''); ?>" class="widefat" placeholder="fas fa-arrow-right" />
+                                <!-- Button Settings Grid -->
+                                <!-- Row 1: Text and URL -->
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                                    <div class="cgs-form-group" style="margin-bottom:0;">
+                                        <label><?php esc_html_e('Button Text', 'cinematic-scroll'); ?></label>
+                                        <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][button_text]" class="widefat" value="<?php echo esc_attr($itm['button_text']); ?>">
                                     </div>
-                                    <div class="cgs-form-group" style="width:120px;">
-                                        <label><?php esc_html_e( 'Icon Pos', 'cinematic-scroll' ); ?></label>
-                                        <select name="cgs_carousel_items[<?php echo $i; ?>][btn_icon_pos]" class="widefat">
-                                            <option value="right" <?php selected($itm['btn_icon_pos'] ?? 'right', 'right'); ?>><?php esc_html_e('Right', 'cinematic-scroll'); ?></option>
-                                            <option value="left" <?php selected($itm['btn_icon_pos'] ?? '', 'left'); ?>><?php esc_html_e('Left', 'cinematic-scroll'); ?></option>
-                                        </select>
+                                    <div class="cgs-form-group" style="margin-bottom:0;">
+                                        <label><?php esc_html_e('Button URL', 'cinematic-scroll'); ?></label>
+                                        <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][button_url]" class="widefat" value="<?php echo esc_attr($itm['button_url']); ?>">
                                     </div>
                                 </div>
 
-                                <div class="cgs-style-grid">
-                                    <div class="cgs-style-item cgs-form-group">
-                                        <label><?php esc_html_e('Button BG', 'cinematic-scroll'); ?></label>
-                                        <input type="text" class="cgs-color-picker" name="cgs_carousel_items[<?php echo $i; ?>][btn_bg_color]" value="<?php echo esc_attr($itm['btn_bg_color'] ?: ''); ?>" data-alpha="true">
+                                <!-- Row 2: Icons and Colors -->
+                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                                    
+                                    <!-- Column 1: Icon Settings -->
+                                    <div>
+                                        <div class="cgs-form-group" style="margin-bottom: 15px;">
+                                            <label><?php esc_html_e( 'Icon Class', 'cinematic-scroll' ); ?></label>
+                                            <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][btn_icon_class]" value="<?php echo esc_attr($itm['btn_icon_class'] ?? ''); ?>" class="widefat" placeholder="fas fa-arrow-right" />
+                                        </div>
+                                        <div class="cgs-form-group" style="margin-bottom: 0;">
+                                            <label><?php esc_html_e( 'Icon Pos', 'cinematic-scroll' ); ?></label>
+                                            <select name="cgs_carousel_items[<?php echo $i; ?>][btn_icon_pos]" class="widefat">
+                                                <option value="right" <?php selected($itm['btn_icon_pos'] ?? 'right', 'right'); ?>><?php esc_html_e('Right', 'cinematic-scroll'); ?></option>
+                                                <option value="left" <?php selected($itm['btn_icon_pos'] ?? '', 'left'); ?>><?php esc_html_e('Left', 'cinematic-scroll'); ?></option>
+                                            </select>
+                                        </div>
                                     </div>
 
-                                    <div class="cgs-style-item cgs-form-group">
-                                        <label><?php esc_html_e('Text Color', 'cinematic-scroll'); ?></label>
-                                        <input type="text" class="cgs-color-picker" name="cgs_carousel_items[<?php echo $i; ?>][btn_text_color]" value="<?php echo esc_attr($itm['btn_text_color'] ?: ''); ?>" data-alpha="true">
+                                    <!-- Column 2: Color Settings -->
+                                    <div>
+                                        <div class="cgs-style-item cgs-form-group" style="margin-bottom: 10px; display:flex; align-items:center; gap:10px;">
+                                            <label style="width: 140px; margin-bottom:0;"><?php esc_html_e('Button Background', 'cinematic-scroll'); ?></label>
+                                            <input type="text" class="cgs-color-picker" name="cgs_carousel_items[<?php echo $i; ?>][btn_bg_color]" value="<?php echo esc_attr($itm['btn_bg_color'] ?: ''); ?>" data-alpha="true">
+                                        </div>
+
+                                        <div class="cgs-style-item cgs-form-group" style="display:flex; align-items:center; gap:10px;">
+                                            <label style="width: 140px; margin-bottom:0;"><?php esc_html_e('Text Color', 'cinematic-scroll'); ?></label>
+                                            <input type="text" class="cgs-color-picker" name="cgs_carousel_items[<?php echo $i; ?>][btn_text_color]" value="<?php echo esc_attr($itm['btn_text_color'] ?: ''); ?>" data-alpha="true">
+                                        </div>
+
+                                        <div class="cgs-form-group" style="margin-top: 10px; display: flex; align-items: center; gap: 10px;">
+                                            <label style="width: 140px; margin-bottom: 0;"><?php esc_html_e( 'Button Width', 'cinematic-scroll' ); ?></label>
+                                            <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][btn_width]" value="<?php echo esc_attr($itm['btn_width'] ?? ''); ?>" placeholder="e.g. 200px" style="width:100px;">
+                                        </div>
                                     </div>
                                 </div>
 
@@ -215,16 +229,10 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
                                                  <label style="font-size:0.9em;"><?php esc_html_e('TR', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_radius_top_rt]" value="<?php echo esc_attr($itm['btn_radius_top_rt'] ?? ''); ?>" style="width:40px;"></label>
                                                  <label style="font-size:0.9em;"><?php esc_html_e('BR', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_radius_btm_rt]" value="<?php echo esc_attr($itm['btn_radius_btm_rt'] ?? ''); ?>" style="width:40px;"></label>
                                                  <label style="font-size:0.9em;"><?php esc_html_e('BL', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_radius_btm_lt]" value="<?php echo esc_attr($itm['btn_radius_btm_lt'] ?? ''); ?>" style="width:40px;"></label>
-                                            </div>
-                                        </div>
-
-                                        <!-- Width -->
-                                        <div>
-                                            <strong style="font-size:0.9em; display:block; margin-bottom:5px;"><?php esc_html_e( 'Width:', 'cinematic-scroll' ); ?></strong>
-                                            <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][btn_width]" value="<?php echo esc_attr($itm['btn_width'] ?? ''); ?>" placeholder="e.g. 200px" style="width:100px;">
                                         </div>
                                     </div>
                                 </div>
+                            </div>
                             </div>
                             <!-- Section 3: Button Settings (Removed) -->
 

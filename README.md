@@ -95,6 +95,12 @@ The GSAP Scroll plugin is a custom WordPress plugin that integrates the GreenSoc
 
 ## Changelog
 
+
+### 1.3.7
+* **Improved Admin UI**: Redesigned Button Settings layout for better usability.
+* **Organized Grid Layout**: 2-column structure for cleaner setting management.
+* **Enhanced Button Controls**: Grouped color, icon, and dimension settings logically.
+
 ### 1.0.0
 * **Initial release**
 * **Dedicated "Button Settings" section**

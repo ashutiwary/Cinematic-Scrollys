@@ -218,10 +218,10 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
                                         <div>
                                             <strong style="font-size:0.9em; display:block; margin-bottom:5px;"><?php esc_html_e( 'Padding (px):', 'cinematic-scroll' ); ?></strong>
                                             <div style="display:flex; gap:5px;">
-                                                <label style="font-size:0.9em;"><?php esc_html_e('T', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_padding_top]" value="<?php echo esc_attr($itm['btn_padding_top'] ?? ''); ?>" style="width:45px;"></label>
-                                                <label style="font-size:0.9em;"><?php esc_html_e('R', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_padding_right]" value="<?php echo esc_attr($itm['btn_padding_right'] ?? ''); ?>" style="width:45px;"></label>
-                                                <label style="font-size:0.9em;"><?php esc_html_e('B', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_padding_bottom]" value="<?php echo esc_attr($itm['btn_padding_bottom'] ?? ''); ?>" style="width:45px;"></label>
-                                                <label style="font-size:0.9em;"><?php esc_html_e('L', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_padding_left]" value="<?php echo esc_attr($itm['btn_padding_left'] ?? ''); ?>" style="width:45px;"></label>
+                                                <label style="font-size:0.9em;"><?php esc_html_e('Top', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_padding_top]" value="<?php echo esc_attr($itm['btn_padding_top'] ?? ''); ?>" style="width:45px;"></label>
+                                                <label style="font-size:0.9em;"><?php esc_html_e('Right', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_padding_right]" value="<?php echo esc_attr($itm['btn_padding_right'] ?? ''); ?>" style="width:45px;"></label>
+                                                <label style="font-size:0.9em;"><?php esc_html_e('Bottom', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_padding_bottom]" value="<?php echo esc_attr($itm['btn_padding_bottom'] ?? ''); ?>" style="width:45px;"></label>
+                                                <label style="font-size:0.9em;"><?php esc_html_e('Left', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_padding_left]" value="<?php echo esc_attr($itm['btn_padding_left'] ?? ''); ?>" style="width:45px;"></label>
                                             </div>
                                         </div>
 
@@ -229,16 +229,74 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
                                         <div>
                                             <strong style="font-size:0.9em; display:block; margin-bottom:5px;"><?php esc_html_e( 'Radius (px):', 'cinematic-scroll' ); ?></strong>
                                             <div style="display:flex; gap:5px;">
-                                                 <label style="font-size:0.9em;"><?php esc_html_e('TL', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_radius_top_lt]" value="<?php echo esc_attr($itm['btn_radius_top_lt'] ?? ''); ?>" style="width:40px;"></label>
-                                                 <label style="font-size:0.9em;"><?php esc_html_e('TR', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_radius_top_rt]" value="<?php echo esc_attr($itm['btn_radius_top_rt'] ?? ''); ?>" style="width:40px;"></label>
-                                                 <label style="font-size:0.9em;"><?php esc_html_e('BR', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_radius_btm_rt]" value="<?php echo esc_attr($itm['btn_radius_btm_rt'] ?? ''); ?>" style="width:40px;"></label>
-                                                 <label style="font-size:0.9em;"><?php esc_html_e('BL', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_radius_btm_lt]" value="<?php echo esc_attr($itm['btn_radius_btm_lt'] ?? ''); ?>" style="width:40px;"></label>
+                                                 <label style="font-size:0.9em;"><?php esc_html_e('Top-Left', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_radius_top_lt]" value="<?php echo esc_attr($itm['btn_radius_top_lt'] ?? ''); ?>" style="width:40px;"></label>
+                                                 <label style="font-size:0.9em;"><?php esc_html_e('Top-Right', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_radius_top_rt]" value="<?php echo esc_attr($itm['btn_radius_top_rt'] ?? ''); ?>" style="width:40px;"></label>
+                                                 <label style="font-size:0.9em;"><?php esc_html_e('Btm-Right', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_radius_btm_rt]" value="<?php echo esc_attr($itm['btn_radius_btm_rt'] ?? ''); ?>" style="width:40px;"></label>
+                                                 <label style="font-size:0.9em;"><?php esc_html_e('Btm-Left', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_radius_btm_lt]" value="<?php echo esc_attr($itm['btn_radius_btm_lt'] ?? ''); ?>" style="width:40px;"></label>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+                            
+                            <!-- Button Border & Normal Effects -->
+                            <div style="margin-top:15px; padding-top:10px; border-top:1px dashed #eee; display: flex; flex-wrap: wrap; gap: 20px;">
+                                <!-- Border -->
+                                <div style="flex:1; min-width: 200px;">
+                                    <strong style="font-size:0.9em; display:block; margin-bottom:5px;"><?php esc_html_e('Button Normal Border:', 'cinematic-scroll'); ?></strong>
+                                    <div style="display:flex; gap:10px; align-items:center;">
+                                        <label style="font-size:0.85em; margin:0;"><?php esc_html_e('Width', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_border_width]" value="<?php echo esc_attr($itm['btn_border_width'] ?? ''); ?>" style="width:50px;"></label>
+                                        <label style="font-size:0.85em; margin:0;"><?php esc_html_e('Style', 'cinematic-scroll'); ?> 
+                                        <select name="cgs_carousel_items[<?php echo $i; ?>][btn_border_style]" style="width:80px;">
+                                            <option value="">Default</option>
+                                            <option value="none" <?php selected(($itm['btn_border_style'] ?? ''), 'none'); ?>>None</option>
+                                            <option value="solid" <?php selected(($itm['btn_border_style'] ?? ''), 'solid'); ?>>Solid</option>
+                                            <option value="dashed" <?php selected(($itm['btn_border_style'] ?? ''), 'dashed'); ?>>Dashed</option>
+                                        </select></label>
+                                        <div style="display:flex; align-items:center; gap:5px;">
+                                            <label style="font-size:0.85em; margin:0;"><?php esc_html_e('Color', 'cinematic-scroll'); ?></label>
+                                            <input type="text" class="cgs-color-picker" name="cgs_carousel_items[<?php echo $i; ?>][btn_border_color]" value="<?php echo esc_attr($itm['btn_border_color'] ?? ''); ?>" data-alpha="true">
+                                        </div>
+                                    </div>
+                                </div>
+                                <!-- Effects -->
+                                <div style="flex:1; min-width: 250px;">
+                                    <strong style="font-size:0.9em; display:block; margin-bottom:5px;"><?php esc_html_e('Normal Effects:', 'cinematic-scroll'); ?></strong>
+                                    <div style="display:flex; gap:10px; align-items:center;">
+                                        <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;"><?php esc_html_e('Shadow', 'cinematic-scroll'); ?> <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][btn_shadow]" value="<?php echo esc_attr($itm['btn_shadow'] ?? ''); ?>" placeholder="e.g. 0 4px 10px rgba(0,0,0,0.2)" style="width:230px;"></label>
+                                        <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;"><?php esc_html_e('Scale', 'cinematic-scroll'); ?> <input type="number" step="0.01" name="cgs_carousel_items[<?php echo $i; ?>][btn_scale]" value="<?php echo esc_attr($itm['btn_scale'] ?? ''); ?>" placeholder="1" style="width:50px;"></label>
+                                        <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;"><?php esc_html_e('Lift', 'cinematic-scroll'); ?> <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_lift]" value="<?php echo esc_attr($itm['btn_lift'] ?? ''); ?>" placeholder="0" style="width:50px;"></label>
+                                    </div>
+                                </div>
                             </div>
-                            <!-- Section 3: Button Settings (Removed) -->
+
+                            <!-- Button Hover Settings -->
+                            <div style="margin-top:15px; padding-top:10px; border-top:1px dashed #eee;">
+                                <strong style="display:block; margin-bottom:10px;"><?php esc_html_e('Button Hover State:', 'cinematic-scroll'); ?></strong>
+                                <div style="display:flex; gap:15px; flex-wrap:wrap; align-items:center;">
+                                    <div style="display:flex; align-items:center; gap:5px;">
+                                        <label style="font-size:0.85em; margin:0;">Background</label>
+                                        <input type="text" class="cgs-color-picker" name="cgs_carousel_items[<?php echo $i; ?>][btn_hover_bg]" value="<?php echo esc_attr($itm['btn_hover_bg'] ?? ''); ?>" data-alpha="true">
+                                    </div>
+                                    <div style="display:flex; align-items:center; gap:5px;">
+                                        <label style="font-size:0.85em; margin:0;">Text Color</label>
+                                        <input type="text" class="cgs-color-picker" name="cgs_carousel_items[<?php echo $i; ?>][btn_hover_text]" value="<?php echo esc_attr($itm['btn_hover_text'] ?? ''); ?>" data-alpha="true">
+                                    </div>
+                                    <div style="display:flex; align-items:center; gap:5px;">
+                                        <label style="font-size:0.85em; margin:0;">Border Color</label>
+                                        <input type="text" class="cgs-color-picker" name="cgs_carousel_items[<?php echo $i; ?>][btn_hover_border_color]" value="<?php echo esc_attr($itm['btn_hover_border_color'] ?? ''); ?>" data-alpha="true">
+                                    </div>
+                                    <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;">
+                                        Hover Shadow <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][btn_hover_shadow]" value="<?php echo esc_attr($itm['btn_hover_shadow'] ?? ''); ?>" placeholder="e.g. 0 8px 25px rgba(0,0,0,0.2)" style="width:230px;">
+                                    </label>
+                                    <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;">
+                                        Hover Scale <input type="number" step="0.01" name="cgs_carousel_items[<?php echo $i; ?>][btn_hover_scale]" value="<?php echo esc_attr($itm['btn_hover_scale'] ?? ''); ?>" placeholder="1.05" style="width:60px;">
+                                    </label>
+                                    <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;">
+                                        Hover Lift <input type="number" name="cgs_carousel_items[<?php echo $i; ?>][btn_hover_lift]" value="<?php echo esc_attr($itm['btn_hover_lift'] ?? ''); ?>" placeholder="5" style="width:50px;">
+                                    </label>
+                                </div>
+                            </div>
+                            </div>
 
                             <!-- Section 4: Styling Options (Renamed) -->
                                 <div class="cgs-editor-section cgs-section-style">
@@ -455,6 +513,22 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
                     'btn_radius_top_rt' => (isset($itm['btn_radius_top_rt']) && $itm['btn_radius_top_rt']!=='') ? intval($itm['btn_radius_top_rt']) : '',
                     'btn_radius_btm_rt' => (isset($itm['btn_radius_btm_rt']) && $itm['btn_radius_btm_rt']!=='') ? intval($itm['btn_radius_btm_rt']) : '',
                     'btn_radius_btm_lt' => (isset($itm['btn_radius_btm_lt']) && $itm['btn_radius_btm_lt']!=='') ? intval($itm['btn_radius_btm_lt']) : '',
+                    
+                    // New Border Fields
+                    'btn_border_width' => sanitize_text_field($itm['btn_border_width'] ?? ''),
+                    'btn_border_style' => sanitize_text_field($itm['btn_border_style'] ?? ''),
+                    'btn_border_color' => sanitize_text_field($itm['btn_border_color'] ?? ''),
+                    // New Normal Effects
+                    'btn_shadow' => sanitize_text_field($itm['btn_shadow'] ?? ''),
+                    'btn_scale'  => sanitize_text_field($itm['btn_scale'] ?? ''),
+                    'btn_lift'   => sanitize_text_field($itm['btn_lift'] ?? ''),
+                    // New Hover Fields
+                    'btn_hover_bg' => sanitize_text_field($itm['btn_hover_bg'] ?? ''),
+                    'btn_hover_text' => sanitize_text_field($itm['btn_hover_text'] ?? ''),
+                    'btn_hover_border_color' => sanitize_text_field($itm['btn_hover_border_color'] ?? ''),
+                    'btn_hover_shadow' => sanitize_text_field($itm['btn_hover_shadow'] ?? ''),
+                    'btn_hover_scale' => sanitize_text_field($itm['btn_hover_scale'] ?? ''),
+                    'btn_hover_lift' => sanitize_text_field($itm['btn_hover_lift'] ?? ''),
                     
                     'card_border_color' => sanitize_text_field($itm['card_border_color'] ?? ''),
                     'card_border_width' => isset($itm['card_border_width']) ? intval($itm['card_border_width']) : '',

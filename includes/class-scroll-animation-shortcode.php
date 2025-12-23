@@ -128,6 +128,43 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
           echo "<link rel='stylesheet' href='" . esc_url($gfont_url) . "'>";
       }
 
+      // --- PER-CARD CSS GENERATION (Hover & Specifics) ---
+      $per_card_css = "";
+      foreach($items as $idx => $itm) {
+          $h_bg = isset($itm['btn_hover_bg']) ? $itm['btn_hover_bg'] : '';
+          $h_tx = isset($itm['btn_hover_text']) ? $itm['btn_hover_text'] : '';
+          $h_bd = isset($itm['btn_hover_border_color']) ? $itm['btn_hover_border_color'] : '';
+          $h_sh = isset($itm['btn_hover_shadow']) ? $itm['btn_hover_shadow'] : '';
+          $h_sc = isset($itm['btn_hover_scale']) ? $itm['btn_hover_scale'] : '';
+          $h_li = isset($itm['btn_hover_lift']) ? $itm['btn_hover_lift'] : '';
+          
+          if($h_bg || $h_tx || $h_bd || $h_sh || $h_sc || $h_li) {
+              $rule = "";
+              if($h_bg) $rule .= "background-color:{$h_bg} !important;";
+              if($h_tx) $rule .= "color:{$h_tx} !important;";
+              if($h_bd) $rule .= "border-color:{$h_bd} !important;";
+              if($h_sh) $rule .= "box-shadow:{$h_sh} !important;";
+              
+              $b_sc = isset($itm['btn_scale']) && $itm['btn_scale']!=='' ? $itm['btn_scale'] : $g_btn_scale;
+              $b_li = isset($itm['btn_lift']) && $itm['btn_lift']!=='' ? $itm['btn_lift'] : $g_btn_lift;
+              
+              $f_sc = $h_sc !== '' ? $h_sc : $b_sc;
+              $f_li = $h_li !== '' ? $h_li : $b_li;
+              
+              $trans = [];
+              if($f_sc !== '') $trans[] = "scale({$f_sc})";
+              if($f_li !== '') $trans[] = "translateY(-{$f_li}px)";
+              
+              if(!empty($trans)) {
+                  $rule .= "transform: " . implode(' ', $trans) . " !important;";
+              }
+              
+              if($rule) {
+                  $per_card_css .= "#{$cid} .cgs-btn-{$idx}:hover { {$rule} } ";
+              }
+          }
+      }
+
       // --- GLOBAL TYPOGRAPHY CSS CONSTRUCTION ---
       // Use classes instead of tags for styling validity across dynamic tags
       $typo_elements = [
@@ -155,7 +192,67 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
           $global_typo_css .= "#cgs-carousel-" . esc_attr($post_id) . " .cgs-card-inner {$data['selector']}, .cgs-stack-card {$data['selector']} { {$inner_css} } ";
       }
 
+      // --- PER-CARD CSS GENERATION (Hover & Specifics) ---
+      $per_card_css = "";
+      foreach($items as $idx => $itm) {
+          // Check if we need custom hover CSS
+          // We look for any Hover field set, OR if Normal Scale/Lift/Border set (to ensure transition/transform usage matches)
+          // Actually, inline style handles Normal State. We only need CSS block for :hover state or if we want to use classes.
+          // Since we can't do :hover inline, we MUST do it here.
+          
+          $h_bg = isset($itm['btn_hover_bg']) ? $itm['btn_hover_bg'] : '';
+          $h_tx = isset($itm['btn_hover_text']) ? $itm['btn_hover_text'] : '';
+          $h_bd = isset($itm['btn_hover_border_color']) ? $itm['btn_hover_border_color'] : '';
+          $h_sh = isset($itm['btn_hover_shadow']) ? $itm['btn_hover_shadow'] : '';
+          $h_sc = isset($itm['btn_hover_scale']) ? $itm['btn_hover_scale'] : '';
+          $h_li = isset($itm['btn_hover_lift']) ? $itm['btn_hover_lift'] : '';
+          
+          // Check Global Hover Defaults if per-card is empty?
+          // Usually per-card overrides global. If per-card is empty, it falls back to global CSS we already generated.
+          // BUT, if we have a specific class, does it override global ID selector?
+          // Specificity: `#cid .cgs-btn-0:hover` vs `#cid .button:hover`.
+          // Class + ID is higher specificty. So if we generate a rule, it overrides.
+          // If we DON'T generate a rule, it uses global.
+          // So only generate if at least ONE hover prop is set on the card ?
+          // OR if we need to override global?
+          // If Card has NO settings, we shouldn't generate CSS, let global apply.
+          // If Card HAS settings, we generate.
+          
+          if($h_bg || $h_tx || $h_bd || $h_sh || $h_sc || $h_li) {
+              $rule = "";
+              if($h_bg) $rule .= "background-color:{$h_bg} !important;";
+              if($h_tx) $rule .= "color:{$h_tx} !important;";
+              if($h_bd) $rule .= "border-color:{$h_bd} !important;";
+              if($h_sh) $rule .= "box-shadow:{$h_sh} !important;";
+              
+              // Transform Logic
+              // We need Base transform for this card to calculate Hover transform correctly?
+              // Base transform is inline.
+              // CSS :hover transform REPLACES base transform.
+              // So we need to know the Base Scale/Lift for THIS card to fallback if hover is missing specific parts.
+              $b_sc = isset($itm['btn_scale']) && $itm['btn_scale']!=='' ? $itm['btn_scale'] : $g_btn_scale;
+              $b_li = isset($itm['btn_lift']) && $itm['btn_lift']!=='' ? $itm['btn_lift'] : $g_btn_lift;
+              
+              // Final Hover Scale/Lift
+              $f_sc = $h_sc !== '' ? $h_sc : $b_sc;
+              $f_li = $h_li !== '' ? $h_li : $b_li;
+              
+              $trans = [];
+              if($f_sc !== '') $trans[] = "scale({$f_sc})";
+              if($f_li !== '') $trans[] = "translateY(-{$f_li}px)";
+              
+              if(!empty($trans)) {
+                  $rule .= "transform: " . implode(' ', $trans) . " !important;";
+              }
+              
+              if($rule) {
+                  $per_card_css .= "#{$cid} .cgs-btn-{$idx}:hover { {$rule} } ";
+              }
+          }
+      }
+
       // Fetch Global Button Styles
+
       $bp_t = get_post_meta($post_id, '_cgs_btn_padding_top', true);
       $bp_r = get_post_meta($post_id, '_cgs_btn_padding_right', true);
       $bp_b = get_post_meta($post_id, '_cgs_btn_padding_bottom', true);
@@ -166,7 +263,24 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
       $br_bl = get_post_meta($post_id, '_cgs_btn_radius_btm_lt', true);
       $btn_w = get_post_meta($post_id, '_cgs_btn_width', true);
       
-      $btn_css_global = "";
+      // -- Global Button Normal State Extras --
+      $g_btn_border_w = get_post_meta($post_id, '_cgs_btn_border_width', true);
+      $g_btn_border_s = get_post_meta($post_id, '_cgs_btn_border_style', true);
+      $g_btn_border_c = get_post_meta($post_id, '_cgs_btn_border_color', true);
+      
+      $g_btn_shadow = get_post_meta($post_id, '_cgs_btn_shadow', true);
+      $g_btn_scale  = get_post_meta($post_id, '_cgs_btn_scale', true);
+      $g_btn_lift   = get_post_meta($post_id, '_cgs_btn_lift', true);
+
+      // -- Global Button Hover State --
+      $g_btn_h_bg    = get_post_meta($post_id, '_cgs_btn_hover_bg', true);
+      $g_btn_h_text  = get_post_meta($post_id, '_cgs_btn_hover_text', true);
+      $g_btn_h_border = get_post_meta($post_id, '_cgs_btn_hover_border_color', true);
+      $g_btn_h_shadow = get_post_meta($post_id, '_cgs_btn_hover_shadow', true);
+      $g_btn_h_scale  = get_post_meta($post_id, '_cgs_btn_hover_scale', true);
+      $g_btn_h_lift   = get_post_meta($post_id, '_cgs_btn_hover_lift', true);
+      
+      $btn_css_global = "transition: all 0.3s ease;"; // Always add transition
       if($bp_t!=='') $btn_css_global .= "padding-top:{$bp_t}px;";
       if($bp_r!=='') $btn_css_global .= "padding-right:{$bp_r}px;";
       if($bp_b!=='') $btn_css_global .= "padding-bottom:{$bp_b}px;";
@@ -176,9 +290,51 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
       if($br_br!=='') $btn_css_global .= "border-bottom-right-radius:{$br_br}px;";
       if($br_bl!=='') $btn_css_global .= "border-bottom-left-radius:{$br_bl}px;";
       if($btn_w!=='') $btn_css_global .= "width:{$btn_w}; display:inline-block; text-align:center;";
+      
+      // Global Border
+      if($g_btn_border_w!=='') $btn_css_global .= "border-width:{$g_btn_border_w}px;";
+      if($g_btn_border_s!=='') $btn_css_global .= "border-style:{$g_btn_border_s};";
+      if($g_btn_border_c!=='') $btn_css_global .= "border-color:{$g_btn_border_c};";
 
+      // Global Normal Effects
+      if($g_btn_shadow!=='') $btn_css_global .= "box-shadow:{$g_btn_shadow};";
+      
+      // Global Normal Transform
+      $g_trans_ops = [];
+      if($g_btn_scale!=='') $g_trans_ops[] = "scale({$g_btn_scale})";
+      if($g_btn_lift!=='')  $g_trans_ops[] = "translateY(-{$g_btn_lift}px)";
+      if(!empty($g_trans_ops)) {
+          $btn_css_global .= "transform: " . implode(' ', $g_trans_ops) . ";";
+      }
 
       $cid  = 'cgs-carousel-' . esc_attr($post_id);
+
+      // -- Construct Global Hover CSS Rule --
+      $g_hover_css_inner = "";
+      if($g_btn_h_bg!=='')   $g_hover_css_inner .= "background-color:{$g_btn_h_bg} !important;";
+      if($g_btn_h_text!=='') $g_hover_css_inner .= "color:{$g_btn_h_text} !important;";
+      if($g_btn_h_border!=='') $g_hover_css_inner .= "border-color:{$g_btn_h_border} !important;";
+      if($g_btn_h_shadow!=='') $g_hover_css_inner .= "box-shadow:{$g_btn_h_shadow} !important;";
+      
+      $g_h_trans_ops = [];
+      // Logic: For hover scale/lift, if not set, should we inherit normal? 
+      // Usually CSS doesn't partial-update. If we set transform here, we lose Normal transform.
+      // So if Hover Scale is NOT set, use Normal Scale.
+      $gl_s = $g_btn_h_scale !== '' ? $g_btn_h_scale : $g_btn_scale;
+      $gl_l = $g_btn_h_lift !== '' ? $g_btn_h_lift : $g_btn_lift;
+      
+      if($gl_s !== '') $g_h_trans_ops[] = "scale({$gl_s})";
+      if($gl_l !== '') $g_h_trans_ops[] = "translateY(-{$gl_l}px)";
+      
+      if(!empty($g_h_trans_ops)) {
+           $g_hover_css_inner .= "transform: " . implode(' ', $g_h_trans_ops) . " !important;";
+      }
+      
+      $extra_global_css = "";
+      if($g_hover_css_inner !== "") {
+          $extra_global_css .= "#{$cid} .cgs-card-inner .button:hover, .cgs-stack-card .button:hover { {$g_hover_css_inner} }";
+      }
+
       $css  =
         "#{$cid} .cgs-card-inner, .cgs-stack-card{background:{$card_bg};color:{$card_txt};"
         . "border-radius:{$r_tl}px {$r_tr}px {$r_br}px {$r_bl}px;box-shadow:{$shd};"
@@ -186,9 +342,11 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
         . "padding:{$padding_top}px {$padding_right}px {$padding_bottom}px {$padding_left}px;"
         . "width: 100%; max-width: {$content_width};}"
         . "#{$cid} .cgs-card-inner .button,.cgs-stack-card .button{background-color:{$btn_bg};color:{$btn_txt};{$btn_css_global}}"
-        . "#{$cid} .cgs-card-inner .cgs-card-title,.cgs-stack-card .cgs-card-title{color:{$title_txt_colr};}" // Updated selector
+        . "#{$cid} .cgs-card-inner .cgs-card-title,.cgs-stack-card .cgs-card-title{color:{$title_txt_colr};}" 
         . "#{$cid} .cgs-card-inner img, .cgs-stack-card img{border-radius:{$img_tl}px {$img_tr}px {$img_br}px {$img_bl}px;}"
-        . $global_typo_css; // Append global typography
+        . $global_typo_css // Append global typography
+        . $extra_global_css // Append Global Hover
+        . $per_card_css; // Append Per Card Hover
 
       ob_start();
       echo "<style scoped>{$css}</style>";
@@ -290,8 +448,22 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                   $btn_style .= "background-color: {$btn_bg_color}; color: {$btn_text_color}; ";
                 }
                 
-                // Inline Button Styles
                 if(isset($item['btn_width']) && $item['btn_width'] !== '') $btn_style .= "width:{$item['btn_width']}; display:inline-block; text-align:center;";
+                
+                // Card Border (Button)
+                if(!empty($item['btn_border_width'])) $btn_style .= "border-width:{$item['btn_border_width']}px;";
+                if(!empty($item['btn_border_style'])) $btn_style .= "border-style:{$item['btn_border_style']};";
+                if(!empty($item['btn_border_color'])) $btn_style .= "border-color:{$item['btn_border_color']};";
+                
+                // Card Normal Effects
+                if(!empty($item['btn_shadow'])) $btn_style .= "box-shadow:{$item['btn_shadow']};";
+                
+                $c_tn = [];
+                if(!empty($item['btn_scale'])) $c_tn[] = "scale({$item['btn_scale']})";
+                if(!empty($item['btn_lift'])) $c_tn[] = "translateY(-{$item['btn_lift']}px)";
+                if(!empty($c_tn)) {
+                    $btn_style .= "transform: " . implode(' ', $c_tn) . ";";
+                }
                 
                 // Padding
                 foreach(['top','right','bottom','left'] as $f) {
@@ -379,7 +551,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                                     }
                                 }
                             ?>
-                            <a href="<?php echo esc_url($item['button_url']); ?>" class="button" target="_blank" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>" style="<?php echo esc_attr($btn_style); ?>">
+                            <a href="<?php echo esc_url($item['button_url']); ?>" class="button cgs-btn-<?php echo $i; ?>" target="_blank" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>" style="<?php echo esc_attr($btn_style); ?>">
                             <?php echo wp_kses_post($btn_content); ?>
                             </a>
                         <?php endif; ?>
@@ -485,7 +657,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                                 }
                             }
                         ?>
-                        <a href="<?php echo esc_url($item['button_url']); ?>" style="<?php echo $btn_style ?>" class="button" target="_blank" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>">
+                        <a href="<?php echo esc_url($item['button_url']); ?>" style="<?php echo $btn_style ?>" class="button cgs-btn-<?php echo $index; ?>" target="_blank" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>">
                           <?php echo wp_kses_post($btn_content); ?>
                         </a>
                       <?php endif; ?>

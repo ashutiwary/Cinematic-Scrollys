@@ -246,6 +246,67 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                 </span>
 
             </p>
+
+            </p>
+
+            <!-- Button Border (Normal) -->
+            <p class="cgs-meta-style-desc">
+                <strong><?php esc_html_e( 'Button Border (Normal):', 'cinematic-scroll' ); ?></strong>
+                <label><?php esc_html_e('Width', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_border_width" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_border_width', true) ); ?>" style="width:60px;"></label>
+                <label><?php esc_html_e('Style', 'cinematic-scroll'); ?>
+                <select name="cgs_btn_border_style" style="width:100px;">
+                    <option value="none" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'none' ); ?>>None</option>
+                    <option value="solid" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'solid' ); ?>>Solid</option>
+                    <option value="dashed" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'dashed' ); ?>>Dashed</option>
+                    <option value="dotted" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'dotted' ); ?>>Dotted</option>
+                </select></label>
+                <label><?php esc_html_e('Color', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_border_color" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_border_color', true) ); ?>" data-alpha="true"></label>
+            </p>
+
+            <!-- Button Effects (Normal) -->
+            <p class="cgs-meta-style-desc">
+                <strong><?php esc_html_e( 'Button Effects (Normal):', 'cinematic-scroll' ); ?></strong>
+                <label><?php esc_html_e('Shadow', 'cinematic-scroll'); ?> <input type="text" name="cgs_btn_shadow" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_shadow', true) ); ?>" placeholder="e.g. 0 5px 15px rgba(0,0,0,0.1)" style="width:250px;"></label>
+                <label><?php esc_html_e('Scale', 'cinematic-scroll'); ?> <input type="number" step="0.01" name="cgs_btn_scale" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_scale', true) ); ?>" placeholder="1" style="width:60px;"></label>
+                <label><?php esc_html_e('Lift (px)', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_lift" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_lift', true) ); ?>" placeholder="0" style="width:60px;"></label>
+            </p>
+
+            <!-- Button Hover Settings -->
+            <!-- Button Hover Settings -->
+            <div style="margin-top:20px; padding-top:10px; border-top:1px dashed #ccc;">
+                <strong style="display:block; margin-bottom:10px;"><?php esc_html_e( 'Button Hover State:', 'cinematic-scroll' ); ?></strong>
+                
+                <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
+                     <!-- Hover Background -->
+                     <div style="display:flex; align-items:center; gap:8px;">
+                        <label style="margin:0;"><?php esc_html_e('Background', 'cinematic-scroll'); ?></label>
+                        <input type="text" class="cgs-color-picker" name="cgs_btn_hover_bg" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_bg', true) ); ?>" data-alpha="true">
+                     </div>
+                     <!-- Hover Text -->
+                     <div style="display:flex; align-items:center; gap:8px;">
+                        <label style="margin:0;"><?php esc_html_e('Text Color', 'cinematic-scroll'); ?></label>
+                        <input type="text" class="cgs-color-picker" name="cgs_btn_hover_text" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_text', true) ); ?>" data-alpha="true">
+                     </div>
+                     <!-- Hover Border -->
+                     <div style="display:flex; align-items:center; gap:8px;">
+                        <label style="margin:0;"><?php esc_html_e('Border Color', 'cinematic-scroll'); ?></label>
+                        <input type="text" class="cgs-color-picker" name="cgs_btn_hover_border_color" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_border_color', true) ); ?>" data-alpha="true">
+                     </div>
+                    <!-- Hover Effects -->
+                    <label style="display:flex; align-items:center; gap:5px; margin:0;">
+                        <?php esc_html_e('Hover Shadow', 'cinematic-scroll'); ?> 
+                        <input type="text" name="cgs_btn_hover_shadow" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_shadow', true) ); ?>" placeholder="e.g. 0 8px 25px rgba(0,0,0,0.2)" style="width:230px;">
+                    </label>
+                    <label style="display:flex; align-items:center; gap:5px; margin:0;">
+                        <?php esc_html_e('Hover Scale', 'cinematic-scroll'); ?> 
+                        <input type="number" step="0.01" name="cgs_btn_hover_scale" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_scale', true) ); ?>" placeholder="1.05" style="width:70px;">
+                    </label>
+                    <label style="display:flex; align-items:center; gap:5px; margin:0;">
+                        <?php esc_html_e('Hover Lift', 'cinematic-scroll'); ?> 
+                        <input type="number" name="cgs_btn_hover_lift" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_lift', true) ); ?>" placeholder="5" style="width:60px;">
+                    </label>
+                </div>
+            </div>
             <!-- Card Border and Radius Settings -->
             <p class="cgs-meta-style-desc">
                 <strong><?php esc_html_e( 'Card Border:', 'cinematic-scroll' ); ?></strong>
@@ -478,6 +539,24 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                 if ( isset( $_POST['cgs_btn_width'] ) ) {
                     update_post_meta( $post_id, '_cgs_btn_width', sanitize_text_field( $_POST['cgs_btn_width'] ) );
                 }
+
+                // Button Border
+                if ( isset( $_POST['cgs_btn_border_width'] ) ) update_post_meta( $post_id, '_cgs_btn_border_width', sanitize_text_field( $_POST['cgs_btn_border_width'] ) );
+                if ( isset( $_POST['cgs_btn_border_style'] ) ) update_post_meta( $post_id, '_cgs_btn_border_style', sanitize_text_field( $_POST['cgs_btn_border_style'] ) );
+                if ( isset( $_POST['cgs_btn_border_color'] ) ) update_post_meta( $post_id, '_cgs_btn_border_color', sanitize_text_field( $_POST['cgs_btn_border_color'] ) );
+
+                // Button Normal Effects
+                if ( isset( $_POST['cgs_btn_shadow'] ) ) update_post_meta( $post_id, '_cgs_btn_shadow', sanitize_text_field( $_POST['cgs_btn_shadow'] ) );
+                if ( isset( $_POST['cgs_btn_scale'] ) ) update_post_meta( $post_id, '_cgs_btn_scale', sanitize_text_field( $_POST['cgs_btn_scale'] ) );
+                if ( isset( $_POST['cgs_btn_lift'] ) ) update_post_meta( $post_id, '_cgs_btn_lift', sanitize_text_field( $_POST['cgs_btn_lift'] ) );
+
+                // Button Hover
+                if ( isset( $_POST['cgs_btn_hover_bg'] ) ) update_post_meta( $post_id, '_cgs_btn_hover_bg', sanitize_text_field( $_POST['cgs_btn_hover_bg'] ) );
+                if ( isset( $_POST['cgs_btn_hover_text'] ) ) update_post_meta( $post_id, '_cgs_btn_hover_text', sanitize_text_field( $_POST['cgs_btn_hover_text'] ) );
+                if ( isset( $_POST['cgs_btn_hover_border_color'] ) ) update_post_meta( $post_id, '_cgs_btn_hover_border_color', sanitize_text_field( $_POST['cgs_btn_hover_border_color'] ) );
+                if ( isset( $_POST['cgs_btn_hover_shadow'] ) ) update_post_meta( $post_id, '_cgs_btn_hover_shadow', sanitize_text_field( $_POST['cgs_btn_hover_shadow'] ) );
+                if ( isset( $_POST['cgs_btn_hover_scale'] ) ) update_post_meta( $post_id, '_cgs_btn_hover_scale', sanitize_text_field( $_POST['cgs_btn_hover_scale'] ) );
+                if ( isset( $_POST['cgs_btn_hover_lift'] ) ) update_post_meta( $post_id, '_cgs_btn_hover_lift', sanitize_text_field( $_POST['cgs_btn_hover_lift'] ) );
 
                 // Save card border color
                 if ( isset( $_POST['cgs_card_border_clr'] ) ) {

@@ -368,9 +368,66 @@ jQuery(function ($) {
                                 </div>
                             </div>
                         </div>
+
+                        <!-- Button Border & Normal Effects -->
+                            <!-- Border -->
+                            <div style="flex:1; min-width: 200px;">
+                                <strong style="font-size:0.9em; display:block; margin-bottom:5px;">Button Normal Border:</strong>
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <label style="font-size:0.85em; margin:0;">Width <input type="number" name="cgs_carousel_items[${idx}][btn_border_width]" value="" style="width:50px;"></label>
+                                    <label style="font-size:0.85em; margin:0;">Style 
+                                    <select name="cgs_carousel_items[${idx}][btn_border_style]" style="width:80px;">
+                                        <option value="">Default</option>
+                                        <option value="none">None</option>
+                                        <option value="solid">Solid</option>
+                                        <option value="dashed">Dashed</option>
+                                    </select></label>
+                                    <div style="display:flex; align-items:center; gap:5px;">
+                                        <label style="font-size:0.85em; margin:0;">Color</label>
+                                        <input type="text" class="cgs-color-picker" name="cgs_carousel_items[${idx}][btn_border_color]" value="" data-alpha="true">
+                                    </div>
+                                </div>
+                            </div>
+                            <!-- Effects -->
+                            <div style="flex:1; min-width: 250px;">
+                                <strong style="font-size:0.9em; display:block; margin-bottom:5px;">Normal Effects:</strong>
+                                <div style="display:flex; gap:10px; align-items:center;">
+                                    <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;">Shadow <input type="text" name="cgs_carousel_items[${idx}][btn_shadow]" value="" placeholder="e.g. 0 4px 10px rgba(0,0,0,0.2)" style="width:230px;"></label>
+                                    <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;">Scale <input type="number" step="0.01" name="cgs_carousel_items[${idx}][btn_scale]" value="" placeholder="1" style="width:50px;"></label>
+                                    <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;">Lift <input type="number" name="cgs_carousel_items[${idx}][btn_lift]" value="" placeholder="0" style="width:50px;"></label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Button Hover Settings -->
+                        <div style="margin-top:15px; padding-top:10px; border-top:1px dashed #eee;">
+                            <strong style="display:block; margin-bottom:10px;">Button Hover State:</strong>
+                            <div style="display:flex; gap:15px; flex-wrap:wrap; align-items:center;">
+                                <div style="display:flex; align-items:center; gap:5px;">
+                                    <label style="font-size:0.85em; margin:0;">Background</label>
+                                    <input type="text" class="cgs-color-picker" name="cgs_carousel_items[${idx}][btn_hover_bg]" value="" data-alpha="true">
+                                </div>
+                                <div style="display:flex; align-items:center; gap:5px;">
+                                    <label style="font-size:0.85em; margin:0;">Text Color</label>
+                                    <input type="text" class="cgs-color-picker" name="cgs_carousel_items[${idx}][btn_hover_text]" value="" data-alpha="true">
+                                </div>
+                                <div style="display:flex; align-items:center; gap:5px;">
+                                    <label style="font-size:0.85em; margin:0;">Border Color</label>
+                                    <input type="text" class="cgs-color-picker" name="cgs_carousel_items[${idx}][btn_hover_border_color]" value="" data-alpha="true">
+                                </div>
+                                <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;">
+                                    Hover Shadow <input type="text" name="cgs_carousel_items[${idx}][btn_hover_shadow]" value="" placeholder="e.g. 0 8px 25px rgba(0,0,0,0.2)" style="width:230px;">
+                                </label>
+                                <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;">
+                                    Hover Scale <input type="number" step="0.01" name="cgs_carousel_items[${idx}][btn_hover_scale]" value="" placeholder="1.05" style="width:60px;">
+                                </label>
+                                <label style="font-size:0.85em; display:flex; align-items:center; gap:5px; margin:0;">
+                                    Hover Lift <input type="number" name="cgs_carousel_items[${idx}][btn_hover_lift]" value="" placeholder="5" style="width:50px;">
+                                </label>
+                            </div>
+                        </div>
                     </div>
                 </div>
-
 
             <!-- Section 4: Styling Options -->
             <div class="cgs-editor-section cgs-section-style">

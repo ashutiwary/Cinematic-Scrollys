@@ -288,8 +288,8 @@ jQuery(function ($) {
                     <span class="cgs-section-title">Button Settings</span>
                     
                     <!-- Button Settings Grid -->
-                    <!-- Row 1: Text and URL -->
-                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                    <!-- Row 1: Text, URL, and Link Relation -->
+                    <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                         <div class="cgs-form-group" style="margin-bottom:0;">
                             <label>Button Text</label>
                             <input type="text" name="cgs_carousel_items[${idx}][button_text]" class="widefat" value="">
@@ -297,6 +297,10 @@ jQuery(function ($) {
                         <div class="cgs-form-group" style="margin-bottom:0;">
                             <label>Button URL</label>
                             <input type="text" name="cgs_carousel_items[${idx}][button_url]" class="widefat" value="">
+                        </div>
+                        <div class="cgs-form-group" style="margin-bottom:0;">
+                            <label>Link Relation</label>
+                            <input type="text" name="cgs_carousel_items[${idx}][btn_rel]" class="widefat" value="" placeholder="noopener">
                         </div>
                     </div>
 

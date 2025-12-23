@@ -379,7 +379,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                                     }
                                 }
                             ?>
-                            <a href="<?php echo esc_url($item['button_url']); ?>" class="button" target="_blank" rel="noopener" style="<?php echo esc_attr($btn_style); ?>">
+                            <a href="<?php echo esc_url($item['button_url']); ?>" class="button" target="_blank" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>" style="<?php echo esc_attr($btn_style); ?>">
                             <?php echo wp_kses_post($btn_content); ?>
                             </a>
                         <?php endif; ?>
@@ -485,7 +485,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                                 }
                             }
                         ?>
-                        <a href="<?php echo esc_url($item['button_url']); ?>" style="<?php echo $btn_style ?>" class="button" target="_blank" rel="noopener">
+                        <a href="<?php echo esc_url($item['button_url']); ?>" style="<?php echo $btn_style ?>" class="button" target="_blank" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>">
                           <?php echo wp_kses_post($btn_content); ?>
                         </a>
                       <?php endif; ?>

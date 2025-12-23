@@ -156,8 +156,8 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
                                 <span class="cgs-section-title"><?php esc_html_e('Button Settings', 'cinematic-scroll'); ?></span>
                                 
                                 <!-- Button Settings Grid -->
-                                <!-- Row 1: Text and URL -->
-                                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 20px;">
+                                <!-- Row 1: Text, URL, and Link Relation -->
+                                <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; margin-bottom: 20px;">
                                     <div class="cgs-form-group" style="margin-bottom:0;">
                                         <label><?php esc_html_e('Button Text', 'cinematic-scroll'); ?></label>
                                         <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][button_text]" class="widefat" value="<?php echo esc_attr($itm['button_text']); ?>">
@@ -165,6 +165,10 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
                                     <div class="cgs-form-group" style="margin-bottom:0;">
                                         <label><?php esc_html_e('Button URL', 'cinematic-scroll'); ?></label>
                                         <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][button_url]" class="widefat" value="<?php echo esc_attr($itm['button_url']); ?>">
+                                    </div>
+                                    <div class="cgs-form-group" style="margin-bottom:0;">
+                                        <label><?php esc_html_e('Link Relation', 'cinematic-scroll'); ?></label>
+                                        <input type="text" name="cgs_carousel_items[<?php echo $i; ?>][btn_rel]" class="widefat" value="<?php echo esc_attr($itm['btn_rel'] ?? ''); ?>" placeholder="noopener">
                                     </div>
                                 </div>
 
@@ -431,6 +435,7 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
                     'image'       => isset($itm['image']) ? absint($itm['image']) : '',
                     'button_text' => sanitize_text_field($itm['button_text'] ?? ''),
                     'button_url'  => esc_url_raw($itm['button_url'] ?? ''),
+                    'btn_rel'     => sanitize_text_field($itm['btn_rel'] ?? ''),
                     'card_bg_color' => sanitize_text_field($itm['card_bg_color'] ?? ''),
                     'title_text_color' => sanitize_text_field($itm['title_text_color'] ?? ''),
                     'text_color' => sanitize_text_field($itm['text_color'] ?? ''),

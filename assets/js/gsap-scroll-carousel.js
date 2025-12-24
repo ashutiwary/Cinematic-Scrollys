@@ -7,20 +7,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const layout = layoutElement ? layoutElement.getAttribute('data-layout') : 'horizontal';
   console.log("The layout value is:", layout);
 
-  // Helper: Calculate Available Height
-  function getAvailableHeight() {
-    // Basic viewport height
-    let h = window.innerHeight;
-
-    // Try to find a sticky/fixed header
-    // Common selectors or check computed style
-    const potentialHeaders = document.querySelectorAll('header, .site-header, #masthead, .elementor-section-type-header');
+  // Helper: Detect header height
+  function getHeaderHeight() {
+    const potentialHeaders = document.querySelectorAll('header, .site-header, #masthead');
     let headerHeight = 0;
 
     potentialHeaders.forEach(el => {
       const style = window.getComputedStyle(el);
       if (style.position === 'fixed' || style.position === 'sticky') {
-        // Only if it's currently at the top
         const rect = el.getBoundingClientRect();
         if (rect.top < 50 && rect.height > 0) {
           headerHeight = Math.max(headerHeight, rect.height);
@@ -28,25 +22,28 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
 
-    // If we found a header, subtract it
+    return headerHeight;
+  }
+
+  // Apply padding to inner cards for visual centering (doesn't break ScrollTrigger)
+  function applyVisualCentering() {
+    const headerHeight = getHeaderHeight();
+
     if (headerHeight > 0) {
-      h -= headerHeight;
+      // Add top padding to the inner card content to push it down, creating visual balance
+      document.querySelectorAll('.cgs-card-inner').forEach(inner => {
+        inner.style.paddingTop = (headerHeight / 2) + 'px';
+      });
     }
-
-    // Return pixel value string
-    return h + 'px';
   }
 
-  // Apply height to horizontal wrappers
+  // Apply visual centering on load (only for horizontal layout)
   if (layout === 'horizontal') {
-    document.querySelectorAll('.cgs-carousel-wrapper').forEach(wrapper => {
-      const setHeight = () => {
-        wrapper.style.height = getAvailableHeight();
-      };
-      setHeight();
-      window.addEventListener('resize', setHeight);
-    });
+    // Small delay to ensure header is rendered
+    setTimeout(applyVisualCentering, 100);
+    window.addEventListener('resize', applyVisualCentering);
   }
+
 
   if (layout === 'vertical') {
     // Vertical Stack Carousel
@@ -100,42 +97,23 @@ document.addEventListener("DOMContentLoaded", function () {
         var cardWidth = cards[0].offsetWidth;
         var winWidth = window.innerWidth;
 
-        // Calculate gap needed to make one card take up exactly one viewport width of travel
-        // Distance from Center of Card A to Center of Card B should be winWidth.
-        // Center A + (CardHalf + Gap + CardHalf) = Center B ??
-        // Left A to Left B = cardWidth + gap.
-        // We want Left A to Left B = winWidth.
-        // Therefore: gap = winWidth - cardWidth.
-        var gap = winWidth - cardWidth;
+        // Detect sticky/fixed header height
+        var headerHeight = getHeaderHeight();
 
-        // Ensure gap is not negative 
+        // Calculate gap needed to make one card take up exactly one viewport width of travel
+        var gap = winWidth - cardWidth;
         if (gap < 0) gap = 0;
 
         // Apply gap
         carousel.style.gap = gap + "px";
 
         // Center the first and last items
-        // Padding needed = (winWidth - cardWidth) / 2
         var centerPadding = (winWidth - cardWidth) / 2;
         carousel.style.paddingLeft = centerPadding + "px";
         carousel.style.paddingRight = centerPadding + "px";
 
         // ScrollTrigger Calculations
-        // Total real width of content
         var totalWidth = (cardWidth * cards.length) + (gap * (cards.length - 1)) + (centerPadding * 2);
-
-        // Visible width is just the viewport
-        var wrapperWidth = winWidth;
-
-        // Max scroll is total content width minus the viewport width
-        // BUT: We need to verify if "totalWidth" calculation matches the actual scrollWidth roughly.
-        // Actually, simplest definition of maxScroll for horizontal scrubbing:
-        // move from x:0 to x: -(totalScrollableDistance).
-        // If we want the LAST card to end up Centered:
-        // The container width is "totalWidth".
-        // Viewport is "winWidth".
-        // We stop when the right edge of container aligns with right edge of viewport.
-        // totalScroll = totalWidth - winWidth.
         var maxScroll = totalWidth - winWidth;
 
         gsap.set(carousel, { x: 0 });
@@ -143,11 +121,16 @@ document.addEventListener("DOMContentLoaded", function () {
         // Kill old trigger if exists to avoid duplication on resize
         if (outer.st) outer.st.kill();
 
+        // Adjust start position for sticky header
+        // "top top+=" means: when the top of the wrapper reaches (top of viewport + headerHeight)
+        var startPosition = headerHeight > 0 ? "top top+=" + headerHeight : "top top";
+
         outer.st = ScrollTrigger.create({
           trigger: wrapper,
-          start: "top top",
+          start: startPosition,
           end: () => "+=" + maxScroll,
           pin: true,
+          pinSpacing: true,
           scrub: 1,
           anticipatePin: 1,
           invalidateOnRefresh: true,
@@ -161,6 +144,7 @@ document.addEventListener("DOMContentLoaded", function () {
           },
         });
       }
+
 
       // Initialize
       initCarousel();

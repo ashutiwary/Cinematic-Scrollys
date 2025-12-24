@@ -7,7 +7,6 @@
   margin-left: -50vw;
   margin-right: -50vw;
   padding: 0;
-  /* Remove default padding */
 }
 
 .cgs-carousel-wrapper {
@@ -26,7 +25,6 @@
   transition: none;
   gap: 0;
   padding-left: 0;
-  /* Padding left is now 0 because card width is 100vw */
 }
 
 /* 
@@ -34,31 +32,26 @@
    It holds the background image.
 */
 .cgs-carousel-card {
-  /* Default background if no image is set? Transparent */
   background: transparent;
-
-  /* Full Width slide */
   width: 100vw;
   flex: 0 0 100vw;
-  /* Crucial for calc */
   height: 100vh;
-  /* Wrapper height */
   box-sizing: border-box;
   flex-shrink: 0;
+  margin-left: -1px;
+  /* Eliminate sub-pixel gap during animation */
 
   display: flex;
   align-items: center;
   justify-content: center;
 
-  /* Reset old card styles that might interfere */
   box-shadow: none;
   border-radius: 0;
   border: none;
-  margin: 0;
-  /* No margin, it's full width */
+  margin-right: 0;
   padding: 20px;
-  /* Outer padding to prevent card touching edge */
 }
+
 
 /* Background Image Support on Wrapper */
 .cgs-carousel-card.cgs-has-bg-image {
@@ -184,13 +177,8 @@
   margin-bottom: 12px;
 }
 
-/* Vertical Stack Card Design (unchanged logic mostly) */
-.cgs-stack-card {
-  /* ... existing vertical styles ... */
-  /* If vertical layout uses same classes, check conflicts. 
-      Vertical uses .cgs-stack-card, not .cgs-carousel-card usually?
-   */
-}
+/* Vertical Stack Card Design */
+
 
 /* Clean up Vertical specific if generic classes were used */
 .cgs-vertical-container {

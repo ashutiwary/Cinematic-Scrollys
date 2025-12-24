@@ -358,7 +358,7 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                         <div class="cgs-settings-section">
                             <span class="cgs-settings-section-title"><?php esc_html_e( 'Radius & Shadow', 'cinematic-scroll' ); ?></span>
                             <p class="cgs-meta-style-desc">
-                                <strong><?php esc_html_e( 'Card Border Radius (px):', 'cinematic-scroll' ); ?></strong><br>
+                                <strong><?php esc_html_e( 'Card Border Radius (px):', 'cinematic-scroll' ); ?></strong>
                                 <?php esc_html_e( 'TL', 'cinematic-scroll' ); ?> <input type="number" name="cgs_card_radius_top_lt" value="<?php echo esc_attr( $r_tl ); ?>" min="0" style="width:50px;">
                                 <?php esc_html_e( 'TR', 'cinematic-scroll' ); ?> <input type="number" name="cgs_card_radius_top_rt" value="<?php echo esc_attr( $r_tr ); ?>" min="0" style="width:50px;">
                                 <?php esc_html_e( 'BR', 'cinematic-scroll' ); ?> <input type="number" name="cgs_card_radius_btm_rt" value="<?php echo esc_attr( $r_br ); ?>" min="0" style="width:50px;">
@@ -366,14 +366,14 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                             </p>
                             <p class="cgs-meta-style-desc" style="margin-top:15px;">
                                 <label for="cgs_card_shadow"><?php esc_html_e( 'Card Box Shadow (CSS):', 'cinematic-scroll' ); ?></label>
-                                <input type="text" id="cgs_card_shadow" name="cgs_card_shadow" value="<?php echo esc_attr( $shadow ); ?>" placeholder="e.g. 0 4px 10px rgba(0,0,0,0.2)" style="width:100%;">
+                                <input type="text" id="cgs_card_shadow" name="cgs_card_shadow" value="<?php echo esc_attr( $shadow ); ?>" placeholder="e.g. 0 4px 10px rgba(0,0,0,0.2)" style="width:80%;">
                             </p>
                         </div>
 
                         <div class="cgs-settings-section">
                             <span class="cgs-settings-section-title"><?php esc_html_e( 'Spacing', 'cinematic-scroll' ); ?></span>
                             <p class="cgs-meta-style-desc">
-                                <strong><?php esc_html_e( 'Card Padding (px):', 'cinematic-scroll' ); ?></strong><br>
+                                <strong><?php esc_html_e( 'Card Padding (px):', 'cinematic-scroll' ); ?></strong>
                                 <?php esc_html_e( 'Top', 'cinematic-scroll' ); ?> <input type="number" name="cgs_padding_top" value="<?php echo esc_attr( $padding_top ); ?>" min="0" style="width:50px;">
                                 <?php esc_html_e( 'Right', 'cinematic-scroll' ); ?> <input type="number" name="cgs_padding_right" value="<?php echo esc_attr( $padding_right ); ?>" min="0" style="width:50px;">
                                 <?php esc_html_e( 'Bottom', 'cinematic-scroll' ); ?> <input type="number" name="cgs_padding_bottom" value="<?php echo esc_attr( $padding_bottom ); ?>" min="0" style="width:50px;">
@@ -402,15 +402,15 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
 
                         <div class="cgs-settings-section">
                             <span class="cgs-settings-section-title"><?php esc_html_e( 'Dimensions', 'cinematic-scroll' ); ?></span>
-                            <div style="display:flex; flex-wrap:wrap; gap:20px;">
+                            <div style="display:flex; flex-wrap:wrap; gap:10px;">
                                 <div>
-                                    <strong><?php esc_html_e( 'Padding (px):', 'cinematic-scroll' ); ?></strong><br>
+                                    <strong><?php esc_html_e( 'Padding(px):', 'cinematic-scroll' ); ?></strong>
                                     <?php foreach ( [ 'top', 'right', 'bottom', 'left' ] as $pos ): ?>
                                         <label style="font-size:0.85em;"><?php echo ucfirst($pos); ?> <input type="number" name="cgs_btn_padding_<?php echo $pos; ?>" value="<?php echo esc_attr( get_post_meta($post->ID, "_cgs_btn_padding_{$pos}", true) ); ?>" style="width:50px;"></label>
                                     <?php endforeach; ?>
                                 </div>
                                 <div>
-                                    <strong><?php esc_html_e( 'Radius (px):', 'cinematic-scroll' ); ?></strong><br>
+                                    <strong><?php esc_html_e( 'Radius(px):', 'cinematic-scroll' ); ?></strong>
                                     <?php
                                     $radius_fields = [ 'top_lt' => 'TL', 'top_rt' => 'TR', 'btm_rt' => 'BR', 'btm_lt' => 'BL' ];
                                     foreach ( $radius_fields as $key => $label ): ?>
@@ -423,38 +423,38 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                         <div class="cgs-settings-section">
                             <span class="cgs-settings-section-title"><?php esc_html_e( 'Border & Shadow', 'cinematic-scroll' ); ?></span>
                             <p class="cgs-meta-style-desc">
-                                <label><?php esc_html_e('Width', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_border_width" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_border_width', true) ); ?>" style="width:60px;"></label>
-                                <label><?php esc_html_e('Style', 'cinematic-scroll'); ?>
+                                <label><?php esc_html_e('Width:', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_border_width" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_border_width', true) ); ?>" style="width:60px;"></label>
+                                <label><?php esc_html_e('Style:', 'cinematic-scroll'); ?>
                                 <select name="cgs_btn_border_style" style="width:100px;">
                                     <option value="none" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'none' ); ?>>None</option>
                                     <option value="solid" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'solid' ); ?>>Solid</option>
                                     <option value="dashed" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'dashed' ); ?>>Dashed</option>
                                     <option value="dotted" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'dotted' ); ?>>Dotted</option>
                                 </select></label>
-                                <label><?php esc_html_e('Color', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_border_color" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_border_color', true) ); ?>" data-alpha="true"></label>
+                                <label><?php esc_html_e('Color:', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_border_color" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_border_color', true) ); ?>" data-alpha="true"></label>
                             </p>
                             <p class="cgs-meta-style-desc">
-                                <label><?php esc_html_e('Shadow', 'cinematic-scroll'); ?> <input type="text" name="cgs_btn_shadow" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_shadow', true) ); ?>" placeholder="e.g. 0 5px 15px rgba(0,0,0,0.1)" style="width:60%;"></label>
+                                <label><?php esc_html_e('Shadow:', 'cinematic-scroll'); ?> <input type="text" name="cgs_btn_shadow" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_shadow', true) ); ?>" placeholder="e.g. 0 5px 15px rgba(0,0,0,0.1)" style="width:60%;"></label>
                             </p>
                             <p class="cgs-meta-style-desc">
-                                <label><?php esc_html_e('Scale', 'cinematic-scroll'); ?> <input type="number" step="0.01" name="cgs_btn_scale" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_scale', true) ); ?>" placeholder="1" style="width:60px;"></label>
-                                <label style="margin-left:15px;"><?php esc_html_e('Lift (px)', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_lift" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_lift', true) ); ?>" placeholder="0" style="width:60px;"></label>
+                                <label><?php esc_html_e('Scale:', 'cinematic-scroll'); ?> <input type="number" step="0.01" name="cgs_btn_scale" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_scale', true) ); ?>" placeholder="1" style="width:60px;"></label>
+                                <label style="margin-left:15px;"><?php esc_html_e('Lift (px):', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_lift" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_lift', true) ); ?>" placeholder="0" style="width:60px;"></label>
                             </p>
                         </div>
 
                         <div class="cgs-settings-section">
                             <span class="cgs-settings-section-title"><?php esc_html_e( 'Hover State', 'cinematic-scroll' ); ?></span>
-                            <div style="display:flex; flex-wrap:wrap; gap:15px; align-items:center;">
-                                <label><?php esc_html_e('Hover Bg', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_hover_bg" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_bg', true) ); ?>" data-alpha="true"></label>
-                                <label><?php esc_html_e('Hover Text', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_hover_text" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_text', true) ); ?>" data-alpha="true"></label>
-                                <label><?php esc_html_e('Hover Border', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_hover_border_color" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_border_color', true) ); ?>" data-alpha="true"></label>
+                            <div style="display:flex; flex-wrap:wrap; gap:15px; align-items:center;justify-content: space-between;">
+                                <label><?php esc_html_e('Hover Bg:', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_hover_bg" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_bg', true) ); ?>" data-alpha="true"></label>
+                                <label><?php esc_html_e('Hover Text:', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_hover_text" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_text', true) ); ?>" data-alpha="true"></label>
+                                <label><?php esc_html_e('Hover Border:', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_hover_border_color" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_border_color', true) ); ?>" data-alpha="true"></label>
                             </div>
                             <p class="cgs-meta-style-desc" style="margin-top:15px;">
-                                <label><?php esc_html_e('Hover Shadow', 'cinematic-scroll'); ?> <input type="text" name="cgs_btn_hover_shadow" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_shadow', true) ); ?>" placeholder="e.g. 0 8px 25px rgba(0,0,0,0.2)" style="width:60%;"></label>
+                                <label><?php esc_html_e('Hover Shadow:', 'cinematic-scroll'); ?> <input type="text" name="cgs_btn_hover_shadow" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_shadow', true) ); ?>" placeholder="e.g. 0 8px 25px rgba(0,0,0,0.2)" style="width:60%;"></label>
                             </p>
                             <p class="cgs-meta-style-desc">
-                                <label><?php esc_html_e('Hover Scale', 'cinematic-scroll'); ?> <input type="number" step="0.01" name="cgs_btn_hover_scale" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_scale', true) ); ?>" placeholder="1.05" style="width:70px;"></label>
-                                <label style="margin-left:15px;"><?php esc_html_e('Hover Lift', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_hover_lift" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_lift', true) ); ?>" placeholder="5" style="width:60px;"></label>
+                                <label><?php esc_html_e('Hover Scale:', 'cinematic-scroll'); ?> <input type="number" step="0.01" name="cgs_btn_hover_scale" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_scale', true) ); ?>" placeholder="1.05" style="width:70px;"></label>
+                                <label style="margin-left:15px;"><?php esc_html_e('Hover Lift (px):', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_hover_lift" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_lift', true) ); ?>" placeholder="5" style="width:60px;"></label>
                             </p>
                         </div>
                     </div>

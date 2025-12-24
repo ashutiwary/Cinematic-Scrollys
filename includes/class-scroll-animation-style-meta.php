@@ -181,304 +181,330 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
             $img_position = get_post_meta( $post->ID, '_cgs_img_position', true ) ?: 'bottom';
             $ver_img_position = get_post_meta( $post->ID, '_cgs_vert_img_position', true ) ?: 'right';
             ?>
-            <!-- Card Color and button color and Text color -->
-            <p class="cgs-meta-style-desc">
-                <label for="cgs_card_bg"><?php esc_html_e( 'Global Card Inside Color:', 'cinematic-scroll' ); ?></label><br>
-                <input type="text" class="cgs-color-picker" id="cgs_card_bg" name="cgs_card_bg" value="<?php echo esc_attr( $card_bg ); ?>" data-alpha="true"><br><br>
-                
-                <label for="cgs_wrapper_bg_color"><?php esc_html_e( 'Global Card Outside Color:', 'cinematic-scroll' ); ?></label><br>
-                <input type="text" class="cgs-color-picker" id="cgs_wrapper_bg_color" name="cgs_wrapper_bg_color" value="<?php echo esc_attr( get_post_meta( $post->ID, '_cgs_wrapper_bg_color', true ) ); ?>" data-alpha="true"><br><br>
-
-                <label for="cgs_title_colr"><?php esc_html_e( 'Title Text Color:', 'cinematic-scroll' ); ?></label><br>
-                <input type="text" class="cgs-color-picker" id="cgs_title_colr" name="cgs_title_colr" value="<?php echo esc_attr( $title_txt_colr ); ?>" data-alpha="true"><br><br>
-                <label for="cgs_txt_colr"><?php esc_html_e( 'Body Text Color:', 'cinematic-scroll' ); ?></label><br>
-                <input type="text" class="cgs-color-picker" id="cgs_txt_colr" name="cgs_txt_colr" value="<?php echo esc_attr( $card_txt ); ?>" data-alpha="true"><br><br>
-                <label for="cgs_button_bg"><?php esc_html_e( 'Button Background Color:', 'cinematic-scroll' ); ?></label><br>
-                <input type="text" class="cgs-color-picker" id="cgs_button_bg" name="cgs_button_bg" value="<?php echo esc_attr( $button_bg ); ?>" data-alpha="true"><br><br>
-                <label for="cgs_button_text"><?php esc_html_e( 'Button Text Color:', 'cinematic-scroll' ); ?></label><br>
-                <input type="text" class="cgs-color-picker" id="cgs_button_text" name="cgs_button_text" value="<?php echo esc_attr( $button_text ); ?>" data-alpha="true"><br><br>
-            </p>
-
-            <!-- Global Width Configuration (New Row) -->
-            <!-- Global Width Configuration (New Row) -->
-            <p class="cgs-meta-style-desc" style="border-top:1px dashed #ddd; padding-top:10px; margin-top:10px; display:flex; align-items:center; gap:15px; width: 100%;">
-                <strong style="flex: 0 0 auto;"><?php esc_html_e( 'Global Width Configuration:', 'cinematic-scroll' ); ?></strong>
-                
-                <span style="flex: 1; display:flex; align-items:center; gap:5px;">
-                    <label for="cgs_content_width" style="margin-bottom:0; font-size: 0.9em; white-space:nowrap;"><?php esc_html_e( 'Inside Card Width (Default: 1200px):', 'cinematic-scroll' ); ?></label>
-                    <input type="text" id="cgs_content_width" name="cgs_content_width" value="<?php echo esc_attr( $content_width ); ?>" placeholder="1200px" style="flex:1;">
-                </span>
-
-                <span style="flex: 1; display:flex; align-items:center; gap:5px;">
-                    <label for="cgs_btn_width" style="margin-bottom:0; font-size: 0.9em; white-space:nowrap;"><?php esc_html_e( 'Button Width:', 'cinematic-scroll' ); ?></label>
-                    <input type="text" id="cgs_btn_width" name="cgs_btn_width" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_width', true) ); ?>" placeholder="e.g. 200px" style="flex:1;">
-                </span>
-            </p>
-
-            <!-- Button Dimension Settings (New Row) -->
-            <p class="cgs-meta-style-desc" style="border-top:1px dashed #ddd; padding-top:10px; margin-top:10px;">
-                <strong><?php esc_html_e( 'Button Dimensions:', 'cinematic-scroll' ); ?></strong><br>
-                
-                <span style="display:inline-block; margin-right:20px; margin-top:5px;">
-                    <strong><?php esc_html_e( 'Padding (px):', 'cinematic-scroll' ); ?></strong><br>
-                    <?php $bp_t = get_post_meta($post->ID, '_cgs_btn_padding_top', true); ?>
-                    <?php $bp_r = get_post_meta($post->ID, '_cgs_btn_padding_right', true); ?>
-                    <?php $bp_b = get_post_meta($post->ID, '_cgs_btn_padding_bottom', true); ?>
-                    <?php $bp_l = get_post_meta($post->ID, '_cgs_btn_padding_left', true); ?>
-                    <label style="font-size:0.9em;"><?php esc_html_e( 'Top', 'cinematic-scroll' ); ?> <input type="number" name="cgs_btn_padding_top" value="<?php echo esc_attr( $bp_t ); ?>" style="width:50px;"></label>
-                    <label style="font-size:0.9em;"><?php esc_html_e( 'Right', 'cinematic-scroll' ); ?> <input type="number" name="cgs_btn_padding_right" value="<?php echo esc_attr( $bp_r ); ?>" style="width:50px;"></label>
-                    <label style="font-size:0.9em;"><?php esc_html_e( 'Bottom', 'cinematic-scroll' ); ?> <input type="number" name="cgs_btn_padding_bottom" value="<?php echo esc_attr( $bp_b ); ?>" style="width:50px;"></label>
-                    <label style="font-size:0.9em;"><?php esc_html_e( 'Left', 'cinematic-scroll' ); ?> <input type="number" name="cgs_btn_padding_left" value="<?php echo esc_attr( $bp_l ); ?>" style="width:50px;"></label>
-                </span>
-
-                <span style="display:inline-block; margin-right:20px; margin-top:5px;">
-                    <strong><?php esc_html_e( 'Radius (px):', 'cinematic-scroll' ); ?></strong><br>
-                    <?php $br_tl = get_post_meta($post->ID, '_cgs_btn_radius_top_lt', true); ?>
-                    <?php $br_tr = get_post_meta($post->ID, '_cgs_btn_radius_top_rt', true); ?>
-                    <?php $br_br = get_post_meta($post->ID, '_cgs_btn_radius_btm_rt', true); ?>
-                    <?php $br_bl = get_post_meta($post->ID, '_cgs_btn_radius_btm_lt', true); ?>
-                    <label style="font-size:0.9em;"><?php esc_html_e( 'TL', 'cinematic-scroll' ); ?> <input type="number" name="cgs_btn_radius_top_lt" value="<?php echo esc_attr( $br_tl ); ?>" style="width:50px;"></label>
-                    <label style="font-size:0.9em;"><?php esc_html_e( 'TR', 'cinematic-scroll' ); ?> <input type="number" name="cgs_btn_radius_top_rt" value="<?php echo esc_attr( $br_tr ); ?>" style="width:50px;"></label>
-                    <label style="font-size:0.9em;"><?php esc_html_e( 'BR', 'cinematic-scroll' ); ?> <input type="number" name="cgs_btn_radius_btm_rt" value="<?php echo esc_attr( $br_br ); ?>" style="width:50px;"></label>
-                    <label style="font-size:0.9em;"><?php esc_html_e( 'BL', 'cinematic-scroll' ); ?> <input type="number" name="cgs_btn_radius_btm_lt" value="<?php echo esc_attr( $br_bl ); ?>" style="width:50px;"></label>
-                </span>
-
-            </p>
-
-            </p>
-
-            <!-- Button Border (Normal) -->
-            <p class="cgs-meta-style-desc">
-                <strong><?php esc_html_e( 'Button Border (Normal):', 'cinematic-scroll' ); ?></strong>
-                <label><?php esc_html_e('Width', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_border_width" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_border_width', true) ); ?>" style="width:60px;"></label>
-                <label><?php esc_html_e('Style', 'cinematic-scroll'); ?>
-                <select name="cgs_btn_border_style" style="width:100px;">
-                    <option value="none" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'none' ); ?>>None</option>
-                    <option value="solid" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'solid' ); ?>>Solid</option>
-                    <option value="dashed" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'dashed' ); ?>>Dashed</option>
-                    <option value="dotted" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'dotted' ); ?>>Dotted</option>
-                </select></label>
-                <label><?php esc_html_e('Color', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_border_color" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_border_color', true) ); ?>" data-alpha="true"></label>
-            </p>
-
-            <!-- Button Effects (Normal) -->
-            <p class="cgs-meta-style-desc">
-                <strong><?php esc_html_e( 'Button Effects (Normal):', 'cinematic-scroll' ); ?></strong>
-                <label><?php esc_html_e('Shadow', 'cinematic-scroll'); ?> <input type="text" name="cgs_btn_shadow" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_shadow', true) ); ?>" placeholder="e.g. 0 5px 15px rgba(0,0,0,0.1)" style="width:250px;"></label>
-                <label><?php esc_html_e('Scale', 'cinematic-scroll'); ?> <input type="number" step="0.01" name="cgs_btn_scale" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_scale', true) ); ?>" placeholder="1" style="width:60px;"></label>
-                <label><?php esc_html_e('Lift (px)', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_lift" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_lift', true) ); ?>" placeholder="0" style="width:60px;"></label>
-            </p>
-
-            <!-- Button Hover Settings -->
-            <!-- Button Hover Settings -->
-            <div style="margin-top:20px; padding-top:10px; border-top:1px dashed #ccc;">
-                <strong style="display:block; margin-bottom:10px;"><?php esc_html_e( 'Button Hover State:', 'cinematic-scroll' ); ?></strong>
-                
-                <div style="display:flex; flex-wrap:wrap; gap:20px; align-items:center;">
-                     <!-- Hover Background -->
-                     <div style="display:flex; align-items:center; gap:8px;">
-                        <label style="margin:0;"><?php esc_html_e('Background', 'cinematic-scroll'); ?></label>
-                        <input type="text" class="cgs-color-picker" name="cgs_btn_hover_bg" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_bg', true) ); ?>" data-alpha="true">
-                     </div>
-                     <!-- Hover Text -->
-                     <div style="display:flex; align-items:center; gap:8px;">
-                        <label style="margin:0;"><?php esc_html_e('Text Color', 'cinematic-scroll'); ?></label>
-                        <input type="text" class="cgs-color-picker" name="cgs_btn_hover_text" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_text', true) ); ?>" data-alpha="true">
-                     </div>
-                     <!-- Hover Border -->
-                     <div style="display:flex; align-items:center; gap:8px;">
-                        <label style="margin:0;"><?php esc_html_e('Border Color', 'cinematic-scroll'); ?></label>
-                        <input type="text" class="cgs-color-picker" name="cgs_btn_hover_border_color" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_border_color', true) ); ?>" data-alpha="true">
-                     </div>
-                    <!-- Hover Effects -->
-                    <label style="display:flex; align-items:center; gap:5px; margin:0;">
-                        <?php esc_html_e('Hover Shadow', 'cinematic-scroll'); ?> 
-                        <input type="text" name="cgs_btn_hover_shadow" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_shadow', true) ); ?>" placeholder="e.g. 0 8px 25px rgba(0,0,0,0.2)" style="width:230px;">
-                    </label>
-                    <label style="display:flex; align-items:center; gap:5px; margin:0;">
-                        <?php esc_html_e('Hover Scale', 'cinematic-scroll'); ?> 
-                        <input type="number" step="0.01" name="cgs_btn_hover_scale" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_scale', true) ); ?>" placeholder="1.05" style="width:70px;">
-                    </label>
-                    <label style="display:flex; align-items:center; gap:5px; margin:0;">
-                        <?php esc_html_e('Hover Lift', 'cinematic-scroll'); ?> 
-                        <input type="number" name="cgs_btn_hover_lift" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_lift', true) ); ?>" placeholder="5" style="width:60px;">
-                    </label>
+            <div class="cgs-settings-wrapper">
+                <div class="cgs-settings-sidebar">
+                    <ul class="cgs-settings-tabs">
+                        <li class="cgs-settings-tab-link active" data-tab="cgs-tab-general">
+                            <span class="dashicons dashicons-admin-generic"></span>
+                            <?php esc_html_e( 'General', 'cinematic-scroll' ); ?>
+                        </li>
+                        <li class="cgs-settings-tab-link" data-tab="cgs-tab-typography">
+                            <span class="dashicons dashicons-editor-textcolor"></span>
+                            <?php esc_html_e( 'Typography', 'cinematic-scroll' ); ?>
+                        </li>
+                        <li class="cgs-settings-tab-link" data-tab="cgs-tab-card">
+                            <span class="dashicons dashicons-format-image"></span>
+                            <?php esc_html_e( 'Card Design', 'cinematic-scroll' ); ?>
+                        </li>
+                        <li class="cgs-settings-tab-link" data-tab="cgs-tab-button">
+                            <span class="dashicons dashicons-button"></span>
+                            <?php esc_html_e( 'Button Design', 'cinematic-scroll' ); ?>
+                        </li>
+                        <li class="cgs-settings-tab-link" data-tab="cgs-tab-media">
+                            <span class="dashicons dashicons-images-alt2"></span>
+                            <?php esc_html_e( 'Media Options', 'cinematic-scroll' ); ?>
+                        </li>
+                    </ul>
                 </div>
-            </div>
-            <!-- Card Border and Radius Settings -->
-            <p class="cgs-meta-style-desc">
-                <strong><?php esc_html_e( 'Card Border:', 'cinematic-scroll' ); ?></strong>
-                <label for="cgs_card_border_clr"><?php esc_html_e( 'Color:', 'cinematic-scroll' ); ?></label>
-                <input type="text" class="cgs-color-picker" id="cgs_card_border_clr" name="cgs_card_border_clr" value="<?php echo esc_attr( $card_border_clr ); ?>" data-alpha="true">
-                <label for="cgs_card_border_width"><?php esc_html_e( 'Width (px):', 'cinematic-scroll' ); ?></label>
-                <input type="number" id="cgs_card_border_width" name="cgs_card_border_width" value="<?php echo esc_attr( get_post_meta( $post->ID, '_cgs_card_border_width', true ) ?: '0' ); ?>" min="0" style="width:60px;">
-                <strong><?php esc_html_e( 'Card Border Style:', 'cinematic-scroll' ); ?></strong>
-                <select id="cgs_card_border_style" name="cgs_card_border_style">
-                    <option value="none" <?php selected( get_post_meta( $post->ID, '_cgs_card_border_style', true ) ?: 'none', 'none' ); ?>><?php esc_html_e( 'None', 'cinematic-scroll' ); ?></option>
-                    <option value="solid" <?php selected( get_post_meta( $post->ID, '_cgs_card_border_style', true ), 'solid' ); ?>><?php esc_html_e( 'Solid', 'cinematic-scroll' ); ?></option>
-                    <option value="dashed" <?php selected( get_post_meta( $post->ID, '_cgs_card_border_style', true ), 'dashed' ); ?>><?php esc_html_e( 'Dashed', 'cinematic-scroll' ); ?></option>
-                    <option value="dotted" <?php selected( get_post_meta( $post->ID, '_cgs_card_border_style', true ), 'dotted' ); ?>><?php esc_html_e( 'Dotted', 'cinematic-scroll' ); ?></option>
-                    <option value="double" <?php selected( get_post_meta( $post->ID, '_cgs_card_border_style', true ), 'double' ); ?>><?php esc_html_e( 'Double', 'cinematic-scroll' ); ?></option>
-                </select>
-            </p>
-            <!-- Card Radius and Padding Settings -->
-            <p class="cgs-meta-style-desc">
-                <strong><?php esc_html_e( 'Card Border Radius (px):', 'cinematic-scroll' ); ?></strong>
-                <?php esc_html_e( 'Top-Left',   'cinematic-scroll' ); ?> <input type="number" name="cgs_card_radius_top_lt" value="<?php echo esc_attr( $r_tl ); ?>" min="0" style="width:60px;">
-                <?php esc_html_e( 'Top-Right',  'cinematic-scroll' ); ?> <input type="number" name="cgs_card_radius_top_rt" value="<?php echo esc_attr( $r_tr ); ?>" min="0" style="width:60px;">
-                <?php esc_html_e( 'Bottom-Right','cinematic-scroll'); ?> <input type="number" name="cgs_card_radius_btm_rt" value="<?php echo esc_attr( $r_br ); ?>" min="0" style="width:60px;">
-                <?php esc_html_e( 'Bottom-Left','cinematic-scroll'); ?> <input type="number" name="cgs_card_radius_btm_lt" value="<?php echo esc_attr( $r_bl ); ?>" min="0" style="width:60px;">
-            </p>
-            <!-- Image Border Radius -->
-            <p class="cgs-meta-style-desc">
-                <strong><?php esc_html_e( 'Image Border Radius (px):', 'cinematic-scroll' ); ?></strong>
-                <?php esc_html_e( 'Top-Left',   'cinematic-scroll' ); ?> <input type="number" name="cgs_img_radius_top_lt" value="<?php echo esc_attr( $img_tl ); ?>" min="0" style="width:60px;">
-                <?php esc_html_e( 'Top-Right',  'cinematic-scroll' ); ?> <input type="number" name="cgs_img_radius_top_rt" value="<?php echo esc_attr( $img_tr ); ?>" min="0" style="width:60px;">
-                <?php esc_html_e( 'Bottom-Right','cinematic-scroll'); ?> <input type="number" name="cgs_img_radius_btm_rt" value="<?php echo esc_attr( $img_br ); ?>" min="0" style="width:60px;">
-                <?php esc_html_e( 'Bottom-Left','cinematic-scroll'); ?> <input type="number" name="cgs_img_radius_btm_lt" value="<?php echo esc_attr( $img_bl ); ?>" min="0" style="width:60px;">
-            </p>
-            <!-- Padding Settings -->   
-            <p class="cgs-meta-style-desc">
-                <strong><?php esc_html_e( 'Card Padding (px):', 'cinematic-scroll' ); ?></strong>
-                <?php esc_html_e( 'Top',   'cinematic-scroll' ); ?> <input type="number" name="cgs_padding_top" value="<?php echo esc_attr( $padding_top ); ?>" min="0" style="width:60px;">
-                <?php esc_html_e( 'Right',  'cinematic-scroll' ); ?> <input type="number" name="cgs_padding_right" value="<?php echo esc_attr( $padding_right ); ?>" min="0" style="width:60px;">
-                <?php esc_html_e( 'Bottom','cinematic-scroll'); ?> <input type="number" name="cgs_padding_bottom" value="<?php echo esc_attr( $padding_bottom ); ?>" min="0" style="width:60px;">
-                <?php esc_html_e( 'Left','cinematic-scroll'); ?> <input type="number" name="cgs_padding_left" value="<?php echo esc_attr( $padding_left ); ?>" min="0" style="width:60px;">
-            </p>
-            <!-- Card Shadow and Image Position -->
-            <p class="cgs-meta-style-desc">
-                <label for="cgs_card_shadow"><?php esc_html_e( 'Card Box Shadow (CSS):', 'cinematic-scroll' ); ?></label><br>
-                <input type="text" id="cgs_card_shadow" name="cgs_card_shadow"
-                    value="<?php echo esc_attr( $shadow ); ?>" placeholder="e.g. 0 4px 10px rgba(0,0,0,0.2)" style="width:50%;">
-                <br>
-                <?php if ( 'horizontal' === $layout ) { ?>
-                <label for="cgs_img_position"><?php esc_html_e( 'Image Position:', 'cinematic-scroll' ); ?></label><br>
-                <select id="cgs_img_position" name="cgs_img_position">
-                    <option value="left"    <?php selected( $img_position, 'left' ); ?>><?php esc_html_e( 'Left',    'cinematic-scroll' ); ?></option>
-                    <option value="right" <?php selected( $img_position,'right'); ?>><?php esc_html_e( 'Right','cinematic-scroll'); ?></option>
-                </select>
-                <?php } else if('vertical' === $layout){?>
-                <label for="cgs_vert_img_position"><?php esc_html_e( 'Image Position:', 'cinematic-scroll' ); ?></label><br>
-                <select id="cgs_vert_img_position" name="cgs_vert_img_position">
-                    <option value="left"    <?php selected( $ver_img_position, 'left' ); ?>><?php esc_html_e( 'Left',    'cinematic-scroll' ); ?></option>
-                    <option value="right" <?php selected( $ver_img_position,'right'); ?>><?php esc_html_e( 'Right','cinematic-scroll'); ?></option>
-                </select>
-                <?php } ?>
-            </p>
 
-            <!-- Typography Settings -->
-            <?php
-            $typo_sections = [
-                'title'  => __('Title Typography', 'cinematic-scroll'),
-                'body'   => __('Body Typography', 'cinematic-scroll'),
-                'button' => __('Button Typography', 'cinematic-scroll'),
-            ];
-
-            // Get available fonts
-            $available_fonts = self::get_all_fonts();
-
-            foreach ($typo_sections as $slug => $label) {
-                // Get saved values
-                $ff = get_post_meta($post->ID, "_cgs_{$slug}_font_family", true);
-                $tag = get_post_meta($post->ID, "_cgs_{$slug}_tag", true); // New Attribute
-                $fs = get_post_meta($post->ID, "_cgs_{$slug}_font_size", true);
-                $fw = get_post_meta($post->ID, "_cgs_{$slug}_font_weight", true);
-                $fst = get_post_meta($post->ID, "_cgs_{$slug}_font_style", true);
-                $lh = get_post_meta($post->ID, "_cgs_{$slug}_line_height", true);
-                $tt = get_post_meta($post->ID, "_cgs_{$slug}_text_transform", true);
-                $ls = get_post_meta($post->ID, "_cgs_{$slug}_letter_spacing", true);
-                
-                // Define available tags
-                $tags = ['h1'=>'H1','h2'=>'H2','h3'=>'H3','h4'=>'H4','h5'=>'H5','h6'=>'H6','p'=>'P','div'=>'Result Div','span'=>'Span'];
-                // Defaults: Title -> h3, Body -> p, Button -> span (though button usually stays 'a' or 'button', but user asked for attributes. 
-                // Actually user specifically said "Title,body typography attribute". I will exclude Button from the Tag selector to avoid breaking semantics of the link unless requested, 
-                // OR I can just allow it but it might break the <a> structure if I replace <a> with <h1>?
-                // The current code wraps the button text in `<a>`. Changing that tag might break the link functionality. 
-                // I will add it for Title and Body ONLY as requested.
-                
-                $show_tag_option = ($slug !== 'button');
-                ?>
-                <div style="width: 100%; margin-top: 15px; padding-top: 10px; border-top: 1px dashed #eee;">
-                    <strong style="display:block; margin-bottom: 10px;"><?php echo esc_html($label); ?></strong>
-                    
-                    <div class="cgs-form-group" style="margin-bottom: 10px; display:flex; gap: 10px;">
-                        <div style="flex: 1;">
-                            <label style="font-size:0.85em; display:block; margin-bottom:2px;"><?php esc_html_e('Font Family', 'cinematic-scroll'); ?></label>
-                            <select name="cgs_<?php echo $slug; ?>_font_family" style="width:100%; max-width: 100%;">
-                                 <?php foreach($available_fonts as $val => $name): ?>
-                                    <option value="<?php echo esc_attr($val); ?>" <?php selected($ff, $val); ?>><?php echo esc_html($name); ?></option>
-                                 <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <?php if($show_tag_option): ?>
-                        <div style="flex: 1;">
-                            <label style="font-size:0.85em; display:block; margin-bottom:2px;"><?php esc_html_e('HTML Tag', 'cinematic-scroll'); ?></label>
-                            <select name="cgs_<?php echo $slug; ?>_tag" style="width:100%;">
-                                <option value=""><?php esc_html_e('Default', 'cinematic-scroll'); ?></option>
-                                <?php foreach($tags as $t_val => $t_label): ?>
-                                    <option value="<?php echo esc_attr($t_val); ?>" <?php selected($tag, $t_val); ?>><?php echo esc_html($t_label); ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <?php endif; ?>
-                    </div>
-                    
-                    <div style="display:flex; flex-wrap:wrap; gap:10px;">
-                        <div style="flex:1; min-width: 60px;">
-                            <label style="font-size:0.85em; display:block;"><?php esc_html_e('Size', 'cinematic-scroll'); ?></label>
-                            <input type="text" name="cgs_<?php echo $slug; ?>_font_size" value="<?php echo esc_attr($fs); ?>" placeholder="16px" style="width:100%;">
-                        </div>
-                        <div style="flex:1; min-width: 80px;">
-                            <label style="font-size:0.85em; display:block;"><?php esc_html_e('Weight', 'cinematic-scroll'); ?></label>
-                            <select name="cgs_<?php echo $slug; ?>_font_weight" style="width:100%;">
-                                <option value="" <?php selected($fw, ''); ?>><?php esc_html_e('Default', 'cinematic-scroll'); ?></option>
-                                <option value="normal" <?php selected($fw, 'normal'); ?>>Normal</option>
-                                <option value="bold" <?php selected($fw, 'bold'); ?>>Bold</option>
-                                <?php foreach([100,200,300,400,500,600,700,800,900] as $w): ?>
-                                    <option value="<?php echo $w; ?>" <?php selected($fw, $w); ?>><?php echo $w; ?></option>
-                                <?php endforeach; ?>
-                            </select>
-                        </div>
-                        <div style="flex:1; min-width: 80px;">
-                            <label style="font-size:0.85em; display:block;"><?php esc_html_e('Style', 'cinematic-scroll'); ?></label>
-                            <select name="cgs_<?php echo $slug; ?>_font_style" style="width:100%;">
-                                <option value="" <?php selected($fst, ''); ?>><?php esc_html_e('Default', 'cinematic-scroll'); ?></option>
-                                <option value="normal" <?php selected($fst, 'normal'); ?>>Normal</option>
-                                <option value="italic" <?php selected($fst, 'italic'); ?>>Italic</option>
-                            </select>
-                        </div>
-                        <div style="flex:1; min-width: 60px;">
-                            <label style="font-size:0.85em; display:block;"><?php esc_html_e('Line Ht', 'cinematic-scroll'); ?></label>
-                            <input type="text" name="cgs_<?php echo $slug; ?>_line_height" value="<?php echo esc_attr($lh); ?>" placeholder="1.5" style="width:100%;">
-                        </div>
-                        <div style="flex:1; min-width: 90px;">
-                            <label style="font-size:0.85em; display:block;"><?php esc_html_e('Transform', 'cinematic-scroll'); ?></label>
-                            <select name="cgs_<?php echo $slug; ?>_text_transform" style="width:100%;">
-                                <option value="" <?php selected($tt, ''); ?>><?php esc_html_e('Default', 'cinematic-scroll'); ?></option>
-                                <option value="none" <?php selected($tt, 'none'); ?>>None</option>
-                                <option value="uppercase" <?php selected($tt, 'uppercase'); ?>>Upper</option>
-                                <option value="lowercase" <?php selected($tt, 'lowercase'); ?>>Lower</option>
-                                <option value="capitalize" <?php selected($tt, 'capitalize'); ?>>Cap</option>
-                            </select>
-                        </div>
-                        <div style="flex:1; min-width: 60px;">
-                            <label style="font-size:0.85em; display:block;"><?php esc_html_e('Spacing', 'cinematic-scroll'); ?></label>
-                            <input type="text" name="cgs_<?php echo $slug; ?>_letter_spacing" value="<?php echo esc_attr($ls); ?>" placeholder="0px" style="width:100%;">
+                <div class="cgs-settings-content-wrapper">
+                    <!-- Tab: General -->
+                    <div id="cgs-tab-general" class="cgs-settings-tab-content active">
+                        <h3><?php esc_html_e( 'General Settings', 'cinematic-scroll' ); ?></h3>
+                        
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Global Containers', 'cinematic-scroll' ); ?></span>
+                            <p class="cgs-meta-style-desc">
+                                <label for="cgs_wrapper_bg_color"><?php esc_html_e( 'Global Card Outside Color:', 'cinematic-scroll' ); ?></label>
+                                <input type="text" class="cgs-color-picker" id="cgs_wrapper_bg_color" name="cgs_wrapper_bg_color" value="<?php echo esc_attr( get_post_meta( $post->ID, '_cgs_wrapper_bg_color', true ) ); ?>" data-alpha="true">
+                            </p>
+                            <p class="cgs-meta-style-desc">
+                                <label for="cgs_content_width"><?php esc_html_e( 'Inside Card Width (Default: 1200px):', 'cinematic-scroll' ); ?></label>
+                                <input type="text" id="cgs_content_width" name="cgs_content_width" value="<?php echo esc_attr( $content_width ); ?>" placeholder="1200px">
+                            </p>
                         </div>
                     </div>
-                </div>
-            <?php } ?>
+
+                    <!-- Tab: Typography -->
+                    <div id="cgs-tab-typography" class="cgs-settings-tab-content">
+                        <h3><?php esc_html_e( 'Typography Settings', 'cinematic-scroll' ); ?></h3>
+                        <?php
+                        $typo_sections = [
+                            'title'  => __('Title Typography', 'cinematic-scroll'),
+                            'body'   => __('Body Typography', 'cinematic-scroll'),
+                            'button' => __('Button Typography', 'cinematic-scroll'),
+                        ];
+                        $available_fonts = self::get_all_fonts();
+                        foreach ($typo_sections as $slug => $label) {
+                            $ff = get_post_meta($post->ID, "_cgs_{$slug}_font_family", true);
+                            $tag = get_post_meta($post->ID, "_cgs_{$slug}_tag", true);
+                            $fs = get_post_meta($post->ID, "_cgs_{$slug}_font_size", true);
+                            $fw = get_post_meta($post->ID, "_cgs_{$slug}_font_weight", true);
+                            $fst = get_post_meta($post->ID, "_cgs_{$slug}_font_style", true);
+                            $lh = get_post_meta($post->ID, "_cgs_{$slug}_line_height", true);
+                            $tt = get_post_meta($post->ID, "_cgs_{$slug}_text_transform", true);
+                            $ls = get_post_meta($post->ID, "_cgs_{$slug}_letter_spacing", true);
+                            $tags = ['h1'=>'H1','h2'=>'H2','h3'=>'H3','h4'=>'H4','h5'=>'H5','h6'=>'H6','p'=>'P','div'=>'Result Div','span'=>'Span'];
+                            $show_tag_option = ($slug !== 'button');
+                            ?>
+                            <div class="cgs-settings-section">
+                                <span class="cgs-settings-section-title"><?php echo esc_html($label); ?></span>
+                                <div class="cgs-form-group" style="margin-bottom: 15px; display:flex; gap: 15px;">
+                                    <div style="flex: 1;">
+                                        <label style="font-size:0.9em; display:block; margin-bottom:5px;"><?php esc_html_e('Font Family', 'cinematic-scroll'); ?></label>
+                                        <select name="cgs_<?php echo $slug; ?>_font_family" style="width:100%;">
+                                             <?php foreach($available_fonts as $val => $name): ?>
+                                                <option value="<?php echo esc_attr($val); ?>" <?php selected($ff, $val); ?>><?php echo esc_html($name); ?></option>
+                                             <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <?php if($show_tag_option): ?>
+                                    <div style="flex: 1;">
+                                        <label style="font-size:0.9em; display:block; margin-bottom:5px;"><?php esc_html_e('HTML Tag', 'cinematic-scroll'); ?></label>
+                                        <select name="cgs_<?php echo $slug; ?>_tag" style="width:100%;">
+                                            <option value=""><?php esc_html_e('Default', 'cinematic-scroll'); ?></option>
+                                            <?php foreach($tags as $t_val => $t_label): ?>
+                                                <option value="<?php echo esc_attr($t_val); ?>" <?php selected($tag, $t_val); ?>><?php echo esc_html($t_label); ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <?php endif; ?>
+                                </div>
+                                <div style="display:flex; flex-wrap:wrap; gap:10px;">
+                                    <div style="flex:1; min-width: 70px;">
+                                        <label style="font-size:0.85em; display:block;"><?php esc_html_e('Size', 'cinematic-scroll'); ?></label>
+                                        <input type="text" name="cgs_<?php echo $slug; ?>_font_size" value="<?php echo esc_attr($fs); ?>" placeholder="16px" style="width:100%;">
+                                    </div>
+                                    <div style="flex:1; min-width: 90px;">
+                                        <label style="font-size:0.85em; display:block;"><?php esc_html_e('Weight', 'cinematic-scroll'); ?></label>
+                                        <select name="cgs_<?php echo $slug; ?>_font_weight" style="width:100%;">
+                                            <option value="" <?php selected($fw, ''); ?>><?php esc_html_e('Default', 'cinematic-scroll'); ?></option>
+                                            <option value="normal" <?php selected($fw, 'normal'); ?>>Normal</option>
+                                            <option value="bold" <?php selected($fw, 'bold'); ?>>Bold</option>
+                                            <?php foreach([100,200,300,400,500,600,700,800,900] as $w): ?>
+                                                <option value="<?php echo $w; ?>" <?php selected($fw, $w); ?>><?php echo $w; ?></option>
+                                            <?php endforeach; ?>
+                                        </select>
+                                    </div>
+                                    <div style="flex:1; min-width: 80px;">
+                                        <label style="font-size:0.85em; display:block;"><?php esc_html_e('Style', 'cinematic-scroll'); ?></label>
+                                        <select name="cgs_<?php echo $slug; ?>_font_style" style="width:100%;">
+                                            <option value="" <?php selected($fst, ''); ?>><?php esc_html_e('Default', 'cinematic-scroll'); ?></option>
+                                            <option value="normal" <?php selected($fst, 'normal'); ?>>Normal</option>
+                                            <option value="italic" <?php selected($fst, 'italic'); ?>>Italic</option>
+                                        </select>
+                                    </div>
+                                    <div style="flex:1; min-width: 70px;">
+                                        <label style="font-size:0.85em; display:block;"><?php esc_html_e('Line Ht', 'cinematic-scroll'); ?></label>
+                                        <input type="text" name="cgs_<?php echo $slug; ?>_line_height" value="<?php echo esc_attr($lh); ?>" placeholder="1.5" style="width:100%;">
+                                    </div>
+                                    <div style="flex:1; min-width: 100px;">
+                                        <label style="font-size:0.85em; display:block;"><?php esc_html_e('Transform', 'cinematic-scroll'); ?></label>
+                                        <select name="cgs_<?php echo $slug; ?>_text_transform" style="width:100%;">
+                                            <option value="" <?php selected($tt, ''); ?>><?php esc_html_e('Default', 'cinematic-scroll'); ?></option>
+                                            <option value="none" <?php selected($tt, 'none'); ?>>None</option>
+                                            <option value="uppercase" <?php selected($tt, 'uppercase'); ?>>Upper</option>
+                                            <option value="lowercase" <?php selected($tt, 'lowercase'); ?>>Lower</option>
+                                            <option value="capitalize" <?php selected($tt, 'capitalize'); ?>>Cap</option>
+                                        </select>
+                                    </div>
+                                    <div style="flex:1; min-width: 70px;">
+                                        <label style="font-size:0.85em; display:block;"><?php esc_html_e('Spacing', 'cinematic-scroll'); ?></label>
+                                        <input type="text" name="cgs_<?php echo $slug; ?>_letter_spacing" value="<?php echo esc_attr($ls); ?>" placeholder="0px" style="width:100%;">
+                                    </div>
+                                </div>
+                            </div>
+                        <?php } ?>
+                    </div>
+
+                    <!-- Tab: Card Design -->
+                    <div id="cgs-tab-card" class="cgs-settings-tab-content">
+                        <h3><?php esc_html_e( 'Card Design', 'cinematic-scroll' ); ?></h3>
+                        
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Card Colors', 'cinematic-scroll' ); ?></span>
+                            <p class="cgs-meta-style-desc">
+                                <label for="cgs_card_bg"><?php esc_html_e( 'Global Card Inside Color:', 'cinematic-scroll' ); ?></label>
+                                <input type="text" class="cgs-color-picker" id="cgs_card_bg" name="cgs_card_bg" value="<?php echo esc_attr( $card_bg ); ?>" data-alpha="true">
+                            </p>
+                            <p class="cgs-meta-style-desc">
+                                <label for="cgs_title_colr"><?php esc_html_e( 'Title Text Color:', 'cinematic-scroll' ); ?></label>
+                                <input type="text" class="cgs-color-picker" id="cgs_title_colr" name="cgs_title_colr" value="<?php echo esc_attr( $title_txt_colr ); ?>" data-alpha="true">
+                            </p>
+                            <p class="cgs-meta-style-desc">
+                                <label for="cgs_txt_colr"><?php esc_html_e( 'Body Text Color:', 'cinematic-scroll' ); ?></label>
+                                <input type="text" class="cgs-color-picker" id="cgs_txt_colr" name="cgs_txt_colr" value="<?php echo esc_attr( $card_txt ); ?>" data-alpha="true">
+                            </p>
+                        </div>
+
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Card Border', 'cinematic-scroll' ); ?></span>
+                            <p class="cgs-meta-style-desc">
+                                <label for="cgs_card_border_clr"><?php esc_html_e( 'Color:', 'cinematic-scroll' ); ?></label>
+                                <input type="text" class="cgs-color-picker" id="cgs_card_border_clr" name="cgs_card_border_clr" value="<?php echo esc_attr( $card_border_clr ); ?>" data-alpha="true">
+                                <label for="cgs_card_border_width"><?php esc_html_e( 'Width (px):', 'cinematic-scroll' ); ?></label>
+                                <input type="number" id="cgs_card_border_width" name="cgs_card_border_width" value="<?php echo esc_attr( $card_border_width ); ?>" min="0" style="width:60px;">
+                                <label><?php esc_html_e( 'Style:', 'cinematic-scroll' ); ?></label>
+                                <select id="cgs_card_border_style" name="cgs_card_border_style">
+                                    <option value="none" <?php selected( $card_border_style, 'none' ); ?>><?php esc_html_e( 'None', 'cinematic-scroll' ); ?></option>
+                                    <option value="solid" <?php selected( $card_border_style, 'solid' ); ?>><?php esc_html_e( 'Solid', 'cinematic-scroll' ); ?></option>
+                                    <option value="dashed" <?php selected( $card_border_style, 'dashed' ); ?>><?php esc_html_e( 'Dashed', 'cinematic-scroll' ); ?></option>
+                                    <option value="dotted" <?php selected( $card_border_style, 'dotted' ); ?>><?php esc_html_e( 'Dotted', 'cinematic-scroll' ); ?></option>
+                                    <option value="double" <?php selected( $card_border_style, 'double' ); ?>><?php esc_html_e( 'Double', 'cinematic-scroll' ); ?></option>
+                                </select>
+                            </p>
+                        </div>
+
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Radius & Shadow', 'cinematic-scroll' ); ?></span>
+                            <p class="cgs-meta-style-desc">
+                                <strong><?php esc_html_e( 'Card Border Radius (px):', 'cinematic-scroll' ); ?></strong><br>
+                                <?php esc_html_e( 'TL', 'cinematic-scroll' ); ?> <input type="number" name="cgs_card_radius_top_lt" value="<?php echo esc_attr( $r_tl ); ?>" min="0" style="width:50px;">
+                                <?php esc_html_e( 'TR', 'cinematic-scroll' ); ?> <input type="number" name="cgs_card_radius_top_rt" value="<?php echo esc_attr( $r_tr ); ?>" min="0" style="width:50px;">
+                                <?php esc_html_e( 'BR', 'cinematic-scroll' ); ?> <input type="number" name="cgs_card_radius_btm_rt" value="<?php echo esc_attr( $r_br ); ?>" min="0" style="width:50px;">
+                                <?php esc_html_e( 'BL', 'cinematic-scroll' ); ?> <input type="number" name="cgs_card_radius_btm_lt" value="<?php echo esc_attr( $r_bl ); ?>" min="0" style="width:50px;">
+                            </p>
+                            <p class="cgs-meta-style-desc" style="margin-top:15px;">
+                                <label for="cgs_card_shadow"><?php esc_html_e( 'Card Box Shadow (CSS):', 'cinematic-scroll' ); ?></label>
+                                <input type="text" id="cgs_card_shadow" name="cgs_card_shadow" value="<?php echo esc_attr( $shadow ); ?>" placeholder="e.g. 0 4px 10px rgba(0,0,0,0.2)" style="width:100%;">
+                            </p>
+                        </div>
+
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Spacing', 'cinematic-scroll' ); ?></span>
+                            <p class="cgs-meta-style-desc">
+                                <strong><?php esc_html_e( 'Card Padding (px):', 'cinematic-scroll' ); ?></strong><br>
+                                <?php esc_html_e( 'Top', 'cinematic-scroll' ); ?> <input type="number" name="cgs_padding_top" value="<?php echo esc_attr( $padding_top ); ?>" min="0" style="width:50px;">
+                                <?php esc_html_e( 'Right', 'cinematic-scroll' ); ?> <input type="number" name="cgs_padding_right" value="<?php echo esc_attr( $padding_right ); ?>" min="0" style="width:50px;">
+                                <?php esc_html_e( 'Bottom', 'cinematic-scroll' ); ?> <input type="number" name="cgs_padding_bottom" value="<?php echo esc_attr( $padding_bottom ); ?>" min="0" style="width:50px;">
+                                <?php esc_html_e( 'Left', 'cinematic-scroll' ); ?> <input type="number" name="cgs_padding_left" value="<?php echo esc_attr( $padding_left ); ?>" min="0" style="width:50px;">
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Button Design -->
+                    <div id="cgs-tab-button" class="cgs-settings-tab-content">
+                        <h3><?php esc_html_e( 'Button Design', 'cinematic-scroll' ); ?></h3>
+                        
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Colors & Size', 'cinematic-scroll' ); ?></span>
+                            <p class="cgs-meta-style-desc">
+                                <label for="cgs_button_bg"><?php esc_html_e( 'Background:', 'cinematic-scroll' ); ?></label>
+                                <input type="text" class="cgs-color-picker" id="cgs_button_bg" name="cgs_button_bg" value="<?php echo esc_attr( $button_bg ); ?>" data-alpha="true">
+                                <label for="cgs_button_text" style="margin-left:15px;"><?php esc_html_e( 'Text Color:', 'cinematic-scroll' ); ?></label>
+                                <input type="text" class="cgs-color-picker" id="cgs_button_text" name="cgs_button_text" value="<?php echo esc_attr( $button_text ); ?>" data-alpha="true">
+                            </p>
+                            <p class="cgs-meta-style-desc">
+                                <label for="cgs_btn_width"><?php esc_html_e( 'Button Width:', 'cinematic-scroll' ); ?></label>
+                                <input type="text" id="cgs_btn_width" name="cgs_btn_width" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_width', true) ); ?>" placeholder="e.g. 200px">
+                            </p>
+                        </div>
+
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Dimensions', 'cinematic-scroll' ); ?></span>
+                            <div style="display:flex; flex-wrap:wrap; gap:20px;">
+                                <div>
+                                    <strong><?php esc_html_e( 'Padding (px):', 'cinematic-scroll' ); ?></strong><br>
+                                    <?php foreach ( [ 'top', 'right', 'bottom', 'left' ] as $pos ): ?>
+                                        <label style="font-size:0.85em;"><?php echo ucfirst($pos); ?> <input type="number" name="cgs_btn_padding_<?php echo $pos; ?>" value="<?php echo esc_attr( get_post_meta($post->ID, "_cgs_btn_padding_{$pos}", true) ); ?>" style="width:50px;"></label>
+                                    <?php endforeach; ?>
+                                </div>
+                                <div>
+                                    <strong><?php esc_html_e( 'Radius (px):', 'cinematic-scroll' ); ?></strong><br>
+                                    <?php
+                                    $radius_fields = [ 'top_lt' => 'TL', 'top_rt' => 'TR', 'btm_rt' => 'BR', 'btm_lt' => 'BL' ];
+                                    foreach ( $radius_fields as $key => $label ): ?>
+                                        <label style="font-size:0.85em;"><?php echo $label; ?> <input type="number" name="cgs_btn_radius_<?php echo $key; ?>" value="<?php echo esc_attr( get_post_meta($post->ID, "_cgs_btn_radius_{$key}", true) ); ?>" style="width:50px;"></label>
+                                    <?php endforeach; ?>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Border & Shadow', 'cinematic-scroll' ); ?></span>
+                            <p class="cgs-meta-style-desc">
+                                <label><?php esc_html_e('Width', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_border_width" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_border_width', true) ); ?>" style="width:60px;"></label>
+                                <label><?php esc_html_e('Style', 'cinematic-scroll'); ?>
+                                <select name="cgs_btn_border_style" style="width:100px;">
+                                    <option value="none" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'none' ); ?>>None</option>
+                                    <option value="solid" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'solid' ); ?>>Solid</option>
+                                    <option value="dashed" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'dashed' ); ?>>Dashed</option>
+                                    <option value="dotted" <?php selected( get_post_meta($post->ID, '_cgs_btn_border_style', true), 'dotted' ); ?>>Dotted</option>
+                                </select></label>
+                                <label><?php esc_html_e('Color', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_border_color" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_border_color', true) ); ?>" data-alpha="true"></label>
+                            </p>
+                            <p class="cgs-meta-style-desc">
+                                <label><?php esc_html_e('Shadow', 'cinematic-scroll'); ?> <input type="text" name="cgs_btn_shadow" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_shadow', true) ); ?>" placeholder="e.g. 0 5px 15px rgba(0,0,0,0.1)" style="width:60%;"></label>
+                            </p>
+                            <p class="cgs-meta-style-desc">
+                                <label><?php esc_html_e('Scale', 'cinematic-scroll'); ?> <input type="number" step="0.01" name="cgs_btn_scale" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_scale', true) ); ?>" placeholder="1" style="width:60px;"></label>
+                                <label style="margin-left:15px;"><?php esc_html_e('Lift (px)', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_lift" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_lift', true) ); ?>" placeholder="0" style="width:60px;"></label>
+                            </p>
+                        </div>
+
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Hover State', 'cinematic-scroll' ); ?></span>
+                            <div style="display:flex; flex-wrap:wrap; gap:15px; align-items:center;">
+                                <label><?php esc_html_e('Hover Bg', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_hover_bg" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_bg', true) ); ?>" data-alpha="true"></label>
+                                <label><?php esc_html_e('Hover Text', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_hover_text" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_text', true) ); ?>" data-alpha="true"></label>
+                                <label><?php esc_html_e('Hover Border', 'cinematic-scroll'); ?> <input type="text" class="cgs-color-picker" name="cgs_btn_hover_border_color" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_border_color', true) ); ?>" data-alpha="true"></label>
+                            </div>
+                            <p class="cgs-meta-style-desc" style="margin-top:15px;">
+                                <label><?php esc_html_e('Hover Shadow', 'cinematic-scroll'); ?> <input type="text" name="cgs_btn_hover_shadow" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_shadow', true) ); ?>" placeholder="e.g. 0 8px 25px rgba(0,0,0,0.2)" style="width:60%;"></label>
+                            </p>
+                            <p class="cgs-meta-style-desc">
+                                <label><?php esc_html_e('Hover Scale', 'cinematic-scroll'); ?> <input type="number" step="0.01" name="cgs_btn_hover_scale" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_scale', true) ); ?>" placeholder="1.05" style="width:70px;"></label>
+                                <label style="margin-left:15px;"><?php esc_html_e('Hover Lift', 'cinematic-scroll'); ?> <input type="number" name="cgs_btn_hover_lift" value="<?php echo esc_attr( get_post_meta($post->ID, '_cgs_btn_hover_lift', true) ); ?>" placeholder="5" style="width:60px;"></label>
+                            </p>
+                        </div>
+                    </div>
+
+                    <!-- Tab: Media Options -->
+                    <div id="cgs-tab-media" class="cgs-settings-tab-content">
+                        <h3><?php esc_html_e( 'Media Options', 'cinematic-scroll' ); ?></h3>
+                        
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Image Border Radius', 'cinematic-scroll' ); ?></span>
+                            <p class="cgs-meta-style-desc">
+                                <?php esc_html_e( 'Top-Left', 'cinematic-scroll' ); ?> <input type="number" name="cgs_img_radius_top_lt" value="<?php echo esc_attr( $img_tl ); ?>" min="0" style="width:60px;">
+                                <?php esc_html_e( 'Top-Right', 'cinematic-scroll' ); ?> <input type="number" name="cgs_img_radius_top_rt" value="<?php echo esc_attr( $img_tr ); ?>" min="0" style="width:60px;">
+                                <?php esc_html_e( 'Bottom-Right', 'cinematic-scroll' ); ?> <input type="number" name="cgs_img_radius_btm_rt" value="<?php echo esc_attr( $img_br ); ?>" min="0" style="width:60px;">
+                                <?php esc_html_e( 'Bottom-Left', 'cinematic-scroll' ); ?> <input type="number" name="cgs_img_radius_btm_lt" value="<?php echo esc_attr( $img_bl ); ?>" min="0" style="width:60px;">
+                            </p>
+                        </div>
+
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Image Layout', 'cinematic-scroll' ); ?></span>
+                            <?php if ( 'horizontal' === $layout ) { ?>
+                            <p class="cgs-meta-style-desc">
+                                <label for="cgs_img_position"><?php esc_html_e( 'Image Position (Horizontal):', 'cinematic-scroll' ); ?></label>
+                                <select id="cgs_img_position" name="cgs_img_position">
+                                    <option value="left" <?php selected( $img_position, 'left' ); ?>><?php esc_html_e( 'Left', 'cinematic-scroll' ); ?></option>
+                                    <option value="right" <?php selected( $img_position, 'right' ); ?>><?php esc_html_e( 'Right', 'cinematic-scroll' ); ?></option>
+                                    <option value="top" <?php selected( $img_position, 'top' ); ?>><?php esc_html_e( 'Top', 'cinematic-scroll' ); ?></option>
+                                    <option value="bottom" <?php selected( $img_position, 'bottom' ); ?>><?php esc_html_e( 'Bottom', 'cinematic-scroll' ); ?></option>
+                                </select>
+                            </p>
+                            <?php } else if('vertical' === $layout){?>
+                            <p class="cgs-meta-style-desc">
+                                <label for="cgs_vert_img_position"><?php esc_html_e( 'Image Position (Vertical):', 'cinematic-scroll' ); ?></label>
+                                <select id="cgs_vert_img_position" name="cgs_vert_img_position">
+                                    <option value="left" <?php selected( $ver_img_position, 'left' ); ?>><?php esc_html_e( 'Left', 'cinematic-scroll' ); ?></option>
+                                    <option value="right" <?php selected( $ver_img_position, 'right' ); ?>><?php esc_html_e( 'Right', 'cinematic-scroll' ); ?></option>
+                                </select>
+                            </p>
+                            <?php } ?>
+                        </div>
+                    </div>
+                </div> <!-- .cgs-settings-content-wrapper -->
+            </div> <!-- .cgs-settings-wrapper -->
             <?php
-        }
+        } // End render_style_meta_box
 
         public function save_style_meta_box( $post_id ) {
             // Bail early on autosave
             if ( defined( 'DOING_AUTOSAVE' ) && DOING_AUTOSAVE ) {
                 return;
-            }
-
-            if ( isset( $_POST['cgs_layout_nonce_field'] ) && wp_verify_nonce( $_POST['cgs_layout_nonce_field'], 'cgs_layout_nonce' ) && isset( $_POST['cgs_layout'] ) ) {
-                update_post_meta( $post_id, '_cgs_layout', sanitize_key( $_POST['cgs_layout'] ) );
             }
 
 

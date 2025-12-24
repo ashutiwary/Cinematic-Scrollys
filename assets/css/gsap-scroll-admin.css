@@ -234,3 +234,146 @@ body.js-cgs-ready .cgs-carousel-item-content {
             "style";
     }
 }
+
+/* ========================================
+   Global Settings Tabbed Interface
+   ======================================== */
+.cgs-settings-wrapper {
+    display: flex;
+    gap: 0;
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    overflow: hidden;
+    min-height: 400px;
+}
+
+.cgs-settings-sidebar {
+    flex: 0 0 180px;
+    background: #f7f7f7;
+    border-right: 1px solid #ddd;
+    padding: 0;
+}
+
+.cgs-settings-tabs {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.cgs-settings-tab-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 14px 16px;
+    cursor: pointer;
+    border-bottom: 1px solid #eee;
+    transition: background 0.2s, color 0.2s;
+    font-size: 13px;
+    font-weight: 500;
+    color: #555;
+}
+
+.cgs-settings-tab-link:hover {
+    background: #eee;
+    color: #333;
+}
+
+.cgs-settings-tab-link.active {
+    background: #fff;
+    color: #0073aa;
+    border-right: 3px solid #0073aa;
+    margin-right: -1px;
+}
+
+.cgs-settings-tab-link .dashicons {
+    font-size: 16px;
+    width: 16px;
+    height: 16px;
+}
+
+.cgs-settings-content-wrapper {
+    flex: 1;
+    padding: 20px;
+    overflow-y: auto;
+}
+
+.cgs-settings-tab-content {
+    display: none;
+}
+
+.cgs-settings-tab-content.active {
+    display: block;
+}
+
+.cgs-settings-tab-content h3 {
+    margin-top: 0;
+    margin-bottom: 20px;
+    padding-bottom: 10px;
+    border-bottom: 1px solid #eee;
+    color: #333;
+    font-size: 1.2em;
+}
+
+.cgs-settings-section {
+    margin-bottom: 25px;
+    padding: 15px;
+    background: #fafafa;
+    border: 1px solid #eee;
+    border-radius: 6px;
+}
+
+.cgs-settings-section-title {
+    display: block;
+    font-weight: 600;
+    color: #0073aa;
+    margin-bottom: 15px;
+    font-size: 0.95em;
+}
+
+.cgs-settings-section .cgs-meta-style-desc {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.cgs-settings-section .cgs-meta-style-desc label {
+    font-weight: 500;
+    color: #444;
+    font-size: 0.9em;
+}
+
+/* Responsive: Stack sidebar on smaller screens */
+@media (max-width: 768px) {
+    .cgs-settings-wrapper {
+        flex-direction: column;
+    }
+
+    .cgs-settings-sidebar {
+        flex: none;
+        width: 100%;
+        border-right: none;
+        border-bottom: 1px solid #ddd;
+    }
+
+    .cgs-settings-tabs {
+        display: flex;
+        flex-wrap: wrap;
+    }
+
+    .cgs-settings-tab-link {
+        flex: 1;
+        justify-content: center;
+        text-align: center;
+        border-bottom: none;
+        border-right: 1px solid #eee;
+    }
+
+    .cgs-settings-tab-link.active {
+        border-right: 1px solid #eee;
+        border-bottom: 3px solid #0073aa;
+        margin-right: 0;
+    }
+}

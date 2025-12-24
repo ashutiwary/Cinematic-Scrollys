@@ -99,6 +99,19 @@ jQuery(function ($) {
       });
     }
 
+    // Global Settings Tabs
+    $('.cgs-settings-tab-link').on('click', function () {
+      const tabId = $(this).data('tab');
+
+      // Update active link
+      $('.cgs-settings-tab-link').removeClass('active');
+      $(this).addClass('active');
+
+      // Update active content
+      $('.cgs-settings-tab-content').removeClass('active');
+      $('#' + tabId).addClass('active');
+    });
+
     function toggleCollapse(idx, isCollapsed) {
       collapseState[idx] = isCollapsed;
       localStorage.setItem(storageKey, JSON.stringify(collapseState));

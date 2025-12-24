@@ -238,12 +238,18 @@ body.js-cgs-ready .cgs-carousel-item-content {
 /* ========================================
    Global Settings Tabbed Interface
    ======================================== */
+
+/* Override WordPress default metabox padding/margin for Carousel Style Settings */
+#cgs_style .inside {
+    margin: 0 !important;
+    padding: 0 !important;
+}
+
 .cgs-settings-wrapper {
+
     display: flex;
     gap: 0;
     background: #fff;
-    border: 1px solid #ddd;
-    border-radius: 8px;
     overflow: hidden;
     min-height: 400px;
 }

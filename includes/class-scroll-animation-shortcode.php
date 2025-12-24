@@ -362,8 +362,8 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                 $btn_bg_color = ! empty($item['btn_bg_color']) ? $item['btn_bg_color'] : '';
                 $btn_text_color = ! empty($item['btn_text_color']) ? $item['btn_text_color'] : '';
                 $card_border_color = ! empty($item['card_border_color']) ? $item['card_border_color'] : '';
-                $card_border_width = ! empty($item['card_border_width']) ? $item['card_border_width'] : '';
-                $card_border_style = ! empty($item['card_border_style']) ? $item['card_border_style'] : '';
+                $per_card_border_width = ! empty($item['card_border_width']) ? $item['card_border_width'] : '';
+                $per_card_border_style = ! empty($item['card_border_style']) ? $item['card_border_style'] : '';
 
                 $card_bg_image_id = ! empty($item['card_bg_image']) ? $item['card_bg_image'] : '';
                 $card_bg_image_url = $card_bg_image_id ? wp_get_attachment_image_url($card_bg_image_id, 'full') : '';
@@ -413,11 +413,11 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                     $has_bg_image = true;
                 }
 
-                // Inner Card Styles
-                if ($bg_color === '#000000') {
-                  $inner_style .= "background-color: {$card_bg}; ";
-                } else {
+                // Inner Card Styles - Use per-card color if set, otherwise fall back to global
+                if (!empty($bg_color)) {
                   $inner_style .= "background-color: {$bg_color}; ";
+                } else {
+                  $inner_style .= "background-color: {$card_bg}; ";
                 }
                 
                 // Outer Card (Wrapper) Styles
@@ -425,7 +425,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                 $global_wrapper_bg = get_post_meta($post_id, '_cgs_wrapper_bg_color', true);
                 
                 $final_wrapper_bg = '';
-                if ( !empty($per_card_wrapper_bg) && $per_card_wrapper_bg !== '#000000' ) { 
+                if ( !empty($per_card_wrapper_bg) ) { 
                     $final_wrapper_bg = $per_card_wrapper_bg;
                 } elseif ( !empty($global_wrapper_bg) ) {
                     $final_wrapper_bg = $global_wrapper_bg;
@@ -435,15 +435,15 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                     $wrapper_style .= "background-color: {$final_wrapper_bg}; ";
                 }
                 
-                if ($text_color === '#000000') {
-                  $inner_style .= "color: {$card_txt}; ";
-                } else {
+                if (!empty($text_color)) {
                   $inner_style .= "color: {$text_color}; ";
-                }
-                if ($btn_bg_color === '#000000') {
-                  $btn_style .= "background-color: {$btn_bg}; color: {$btn_txt}; ";
                 } else {
+                  $inner_style .= "color: {$card_txt}; ";
+                }
+                if (!empty($btn_bg_color)) {
                   $btn_style .= "background-color: {$btn_bg_color}; color: {$btn_text_color}; ";
+                } else {
+                  $btn_style .= "background-color: {$btn_bg}; color: {$btn_txt}; ";
                 }
                 
                 if(isset($item['btn_width']) && $item['btn_width'] !== '') $btn_style .= "width:{$item['btn_width']}; display:inline-block; text-align:center;";
@@ -480,16 +480,23 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                    if(isset($item[$key]) && $item[$key] !== '') $btn_style .= "{$prop}:{$item[$key]}px;";
                 }
 
-                if ($card_border_color === '#000000') {
-                  $inner_style .= "border-color: {$card_border_clr}; ";
-                } else {
+                // Apply per-card border if set, otherwise fall back to global border
+                if (!empty($card_border_color)) {
                   $inner_style .= "border-color: {$card_border_color}; ";
+                } else if (!empty($card_border_clr)) {
+                  $inner_style .= "border-color: {$card_border_clr}; ";
                 }
-                if (!empty($card_border_width)) {
-                  $inner_style .= "border-width: {$card_border_width}px; ";
+                
+                // Border width: per-card > global
+                $final_border_width = !empty($per_card_border_width) ? $per_card_border_width : $card_border_width;
+                if (!empty($final_border_width) && $final_border_width !== '0') {
+                  $inner_style .= "border-width: {$final_border_width}px; ";
                 }
-                if (!empty($card_border_style)) {
-                  $inner_style .= "border-style: {$card_border_style}; ";
+                
+                // Border style: per-card > global
+                $final_border_style = !empty($per_card_border_style) ? $per_card_border_style : $card_border_style;
+                if (!empty($final_border_style) && $final_border_style !== 'none') {
+                  $inner_style .= "border-style: {$final_border_style}; ";
                 }
 
                 // Default global position is now 'bottom' (from previous code) but we want 'left'/'right' logic
@@ -570,8 +577,8 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                 $btn_bg_color = ! empty($item['btn_bg_color']) ? $item['btn_bg_color'] : '';
                 $btn_text_color = ! empty($item['btn_text_color']) ? $item['btn_text_color'] : '';
                 $card_border_color = ! empty($item['card_border_color']) ? $item['card_border_color'] : '';
-                $card_border_width = ! empty($item['card_border_width']) ? $item['card_border_width'] : '';
-                $card_border_style = ! empty($item['card_border_style']) ? $item['card_border_style'] : '';
+                $per_card_border_width = ! empty($item['card_border_width']) ? $item['card_border_width'] : '';
+                $per_card_border_style = ! empty($item['card_border_style']) ? $item['card_border_style'] : '';
 
                 // Typography Inline Overrides
                 $title_style = "";
@@ -594,31 +601,37 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                 // Generate the inline style
                 $style = '';
                 $btn_style = $btn_typo_style;
-                if ($bg_color === '#000000') {
-                  $style .= "background-color: {$card_bg}; ";
-                } else {
+                if (!empty($bg_color)) {
                   $style .= "background-color: {$bg_color}; ";
-                }
-                if ($text_color === '#000000') {
-                  $style .= "color: {$card_txt}; ";
                 } else {
+                  $style .= "background-color: {$card_bg}; ";
+                }
+                if (!empty($text_color)) {
                   $style .= "color: {$text_color}; ";
-                }
-                if ($btn_bg_color === '#000000') {
-                  $btn_style .= "background-color: {$btn_bg}; color: {$btn_txt}; ";
                 } else {
+                  $style .= "color: {$card_txt}; ";
+                }
+                if (!empty($btn_bg_color)) {
                   $btn_style .= "background-color: {$btn_bg_color}; color: {$btn_text_color}; ";
-                }
-                if ($card_border_color === '#000000') {
-                  $style .= "border-color: {$card_border_clr}; ";
                 } else {
+                  $btn_style .= "background-color: {$btn_bg}; color: {$btn_txt}; ";
+                }
+                if (!empty($card_border_color)) {
                   $style .= "border-color: {$card_border_color}; ";
+                } else if (!empty($card_border_clr)) {
+                  $style .= "border-color: {$card_border_clr}; ";
                 }
-                if (!empty($card_border_width)) {
-                  $style .= "border-width: {$card_border_width}px; ";
+                
+                // Border width: per-card > global
+                $final_border_width = !empty($per_card_border_width) ? $per_card_border_width : $card_border_width;
+                if (!empty($final_border_width) && $final_border_width !== '0') {
+                  $style .= "border-width: {$final_border_width}px; ";
                 }
-                if (!empty($card_border_style)) {
-                  $style .= "border-style: {$card_border_style}; ";
+                
+                // Border style: per-card > global
+                $final_border_style = !empty($per_card_border_style) ? $per_card_border_style : $card_border_style;
+                if (!empty($final_border_style) && $final_border_style !== 'none') {
+                  $style .= "border-style: {$final_border_style}; ";
                 }
 
                 // If no custom styles, apply the global styles

@@ -61,7 +61,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
       $padding_left = get_post_meta($post_id, '_cgs_padding_left', true) ?: '0';
       // Card shadow and image position
       $shd     = get_post_meta($post_id, '_cgs_card_shadow', true) ?: '';
-      $img_position = get_post_meta($post_id, '_cgs_img_position', true) ?: 'top';
+      $img_position = get_post_meta($post_id, '_cgs_img_position', true) ?: 'left';
       $ver_img_position = get_post_meta($post_id, '_cgs_vert_img_position', true) ?: 'right';
       $content_width = get_post_meta($post_id, '_cgs_content_width', true) ?: '1200px';
 

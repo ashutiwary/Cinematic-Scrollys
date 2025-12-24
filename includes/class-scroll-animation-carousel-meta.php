@@ -113,18 +113,20 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
                                 
                                 <div class="cgs-form-group">
                                     <?php $layout = get_post_meta($post->ID, '_cgs_layout', true);
-                                    $img_position = isset($itm['img_position']) ? $itm['img_position'] : 'top';
+                                    $img_position = isset($itm['img_position']) ? $itm['img_position'] : 'left';
                                     $ver_img_position = isset($itm['ver_img_position']) ? $itm['ver_img_position'] : 'right';
                                     ?>
                                     <?php if ('horizontal' === $layout) { ?>
-                                        <label for="cgs_carousel_items_<?php echo $i; ?>_img_position"><?php esc_html_e('Image Position (v1.1.1)', 'cinematic-scroll'); ?></label>
+                                        <label for="cgs_carousel_items_<?php echo $i; ?>_img_position"><?php esc_html_e('Image Position', 'cinematic-scroll'); ?></label>
                                         <select id="cgs_carousel_items_<?php echo $i; ?>_img_position" name="cgs_carousel_items[<?php echo $i; ?>][img_position]">
+                                            <option value="" <?php selected($img_position, ''); ?>><?php esc_html_e('Default (Global)', 'cinematic-scroll'); ?></option>
                                             <option value="left" <?php selected($img_position, 'left'); ?>><?php esc_html_e('Left', 'cinematic-scroll'); ?></option>
                                             <option value="right" <?php selected($img_position, 'right'); ?>><?php esc_html_e('Right', 'cinematic-scroll'); ?></option>
                                         </select>
                                     <?php } elseif ('vertical' === $layout) { ?>
                                         <label for="cgs_carousel_items_<?php echo $i; ?>_ver_img_position"><?php esc_html_e('Image Position', 'cinematic-scroll'); ?></label>
                                         <select id="cgs_carousel_items_<?php echo $i; ?>_ver_img_position" name="cgs_carousel_items[<?php echo $i; ?>][ver_img_position]">
+                                            <option value="" <?php selected($ver_img_position, ''); ?>><?php esc_html_e('Default (Global)', 'cinematic-scroll'); ?></option>
                                             <option value="left" <?php selected($ver_img_position, 'left'); ?>><?php esc_html_e('Left', 'cinematic-scroll'); ?></option>
                                             <option value="right" <?php selected($ver_img_position, 'right'); ?>><?php esc_html_e('Right', 'cinematic-scroll'); ?></option>
                                         </select>

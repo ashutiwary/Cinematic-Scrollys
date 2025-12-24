@@ -269,13 +269,15 @@ jQuery(function ($) {
                 
                 <div class="cgs-form-group">
                 ${layout === "horizontal"
-          ? `<label>Image Position (v1.1.1)</label>
+          ? `<label>Image Position</label>
                      <select name="cgs_carousel_items[${idx}][img_position]">
+                        <option value="" selected>Default (Global)</option>
                         <option value="left">Left</option>
                         <option value="right">Right</option>
                      </select>`
           : `<label>Image Position</label>
                      <select name="cgs_carousel_items[${idx}][ver_img_position]">
+                        <option value="" selected>Default (Global)</option>
                         <option value="left">Left</option>
                         <option value="right">Right</option>
                      </select>`

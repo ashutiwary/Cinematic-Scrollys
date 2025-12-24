@@ -178,7 +178,7 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
             $padding_left = get_post_meta( $post->ID, '_cgs_padding_left', true ) ?: '0';
             // Card shadow and image position
             $shadow       = get_post_meta( $post->ID, '_cgs_card_shadow', true );
-            $img_position = get_post_meta( $post->ID, '_cgs_img_position', true ) ?: 'bottom';
+            $img_position = get_post_meta( $post->ID, '_cgs_img_position', true ) ?: 'left';
             $ver_img_position = get_post_meta( $post->ID, '_cgs_vert_img_position', true ) ?: 'right';
             ?>
             <div class="cgs-settings-wrapper">
@@ -481,8 +481,6 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                                 <select id="cgs_img_position" name="cgs_img_position">
                                     <option value="left" <?php selected( $img_position, 'left' ); ?>><?php esc_html_e( 'Left', 'cinematic-scroll' ); ?></option>
                                     <option value="right" <?php selected( $img_position, 'right' ); ?>><?php esc_html_e( 'Right', 'cinematic-scroll' ); ?></option>
-                                    <option value="top" <?php selected( $img_position, 'top' ); ?>><?php esc_html_e( 'Top', 'cinematic-scroll' ); ?></option>
-                                    <option value="bottom" <?php selected( $img_position, 'bottom' ); ?>><?php esc_html_e( 'Bottom', 'cinematic-scroll' ); ?></option>
                                 </select>
                             </p>
                             <?php } else if('vertical' === $layout){?>

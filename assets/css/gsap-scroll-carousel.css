@@ -18,7 +18,6 @@
   /* Modern browsers: respects dynamic address bar */
   display: flex;
   align-items: center;
-  justify-content: center;
   position: sticky;
   top: 0;
 }

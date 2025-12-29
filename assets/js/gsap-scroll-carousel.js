@@ -2,6 +2,13 @@ document.addEventListener("DOMContentLoaded", function () {
   if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
   gsap.registerPlugin(ScrollTrigger);
 
+  // Mobile optimization: prevent unnecessary refreshes on address bar changes
+  ScrollTrigger.config({
+    ignoreMobileResize: true
+  });
+
+  // Detect touch devices for optimized scrolling
+  const isTouchDevice = window.matchMedia("(pointer: coarse)").matches;
 
   const layoutElement = document.querySelector('.cgs-carousel-outer');
   const layout = layoutElement ? layoutElement.getAttribute('data-layout') : 'horizontal';
@@ -49,37 +56,55 @@ document.addEventListener("DOMContentLoaded", function () {
     // Vertical Stack Carousel
     document.querySelectorAll(".cgs-carousel-outer").forEach(function (outer) {
       const cards = gsap.utils.toArray(".cgs-stack-card");
-      const spacer = 20;
-      const minScale = 0.8;
+      if (cards.length === 0) return;
 
-      const distributor = gsap.utils.distribute({ base: minScale, amount: 0.2 });
+      const headerHeight = getHeaderHeight();
+      const spacer = 30; // Space between stacked cards
+      const minScale = 0.9; // Cards scale down to 90% when stacked
 
       cards.forEach((card, index) => {
-        const scaleVal = distributor(index, cards[index], cards);
-
-        const tween = gsap.to(card, {
-          scrollTrigger: {
-            trigger: card,
-            start: `top top`,
-            scrub: true,
-            // markers: true,
-            invalidateOnRefresh: true
-          },
-          ease: "none",
-          scale: scaleVal
-        });
-
+        // Pin each card at the top as user scrolls
         ScrollTrigger.create({
           trigger: card,
-          start: `top-=${index * spacer} top`,
-          endTrigger: '.cards',
-          end: `bottom top+=${200 + (cards.length * spacer)}`,
+          start: `top top+=${headerHeight + (index * spacer)}`,
+          endTrigger: cards[cards.length - 1], // Last card ends the animation
+          end: `top top+=${headerHeight + (index * spacer) + 100}`,
           pin: true,
           pinSpacing: false,
-          // markers: true,
-          id: 'pin',
           invalidateOnRefresh: true,
+          id: `pin-${index}`,
         });
+
+        // Scale down this card as the NEXT card scrolls over it
+        if (index < cards.length - 1) {
+          gsap.to(card, {
+            scrollTrigger: {
+              trigger: cards[index + 1],
+              start: "top bottom",
+              end: `top top+=${headerHeight + ((index + 1) * spacer)}`,
+              scrub: isTouchDevice ? 0.5 : 1,
+              invalidateOnRefresh: true,
+            },
+            scale: minScale,
+            ease: "none"
+          });
+        }
+      });
+
+      // Handle resize for vertical layout
+      let resizeTimeout;
+      window.addEventListener("resize", function () {
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(function () {
+          ScrollTrigger.refresh();
+        }, 100);
+      });
+
+      // Handle orientation change
+      window.addEventListener("orientationchange", function () {
+        setTimeout(function () {
+          ScrollTrigger.refresh(true);
+        }, 200);
       });
     });
 
@@ -131,13 +156,13 @@ document.addEventListener("DOMContentLoaded", function () {
           end: () => "+=" + maxScroll,
           pin: true,
           pinSpacing: true,
-          scrub: 1,
+          scrub: isTouchDevice ? 0.5 : 1, // Faster response on touch devices
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
             gsap.to(carousel, {
               x: -maxScroll * self.progress,
-              duration: 0.1,
+              duration: isTouchDevice ? 0.05 : 0.1, // Faster on touch
               overwrite: "auto",
               ease: "none",
             });
@@ -157,6 +182,15 @@ document.addEventListener("DOMContentLoaded", function () {
           initCarousel();
           ScrollTrigger.refresh();
         }, 100);
+      });
+
+      // Mobile: Handle orientation changes
+      window.addEventListener("orientationchange", function () {
+        // Delay to allow browser to finish orientation change
+        setTimeout(function () {
+          initCarousel();
+          ScrollTrigger.refresh(true); // true = force recalc
+        }, 200);
       });
     });
   }

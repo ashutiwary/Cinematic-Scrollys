@@ -568,9 +568,10 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
           </div>
         <?php } else if ('vertical' === $layout) { ?>
           <!-- frontend design for vertical stack -->
-          <div class='cgs-vertical-container'>
-            <div class='cgs-vertical-cards'>
-              <?php foreach ($items as $index => $item) :
+          <div class="cgs-vertical-wrapper" id="<?php echo esc_attr($cid); ?>">
+            <div class="cgs-vertical-cards">
+              <?php foreach ($items as $i => $item) :
+                $img = ! empty($item['image']) ? wp_get_attachment_image_url($item['image'], 'large') : '';
                 // Get each card style
                 $bg_color   = ! empty($item['card_bg_color']) ? $item['card_bg_color'] : '';
                 $text_color = ! empty($item['text_color']) ? $item['text_color'] : '';
@@ -580,10 +581,13 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                 $per_card_border_width = ! empty($item['card_border_width']) ? $item['card_border_width'] : '';
                 $per_card_border_style = ! empty($item['card_border_style']) ? $item['card_border_style'] : '';
 
+                $card_bg_image_id = ! empty($item['card_bg_image']) ? $item['card_bg_image'] : '';
+                $card_bg_image_url = $card_bg_image_id ? wp_get_attachment_image_url($card_bg_image_id, 'full') : '';
+
                 // Typography Inline Overrides
                 $title_style = "";
                 $body_style = "";
-                $btn_typo_style = ""; 
+                $btn_typo_style = "";
 
                 foreach ($typo_elements as $slug => $data) {
                     $inline_css = "";
@@ -598,103 +602,160 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                     if ($slug === 'button') $btn_typo_style = $inline_css;
                 }
 
-                // Generate the inline style
-                $style = '';
+                // DETERMINE TAGS
+                $g_title_tag = get_post_meta($post_id, "_cgs_title_tag", true) ?: 'h3';
+                $g_body_tag  = get_post_meta($post_id, "_cgs_body_tag", true) ?: 'p';
+                $title_tag = !empty($item['title_tag']) ? $item['title_tag'] : $g_title_tag;
+                $body_tag  = !empty($item['body_tag']) ? $item['body_tag'] : $g_body_tag;
+                $allowed_tags = ['h1','h2','h3','h4','h5','h6','p','div','span'];
+                if(!in_array($title_tag, $allowed_tags)) $title_tag = 'h3';
+                if(!in_array($body_tag, $allowed_tags)) $body_tag = 'p';
+
+                // Generate the inline style for wrapper (outer card)
+                $wrapper_style = '';
+                $inner_style = '';
                 $btn_style = $btn_typo_style;
-                if (!empty($bg_color)) {
-                  $style .= "background-color: {$bg_color}; ";
-                } else {
-                  $style .= "background-color: {$card_bg}; ";
+
+                // Background Image (Goes on Wrapper)
+                $has_bg_image = false;
+                if ($card_bg_image_url) {
+                    $wrapper_style .= "background-image: url('" . esc_url($card_bg_image_url) . "'); background-size: cover; background-position: center; ";
+                    $has_bg_image = true;
                 }
-                if (!empty($text_color)) {
-                  $style .= "color: {$text_color}; ";
+
+                // Inner Card Styles
+                if (!empty($bg_color)) {
+                  $inner_style .= "background-color: {$bg_color}; ";
                 } else {
-                  $style .= "color: {$card_txt}; ";
+                  $inner_style .= "background-color: {$card_bg}; ";
+                }
+                
+                // Outer Card (Wrapper) Background
+                $per_card_wrapper_bg = !empty($item['wrapper_bg_color']) ? $item['wrapper_bg_color'] : '';
+                $global_wrapper_bg = get_post_meta($post_id, '_cgs_wrapper_bg_color', true);
+                $final_wrapper_bg = !empty($per_card_wrapper_bg) ? $per_card_wrapper_bg : (!empty($global_wrapper_bg) ? $global_wrapper_bg : '');
+                if (!empty($final_wrapper_bg)) {
+                    $wrapper_style .= "background-color: {$final_wrapper_bg}; ";
+                }
+                
+                if (!empty($text_color)) {
+                  $inner_style .= "color: {$text_color}; ";
+                } else {
+                  $inner_style .= "color: {$card_txt}; ";
                 }
                 if (!empty($btn_bg_color)) {
                   $btn_style .= "background-color: {$btn_bg_color}; color: {$btn_text_color}; ";
                 } else {
                   $btn_style .= "background-color: {$btn_bg}; color: {$btn_txt}; ";
                 }
-                if (!empty($card_border_color)) {
-                  $style .= "border-color: {$card_border_color}; ";
-                } else if (!empty($card_border_clr)) {
-                  $style .= "border-color: {$card_border_clr}; ";
-                }
                 
-                // Border width: per-card > global
-                $final_border_width = !empty($per_card_border_width) ? $per_card_border_width : $card_border_width;
-                if (!empty($final_border_width) && $final_border_width !== '0') {
-                  $style .= "border-width: {$final_border_width}px; ";
-                }
+                if(isset($item['btn_width']) && $item['btn_width'] !== '') $btn_style .= "width:{$item['btn_width']}; display:inline-block; text-align:center;";
                 
-                // Border style: per-card > global
-                $final_border_style = !empty($per_card_border_style) ? $per_card_border_style : $card_border_style;
-                if (!empty($final_border_style) && $final_border_style !== 'none') {
-                  $style .= "border-style: {$final_border_style}; ";
+                // Button Border
+                if(!empty($item['btn_border_width'])) $btn_style .= "border-width:{$item['btn_border_width']}px;";
+                if(!empty($item['btn_border_style'])) $btn_style .= "border-style:{$item['btn_border_style']};";
+                if(!empty($item['btn_border_color'])) $btn_style .= "border-color:{$item['btn_border_color']};";
+                
+                // Button Effects
+                if(!empty($item['btn_shadow'])) $btn_style .= "box-shadow:{$item['btn_shadow']};";
+                $c_tn = [];
+                if(!empty($item['btn_scale'])) $c_tn[] = "scale({$item['btn_scale']})";
+                if(!empty($item['btn_lift'])) $c_tn[] = "translateY(-{$item['btn_lift']}px)";
+                if(!empty($c_tn)) $btn_style .= "transform: " . implode(' ', $c_tn) . ";";
+                
+                // Button Padding
+                foreach(['top','right','bottom','left'] as $f) {
+                   $key = "btn_padding_{$f}";
+                   if(isset($item[$key]) && $item[$key] !== '') $btn_style .= "padding-{$f}:{$item[$key]}px;";
+                }
+                // Button Radius
+                $rad_map = [
+                    'btn_radius_top_lt' => 'border-top-left-radius',
+                    'btn_radius_top_rt' => 'border-top-right-radius',
+                    'btn_radius_btm_rt' => 'border-bottom-right-radius',
+                    'btn_radius_btm_lt' => 'border-bottom-left-radius'
+                ];
+                foreach($rad_map as $key => $prop) {
+                   if(isset($item[$key]) && $item[$key] !== '') $btn_style .= "{$prop}:{$item[$key]}px;";
                 }
 
-                // If no custom styles, apply the global styles
-                if (empty($card_style)) {
-                  $card_style = $css;
+                // Card Border
+                if (!empty($card_border_color)) {
+                  $inner_style .= "border-color: {$card_border_color}; ";
+                } else if (!empty($card_border_clr)) {
+                  $inner_style .= "border-color: {$card_border_clr}; ";
                 }
-                $item_ver_img_position = isset($item['ver_img_position']) && $item['ver_img_position'] ? $item['ver_img_position'] : $ver_img_position;
+                $final_border_width = !empty($per_card_border_width) ? $per_card_border_width : $card_border_width;
+                if (!empty($final_border_width) && $final_border_width !== '0') {
+                  $inner_style .= "border-width: {$final_border_width}px; ";
+                }
+                $final_border_style = !empty($per_card_border_style) ? $per_card_border_style : $card_border_style;
+                if (!empty($final_border_style) && $final_border_style !== 'none') {
+                  $inner_style .= "border-style: {$final_border_style}; ";
+                }
+
+                // Image position for vertical layout
+                $item_img_position = isset($item['ver_img_position']) && $item['ver_img_position'] ? $item['ver_img_position'] : $ver_img_position;
+                
+                // Classes - use same as horizontal + stack-card for GSAP
+                $wrapper_classes = "cgs-carousel-card cgs-stack-card";
+                if ($has_bg_image) {
+                    $wrapper_classes .= " cgs-has-bg-image";
+                }
+                $inner_classes = "cgs-card-inner cgs-layout-" . esc_attr($item_img_position);
+
               ?>
-                <div class="cgs-stack-card" style="<?php echo $style ?>top:<?php echo (40 + ($index * 5)); ?>px">
-                  <!-- Fist column for displaying Card Heading Content and button -->
-                  <?php if ($item_ver_img_position === 'left') { ?>
-                    <div class='cgs-vertical-card-content' style="order: 1;">
-                    <?php } else { ?>
-                      <div class='cgs-vertical-card-content'>
-                      <?php } ?>
-                      <h3 style="<?php echo esc_attr($title_style); ?>"><?php echo esc_html($item['title']); ?></h3>
-                      <p style="<?php echo esc_attr($body_style); ?>"><?php echo esc_html($item['body']); ?></p>
-                      <!-- Button -->
-                      <?php if (! empty($item['button_text']) && ! empty($item['button_url'])) : ?>
-                        <?php 
-                            $icon_html = '';
-                            if(!empty($item['btn_icon_class'])) {
-                                $icon_html = '<i class="' . esc_attr($item['btn_icon_class']) . '"></i>';
-                            }
-                            $pos = isset($item['btn_icon_pos']) ? $item['btn_icon_pos'] : 'right';
-                            $btn_content = $item['button_text'];
-                            
-                            // Add spacing if icon exists
-                            if($icon_html) {
-                                if($pos === 'left') {
-                                    $btn_content = $icon_html . ' <span style="margin-left:5px;">' . $btn_content . '</span>';
-                                } else {
-                                    $btn_content = '<span style="margin-right:5px;">' . $btn_content . '</span> ' . $icon_html;
-                                }
-                            }
-                        ?>
-                        <a href="<?php echo esc_url($item['button_url']); ?>" style="<?php echo $btn_style ?>" class="button cgs-btn-<?php echo $index; ?>" target="_blank" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>">
-                          <?php echo wp_kses_post($btn_content); ?>
-                        </a>
-                      <?php endif; ?>
-                      </div>
-                      <!-- Second column for displaying Card Image -->
-                      <?php if ($item_ver_img_position === 'left') { ?>
-                        <div class='cgs-vertical-card-image' style="order: 0;">
-                        <?php } else { ?>
-                          <div class='cgs-vertical-card-image'>
-                          <?php } ?>
-                          <?php
-                          $img = ! empty($item['image'])
-                            ? wp_get_attachment_image_url($item['image'], 'large')
-                            : '';
-                          if ($img) {
-                            echo "<img src='" . esc_url($img) . "' alt='' />";
-                          }
-                          ?>
-                          </div>
-                          <!-- Second column ends here -->
+                <div class="<?php echo esc_attr($wrapper_classes); ?>" style="<?php echo esc_attr($wrapper_style); ?>">
+                    <div class="<?php echo esc_attr($inner_classes); ?>" style="<?php echo esc_attr($inner_style); ?>">
+                    
+                    <?php if ($img) : ?>
+                        <div class="cgs-card-image-column">
+                             <div class="cgs-card-image-wrap">
+                                <img src="<?php echo esc_url($img); ?>" alt="" />
+                            </div>
                         </div>
-                      <?php endforeach; ?>
+                    <?php endif; ?>
+
+                    <div class="cgs-card-content-column">
+                        <?php if (! empty($item['title'])) : ?>
+                            <div class="cgs-card-header">
+                            <<?php echo $title_tag; ?> class="cgs-card-title" style="<?php echo esc_attr($title_style); ?>"><?php echo wp_kses_post($item['title']); ?></<?php echo $title_tag; ?>>
+                            </div>
+                        <?php endif; ?>
+                        
+                        <?php if (! empty($item['body'])) : ?>
+                            <<?php echo $body_tag; ?> class="cgs-card-body" style="<?php echo esc_attr($body_style); ?>"><?php echo wp_kses_post($item['body']); ?></<?php echo $body_tag; ?>>
+                        <?php endif; ?>
+                        
+                        <?php if (! empty($item['button_text']) && ! empty($item['button_url'])) : ?>
+                            <?php 
+                                $icon_html = '';
+                                if(!empty($item['btn_icon_class'])) {
+                                    $icon_html = '<i class="' . esc_attr($item['btn_icon_class']) . '"></i>';
+                                }
+                                $pos = isset($item['btn_icon_pos']) ? $item['btn_icon_pos'] : 'right';
+                                $btn_content = $item['button_text'];
+                                
+                                if($icon_html) {
+                                    if($pos === 'left') {
+                                        $btn_content = $icon_html . ' <span style="margin-left:5px;">' . $btn_content . '</span>';
+                                    } else {
+                                        $btn_content = '<span style="margin-right:5px;">' . $btn_content . '</span> ' . $icon_html;
+                                    }
+                                }
+                            ?>
+                            <a href="<?php echo esc_url($item['button_url']); ?>" class="button cgs-btn-<?php echo $i; ?>" target="_blank" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>" style="<?php echo esc_attr($btn_style); ?>">
+                            <?php echo wp_kses_post($btn_content); ?>
+                            </a>
+                        <?php endif; ?>
+                    </div>
                     </div>
                 </div>
-              <?php } ?>
+              <?php endforeach; ?>
             </div>
+          </div>
+        <?php } ?>
+      </div>
       <?php
       return ob_get_clean();
     }

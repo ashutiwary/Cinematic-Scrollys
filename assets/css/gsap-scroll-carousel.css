@@ -14,8 +14,11 @@
   width: 100%;
   padding: 0;
   height: 100vh;
+  height: 100dvh;
+  /* Modern browsers: respects dynamic address bar */
   display: flex;
   align-items: center;
+  justify-content: center;
   position: sticky;
   top: 0;
 }
@@ -36,6 +39,8 @@
   width: 100vw;
   flex: 0 0 100vw;
   height: 100vh;
+  height: 100dvh;
+  /* Modern browsers: respects dynamic address bar */
   box-sizing: border-box;
   flex-shrink: 0;
   margin-left: -1px;
@@ -114,13 +119,36 @@
 /* Mobile Stack */
 @media (max-width: 768px) {
 
+  .cgs-carousel-outer {
+    overflow-x: hidden;
+    /* Prevent horizontal scrollbar on mobile */
+  }
+
+  .cgs-carousel-wrapper {
+    height: 100vh;
+    height: 100dvh;
+  }
+
+  .cgs-carousel-card {
+    height: 100vh;
+    height: 100dvh;
+    padding: 15px;
+    overflow-x: hidden;
+    /* Prevent horizontal overflow/scrollbar */
+  }
+
   .cgs-card-inner,
   .cgs-card-inner.cgs-layout-left,
   .cgs-card-inner.cgs-layout-right {
     flex-direction: column;
-    justify-content: flex-start;
-    padding: 0;
-    gap: 20px;
+    justify-content: center;
+    padding: 10px;
+    gap: 15px;
+    max-height: 90dvh;
+    max-height: 90vh;
+    /* Fallback */
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
   }
 
   .cgs-card-image-column,
@@ -130,7 +158,39 @@
   }
 
   .cgs-card-image-column {
-    order: -1;
+    order: 1;
+    /* Image below content on mobile */
+    max-height: 40vh;
+    overflow: hidden;
+  }
+
+  .cgs-card-inner img {
+    max-height: 35vh;
+    width: auto;
+    max-width: 100%;
+    object-fit: contain;
+    margin-bottom: 8px;
+  }
+
+  .cgs-card-content-column {
+    flex: 1;
+    min-height: 0;
+    overflow-y: auto;
+  }
+
+  .cgs-card-inner h3 {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  .cgs-card-inner p {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .cgs-card-inner a.button {
+    padding: 10px 16px;
+    font-size: 0.9rem;
   }
 }
 
@@ -179,31 +239,85 @@
 
 /* Vertical Stack Card Design */
 
-
-/* Clean up Vertical specific if generic classes were used */
-.cgs-vertical-container {
+/* Wrapper for vertical layout */
+.cgs-vertical-wrapper {
+  position: relative;
+  width: 100%;
   display: flex;
-  justify-content: center;
-}
-
-.cgs-stack-card {
-  height: fit-content;
-  max-width: var(--global-content-width);
-  width: 1000px;
-  margin: auto;
-  margin-bottom: 50px;
-  background: rgb(253, 0, 0);
-  display: flex;
+  flex-direction: column;
   align-items: center;
 }
 
-.cgs-vertical-card-image,
-.cgs-vertical-card-content {
-  width: 50%;
+.cgs-vertical-cards {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
 }
 
-.cgs-vertical-card-content {
-  margin: 0px 20px;
+/* Vertical stack card - OVERRIDE horizontal .cgs-carousel-card styles */
+.cgs-carousel-card.cgs-stack-card {
+  width: 100% !important;
+  height: auto !important;
+  min-height: 100vh;
+  min-height: 100dvh;
+  flex: none !important;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  will-change: transform;
+  flex-shrink: 0;
+  margin-left: 0 !important;
+}
+
+/* Allow pinning by GSAP - ensure it stays centered */
+.cgs-stack-card.pin-spacer,
+.pin-spacer .cgs-stack-card {
+  display: flex !important;
+  justify-content: center !important;
+  align-items: center !important;
+  width: 100% !important;
+}
+
+/* Card inner for vertical layout - center the card */
+.cgs-stack-card .cgs-card-inner {
+  padding: 40px;
+  max-width: var(--global-content-width, 1200px);
+  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Mobile responsiveness for vertical stack */
+@media (max-width: 768px) {
+  .cgs-carousel-card.cgs-stack-card {
+    min-height: auto !important;
+    padding: 20px;
+  }
+
+  .cgs-stack-card .cgs-card-inner {
+    padding: 20px;
+    flex-direction: column;
+    gap: 15px;
+  }
+
+  .cgs-stack-card .cgs-card-image-column,
+  .cgs-stack-card .cgs-card-content-column {
+    width: 100%;
+  }
+
+  .cgs-stack-card .cgs-card-image-column {
+    order: 1;
+    /* Image below content on mobile */
+  }
+
+  .cgs-stack-card .cgs-card-inner img {
+    max-height: 40vh;
+    width: auto;
+    object-fit: contain;
+  }
 }
 
 /* Arrows */

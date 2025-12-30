@@ -30,18 +30,15 @@
 }
 
 .cgs-toggle-item {
-    position: absolute;
-    top: 8px;
-    right: 12px;
     background: none;
     border: none;
     cursor: pointer;
     font-size: 1.2em;
     line-height: 1;
-    padding: 0;
+    padding: 4px 6px;
     color: #333;
-    z-index: 2;
     transition: color 0.2s;
+    flex-shrink: 0;
 }
 
 .cgs-toggle-item.collapsed {
@@ -50,18 +47,15 @@
 
 /* Duplicate Button */
 .cgs-duplicate-item {
-    position: absolute;
-    top: 6px;
-    right: 40px;
     background: none;
     border: 1px solid #ddd;
     cursor: pointer;
     font-size: 14px;
-    padding: 2px 8px;
+    padding: 4px 10px;
     border-radius: 3px;
     color: #0073aa;
     transition: all 0.2s ease;
-    z-index: 2;
+    flex-shrink: 0;
 }
 
 .cgs-duplicate-item:hover {
@@ -87,14 +81,14 @@
 .cgs-card-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
-    gap: 8px;
-    position: relative;
+    gap: 10px;
+    padding: 4px 0;
 }
 
 .cgs-card-collapsed-title {
     font-weight: bold;
     margin-left: 8px;
+    flex: 1;
 }
 
 /* If you really want to hide until ready, uncomment, but strictly managed by JS now */

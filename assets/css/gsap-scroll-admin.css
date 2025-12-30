@@ -91,6 +91,33 @@
     flex: 1;
 }
 
+/* Drag Handle */
+.cgs-drag-handle {
+    cursor: grab;
+    padding: 4px 8px;
+    font-size: 16px;
+    color: #999;
+    transition: color 0.2s;
+    flex-shrink: 0;
+}
+
+.cgs-drag-handle:hover {
+    color: #0073aa;
+}
+
+.cgs-drag-handle:active {
+    cursor: grabbing;
+}
+
+/* Sortable Placeholder */
+.cgs-sortable-placeholder {
+    background: #f0f6fc;
+    border: 2px dashed #0073aa;
+    border-radius: 8px;
+    margin: 10px;
+    min-height: 50px;
+}
+
 /* If you really want to hide until ready, uncomment, but strictly managed by JS now */
 /* 
 body.js-cgs-ready .cgs-carousel-item-content {

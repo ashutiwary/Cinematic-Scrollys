@@ -225,6 +225,7 @@ jQuery(function ($) {
       return `
       <li class="cgs-carousel-item" data-index="${idx}">
         <div class="cgs-card-header">
+          <span class="cgs-drag-handle" title="Drag to reorder">☰</span>
           <span class="cgs-card-collapsed-title">Item ${idx + 1}</span>
           <button type="button" class="cgs-duplicate-item" title="Duplicate">⧉</button>
           <button type="button" class="cgs-toggle-item">▼</button>
@@ -516,6 +517,18 @@ jQuery(function ($) {
     });
 
     initCollapse();
+
+    // Initialize drag-and-drop sortable for card reordering
+    $list.sortable({
+      handle: ".cgs-drag-handle",
+      placeholder: "cgs-sortable-placeholder",
+      cursor: "grabbing",
+      opacity: 0.7,
+      tolerance: "pointer",
+      start: function (e, ui) {
+        ui.placeholder.height(ui.item.outerHeight());
+      }
+    });
 
     // Add New Item — now opens by default
     $("#cgs-add-carousel-item").on("click", function (e) {

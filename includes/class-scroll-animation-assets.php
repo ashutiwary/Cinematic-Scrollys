@@ -29,7 +29,7 @@ if ( ! class_exists( 'Cinematic_Scroll_Assets' ) ) {
 
                 // 3. Admin CSS/JS
                 wp_enqueue_style( 'cgs-admin-css', CGS_URL . 'assets/css/gsap-scroll-admin.css', [], '1.3.1' ); // Bumped version
-                wp_enqueue_script( 'cgs-admin-js', CGS_URL . 'assets/js/gsap-scroll-admin.js', ['jquery', 'pickr-js'], '1.3.1', true );
+                wp_enqueue_script( 'cgs-admin-js', CGS_URL . 'assets/js/gsap-scroll-admin.js', ['jquery', 'jquery-ui-sortable', 'pickr-js'], '1.3.2', true );
 
                 // 4. Centralized Data Localization
                 // Combine data from Carousel Meta and Style Meta

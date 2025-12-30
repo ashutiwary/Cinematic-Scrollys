@@ -64,6 +64,7 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
 ?>
                 <li class="cgs-carousel-item" data-index="<?php echo esc_attr($i); ?>">
                     <div class="cgs-card-header">
+                        <span class="cgs-drag-handle" title="<?php esc_attr_e('Drag to reorder', 'cinematic-scroll'); ?>">☰</span>
                         <span class="cgs-card-collapsed-title">
                             <?php echo esc_html(wp_strip_all_tags($itm['title']) ?: sprintf(__('Item %d', 'cinematic-scroll'), $i + 1)); ?>
                         </span>

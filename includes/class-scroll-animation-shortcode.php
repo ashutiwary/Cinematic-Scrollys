@@ -35,7 +35,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
 
       $layout = get_post_meta($post_id, '_cgs_layout', true);
       // pull style meta option for horizontal (with defaults)
-      $card_bg = get_post_meta($post_id, '_cgs_card_bg',     true) ?: '#ffffff';
+      $card_bg = get_post_meta($post_id, '_cgs_card_bg',     true) ?: 'transparent';
       $title_txt_colr = get_post_meta($post_id, '_cgs_title_colr', true) ?: '#000000';
       $card_txt = get_post_meta($post_id, '_cgs_txt_colr',    true) ?: '#333333';
       $btn_bg  = get_post_meta($post_id, '_cgs_button_bg',   true) ?: '#0073aa';

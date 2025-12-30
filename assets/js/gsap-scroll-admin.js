@@ -226,6 +226,7 @@ jQuery(function ($) {
       <li class="cgs-carousel-item" data-index="${idx}">
         <div class="cgs-card-header">
           <span class="cgs-card-collapsed-title">Item ${idx + 1}</span>
+          <button type="button" class="cgs-duplicate-item" title="Duplicate">⧉</button>
           <button type="button" class="cgs-toggle-item">▼</button>
         </div>
         <div class="cgs-carousel-item-content">
@@ -539,6 +540,55 @@ jQuery(function ($) {
     $list.on("click", ".cgs-remove-carousel-item", function (e) {
       e.preventDefault();
       $(this).closest(".cgs-carousel-item").remove();
+    });
+
+    // Duplicate Item
+    $list.on("click", ".cgs-duplicate-item", function (e) {
+      e.preventDefault();
+      const $original = $(this).closest(".cgs-carousel-item");
+      const newIdx = itemIndex++;
+
+      // Clone the item
+      const $clone = $original.clone(true);
+
+      // Update the data-index attribute
+      $clone.attr("data-index", newIdx);
+
+      // Update all input/select/textarea names with new index
+      $clone.find("input, select, textarea").each(function () {
+        const name = $(this).attr("name");
+        if (name) {
+          const newName = name.replace(/\[\d+\]/, `[${newIdx}]`);
+          $(this).attr("name", newName);
+        }
+        // Clear pickr initialization flag for color pickers
+        if ($(this).hasClass("cgs-color-picker")) {
+          $(this).removeData("pickr-init");
+          $(this).show();
+          // Remove the cloned pickr container (will be re-initialized)
+          $(this).next("div").remove();
+        }
+      });
+
+      // Update the title display
+      const originalTitle = $original.find('input[name*="[title]"]').val();
+      $clone.find(".cgs-card-collapsed-title").text(
+        originalTitle ? originalTitle + " (Copy)" : `Item ${newIdx + 1}`
+      );
+
+      // Expand the cloned item
+      $clone.find(".cgs-carousel-item-content").show();
+      $clone.find(".cgs-toggle-item").removeClass("collapsed").html("▼");
+
+      // Insert the clone after the original
+      $clone.insertAfter($original);
+
+      // Re-initialize color pickers on the cloned item
+      if (typeof Pickr !== "undefined") {
+        $clone.find(".cgs-color-picker").each(function () {
+          initPickr($(this));
+        });
+      }
     });
 
     // Toggle Collapse

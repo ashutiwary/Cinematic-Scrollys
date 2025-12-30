@@ -67,6 +67,7 @@ if (! class_exists('Cinematic_Scroll_Carousel_Items_Meta')) {
                         <span class="cgs-card-collapsed-title">
                             <?php echo esc_html(wp_strip_all_tags($itm['title']) ?: sprintf(__('Item %d', 'cinematic-scroll'), $i + 1)); ?>
                         </span>
+                        <button type="button" class="cgs-duplicate-item" title="<?php esc_attr_e('Duplicate', 'cinematic-scroll'); ?>">⧉</button>
                         <button type="button" class="cgs-toggle-item collapsed">►</button>
                     </div>
                     <div class="cgs-carousel-item-content">

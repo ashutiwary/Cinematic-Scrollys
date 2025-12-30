@@ -48,6 +48,28 @@
     color: #888;
 }
 
+/* Duplicate Button */
+.cgs-duplicate-item {
+    position: absolute;
+    top: 6px;
+    right: 40px;
+    background: none;
+    border: 1px solid #ddd;
+    cursor: pointer;
+    font-size: 14px;
+    padding: 2px 8px;
+    border-radius: 3px;
+    color: #0073aa;
+    transition: all 0.2s ease;
+    z-index: 2;
+}
+
+.cgs-duplicate-item:hover {
+    background: #0073aa;
+    color: #fff;
+    border-color: #0073aa;
+}
+
 /* Default: Visible so if JS creates it, it's seen. JS logic handles toggling. */
 .cgs-carousel-item-content {
     transition: all 0.2s;

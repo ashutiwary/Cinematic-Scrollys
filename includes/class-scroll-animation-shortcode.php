@@ -635,7 +635,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                 $global_wrapper_bg = get_post_meta($post_id, '_cgs_wrapper_bg_color', true);
                 $final_wrapper_bg = !empty($per_card_wrapper_bg) ? $per_card_wrapper_bg : (!empty($global_wrapper_bg) ? $global_wrapper_bg : '');
                 if (!empty($final_wrapper_bg)) {
-                    $wrapper_style .= "background-color: {$final_wrapper_bg}; ";
+                    $wrapper_style .= "--stack-card-bg: {$final_wrapper_bg}; ";
                 }
                 
                 if (!empty($text_color)) {

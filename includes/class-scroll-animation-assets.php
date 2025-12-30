@@ -66,7 +66,7 @@ if ( ! class_exists( 'Cinematic_Scroll_Assets' ) ) {
             wp_register_script( 'gsap-scrolltrigger', CGS_URL . 'assets/js/lib/ScrollTrigger.min.js', ['gsap'], '3.12.5', true );
             
             // Register Styles
-            wp_register_style( 'cgs-carousel', CGS_URL . 'assets/css/gsap-scroll-carousel.css', [], '1.3.1' );
+            wp_register_style( 'cgs-carousel', CGS_URL . 'assets/css/gsap-scroll-carousel.css', [], '1.3.6' );
             wp_register_style( 'cgs-font-awesome', 'https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css', [], '6.5.1' ); // Kept CDN as per plan
 
             // We do NOT enqueue them globally here unless we want them on every page.

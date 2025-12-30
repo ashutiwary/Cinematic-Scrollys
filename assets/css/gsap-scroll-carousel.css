@@ -238,10 +238,14 @@
 
 /* Vertical Stack Card Design */
 
-/* Wrapper for vertical layout */
+/* Wrapper for vertical layout - Full viewport width like horizontal */
 .cgs-vertical-wrapper {
   position: relative;
-  width: 100%;
+  width: 100vw;
+  left: 50%;
+  right: 50%;
+  margin-left: -50vw;
+  margin-right: -50vw;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -269,6 +273,28 @@
   will-change: transform;
   flex-shrink: 0;
   margin-left: 0 !important;
+  position: relative;
+  overflow: visible;
+}
+
+/* Full-width background for vertical stack - uses CSS variable from inline style */
+.cgs-carousel-card.cgs-stack-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100vw;
+  background-color: var(--stack-card-bg, transparent);
+  z-index: 0;
+  pointer-events: none;
+}
+
+/* Ensure inner content is above the pseudo-element */
+.cgs-stack-card .cgs-card-inner {
+  position: relative;
+  z-index: 1;
 }
 
 /* Allow pinning by GSAP - ensure it stays centered */

@@ -292,30 +292,69 @@
 /* Mobile responsiveness for vertical stack */
 @media (max-width: 768px) {
   .cgs-carousel-card.cgs-stack-card {
-    min-height: auto !important;
-    padding: 20px;
+    min-height: 100vh !important;
+    min-height: 100dvh !important;
+    padding: 15px;
+    box-sizing: border-box;
+    overflow: hidden;
   }
 
   .cgs-stack-card .cgs-card-inner {
-    padding: 20px;
+    padding: 15px;
     flex-direction: column;
-    gap: 15px;
+    gap: 12px;
+    max-height: 95vh;
+    max-height: 95dvh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+    box-sizing: border-box;
+  }
+
+  .cgs-stack-card .cgs-card-inner.cgs-layout-left,
+  .cgs-stack-card .cgs-card-inner.cgs-layout-right {
+    flex-direction: column;
   }
 
   .cgs-stack-card .cgs-card-image-column,
   .cgs-stack-card .cgs-card-content-column {
     width: 100%;
+    flex: unset;
   }
 
   .cgs-stack-card .cgs-card-image-column {
     order: 1;
-    /* Image below content on mobile */
+    max-height: 35vh;
+    overflow: hidden;
+  }
+
+  .cgs-stack-card .cgs-card-content-column {
+    order: 0;
+    flex: 1;
+    min-height: 0;
   }
 
   .cgs-stack-card .cgs-card-inner img {
-    max-height: 40vh;
+    max-height: 30vh;
     width: auto;
+    max-width: 100%;
     object-fit: contain;
+  }
+
+  .cgs-stack-card .cgs-card-inner h3,
+  .cgs-stack-card .cgs-card-title {
+    font-size: 1.25rem;
+    margin-bottom: 8px;
+  }
+
+  .cgs-stack-card .cgs-card-inner p,
+  .cgs-stack-card .cgs-card-body {
+    font-size: 0.95rem;
+    line-height: 1.5;
+  }
+
+  .cgs-stack-card .cgs-card-inner a.button {
+    padding: 10px 16px;
+    font-size: 0.9rem;
   }
 }
 

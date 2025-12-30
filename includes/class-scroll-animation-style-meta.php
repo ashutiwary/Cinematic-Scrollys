@@ -35,12 +35,12 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
             // Retrieve saved layout or default to 'carousel'
             $layout = get_post_meta( $post->ID, '_cgs_layout', true ) ?: 'horizontal';
             ?>
-            <div class="cgs-layout-option" style="display:flex;justify-content: space-between;align-items:center;margin:1em 0;padding:20px;border:1px solid #ddd;border-radius:10px;background:#f9f9f9;box-shadow: 0px 3px 15px 0px #d6e6ff;">
-                <p style="width:50%;">
-                <label for="cgs_layout" style="font-weight:bold;">
+            <div class="cgs-layout-option" style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:center;gap:15px;margin:1em 0;padding:20px;border:1px solid #ddd;border-radius:10px;background:#f9f9f9;box-shadow: 0px 3px 15px 0px #d6e6ff;">
+                <div style="display:flex;flex-wrap:wrap;align-items:center;gap:10px;flex:1;min-width:200px;">
+                <label for="cgs_layout" style="font-weight:bold;white-space:nowrap;">
                     <?php esc_html_e( 'Select Layout:', 'cinematic-scroll' ); ?>
                 </label>
-                <select id="cgs_layout" name="cgs_layout" style="width:100%;max-width:200px;">
+                <select id="cgs_layout" name="cgs_layout" style="max-width:200px;">
                     <option value="horizontal" <?php selected( $layout, 'horizontal' ); ?>><?php esc_html_e( 'Horizontal Scroll', 'cinematic-scroll' ); ?></option>
                     <option value="vertical"   <?php selected( $layout, 'vertical' );   ?>><?php esc_html_e( 'Vertical Stack',     'cinematic-scroll' ); ?></option>
                 </select>
@@ -53,14 +53,15 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                     false,                                // Don't wrap in <p>
                     array(
                         'id'    => 'cgs_layout_apply',
-                        'style' => 'margin:0px 10px;'
+                        'style' => 'margin:0;'
                     )
                 );
                 ?>
-                </p>
-                <p style="font-weight:bold;">Shortcode:
-                    <?php echo '<code>[cinematic_scroll id="' . esc_attr($post->ID) . '"]</code>'; ?>
-                </p>
+                </div>
+                <div style="display:flex;align-items:center;gap:8px;flex-shrink:0;">
+                    <span style="font-weight:bold;">Shortcode:</span>
+                    <?php echo '<code style="background:#fff;padding:5px 10px;border-radius:4px;border:1px solid #ddd;">[cinematic_scroll id="' . esc_attr($post->ID) . '"]</code>'; ?>
+                </div>
             </div>
             <?php
         }

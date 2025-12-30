@@ -580,8 +580,8 @@ jQuery(function ($) {
       $clone.find(".cgs-carousel-item-content").show();
       $clone.find(".cgs-toggle-item").removeClass("collapsed").html("▼");
 
-      // Insert the clone after the original
-      $clone.insertAfter($original);
+      // Insert the clone BEFORE the original (above it)
+      $clone.insertBefore($original);
 
       // Re-initialize color pickers on the cloned item
       if (typeof Pickr !== "undefined") {

@@ -1,4 +1,13 @@
 /* CGS Scroll Carousel Styles */
+
+/*
+ * IMPORTANT: Disable CSS smooth scrolling when carousel is present.
+ * scroll-behavior:smooth conflicts with GSAP ScrollTrigger and causes jitter.
+ */
+html:has(.cgs-carousel-wrapper) {
+  scroll-behavior: auto !important;
+}
+
 .cgs-carousel-outer {
   position: relative;
   width: 100vw;
@@ -18,8 +27,7 @@
   /* Modern browsers: respects dynamic address bar */
   display: flex;
   align-items: center;
-  position: sticky;
-  top: 0;
+  /* Note: position is handled by ScrollTrigger pin */
 }
 
 .cgs-carousel {

@@ -2,6 +2,10 @@ document.addEventListener("DOMContentLoaded", function () {
   if (typeof gsap === "undefined" || typeof ScrollTrigger === "undefined") return;
   gsap.registerPlugin(ScrollTrigger);
 
+  // IMPORTANT: Disable scroll-behavior:smooth as it conflicts with ScrollTrigger
+  // This is a JS fallback for browsers that don't support CSS :has() selector
+  document.documentElement.style.scrollBehavior = 'auto';
+
   // Mobile optimization: prevent unnecessary refreshes on address bar changes
   ScrollTrigger.config({
     ignoreMobileResize: true
@@ -146,8 +150,17 @@ document.addEventListener("DOMContentLoaded", function () {
         // Kill old trigger if exists to avoid duplication on resize
         if (outer.st) outer.st.kill();
 
-        // Adjust start position for sticky header
-        // "top top+=" means: when the top of the wrapper reaches (top of viewport + headerHeight)
+        // When pinned, GSAP positions element at top:0. If there's a sticky header,
+        // we need to push the wrapper content down to appear below the header.
+        // This ensures content is visually centered in the VISIBLE area (viewport - header)
+        if (headerHeight > 0) {
+          wrapper.style.paddingTop = headerHeight + 'px';
+          wrapper.style.boxSizing = 'border-box';
+        } else {
+          wrapper.style.paddingTop = '0';
+        }
+
+        // Pin when wrapper top hits viewport top (under header if present)
         var startPosition = headerHeight > 0 ? "top top+=" + headerHeight : "top top";
 
         outer.st = ScrollTrigger.create({
@@ -156,15 +169,13 @@ document.addEventListener("DOMContentLoaded", function () {
           end: () => "+=" + maxScroll,
           pin: true,
           pinSpacing: true,
-          scrub: isTouchDevice ? 0.5 : 1, // Faster response on touch devices
+          scrub: isTouchDevice ? 0.2 : 0.3, // Reduced for snappier response
           anticipatePin: 1,
           invalidateOnRefresh: true,
           onUpdate: (self) => {
-            gsap.to(carousel, {
-              x: -maxScroll * self.progress,
-              duration: isTouchDevice ? 0.05 : 0.1, // Faster on touch
-              overwrite: "auto",
-              ease: "none",
+            // Set position directly instead of tweening (eliminates jitter from tween-within-tween)
+            gsap.set(carousel, {
+              x: -maxScroll * self.progress
             });
           },
         });

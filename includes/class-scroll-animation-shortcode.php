@@ -65,6 +65,8 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
       $ver_img_position = get_post_meta($post_id, '_cgs_vert_img_position', true) ?: 'right';
       $content_width = get_post_meta($post_id, '_cgs_content_width', true) ?: '1200px';
       $show_dots = get_post_meta($post_id, '_cgs_show_dots', true);
+      $dots_bg_color = get_post_meta($post_id, '_cgs_dots_bg_color', true) ?: 'rgba(0,0,0,0.3)';
+      $dots_active_color = get_post_meta($post_id, '_cgs_dots_active_color', true) ?: '#ffffff';
       $card_count = count($items);
 
       // --- GOOGLE FONTS LOADING ---
@@ -568,7 +570,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
               <?php endforeach; ?>
             </div>
             <?php if ($show_dots === '1') : ?>
-            <div class="cgs-carousel-dots">
+            <div class="cgs-carousel-dots" style="--dots-bg: <?php echo esc_attr($dots_bg_color); ?>; --dots-active: <?php echo esc_attr($dots_active_color); ?>;">
               <?php for ($d = 0; $d < $card_count; $d++) : ?>
                 <button class="cgs-dot<?php echo $d === 0 ? ' active' : ''; ?>" data-index="<?php echo $d; ?>" aria-label="<?php echo sprintf(esc_attr__('Go to slide %d', 'cinematic-scroll'), $d + 1); ?>"></button>
               <?php endfor; ?>

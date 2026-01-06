@@ -203,6 +203,10 @@ document.addEventListener("DOMContentLoaded", function () {
           dots.forEach((dot, index) => {
             dot.addEventListener('click', (e) => {
               e.preventDefault();
+
+              // Remove focus from button to prevent blue highlight
+              dot.blur();
+
               // Calculate target scroll position based on dot index
               const progress = totalSlides > 1 ? index / (totalSlides - 1) : 0;
               const targetScroll = pinStart + (maxScroll * progress);

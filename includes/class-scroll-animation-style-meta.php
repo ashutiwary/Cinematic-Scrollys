@@ -234,6 +234,16 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                                 </label>
                                 <span style="display:block;color:#666;font-size:0.9em;margin-top:5px;"><?php esc_html_e( 'Display navigation dots at the bottom of the carousel (horizontal layout only)', 'cinematic-scroll' ); ?></span>
                             </p>
+                            <div style="display:flex;flex-wrap:wrap;gap:15px;margin-top:15px;">
+                                <p class="cgs-meta-style-desc" style="margin:0;">
+                                    <label for="cgs_dots_bg_color"><?php esc_html_e( 'Dots Background:', 'cinematic-scroll' ); ?></label>
+                                    <input type="text" class="cgs-color-picker" id="cgs_dots_bg_color" name="cgs_dots_bg_color" value="<?php echo esc_attr( get_post_meta( $post->ID, '_cgs_dots_bg_color', true ) ); ?>" data-alpha="true" data-default-color="rgba(0,0,0,0.3)">
+                                </p>
+                                <p class="cgs-meta-style-desc" style="margin:0;">
+                                    <label for="cgs_dots_active_color"><?php esc_html_e( 'Active Dot Color:', 'cinematic-scroll' ); ?></label>
+                                    <input type="text" class="cgs-color-picker" id="cgs_dots_active_color" name="cgs_dots_active_color" value="<?php echo esc_attr( get_post_meta( $post->ID, '_cgs_dots_active_color', true ) ); ?>" data-alpha="true" data-default-color="#ffffff">
+                                </p>
+                            </div>
                         </div>
                     </div>
 
@@ -546,6 +556,13 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                 }
                 // Save show dots checkbox
                 update_post_meta( $post_id, '_cgs_show_dots', isset( $_POST['cgs_show_dots'] ) ? '1' : '' );
+                // Save dots colors
+                if ( isset( $_POST['cgs_dots_bg_color'] ) ) {
+                    update_post_meta( $post_id, '_cgs_dots_bg_color', sanitize_text_field( $_POST['cgs_dots_bg_color'] ) );
+                }
+                if ( isset( $_POST['cgs_dots_active_color'] ) ) {
+                    update_post_meta( $post_id, '_cgs_dots_active_color', sanitize_text_field( $_POST['cgs_dots_active_color'] ) );
+                }
                 
                 // Save Button Padding
                 foreach ( [ 'top', 'right', 'bottom', 'left' ] as $f ) {

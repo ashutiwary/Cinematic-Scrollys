@@ -556,7 +556,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                                     }
                                 }
                             ?>
-                            <a href="<?php echo esc_url($item['button_url']); ?>" class="button cgs-btn-<?php echo $i; ?>" target="_blank" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>" style="<?php echo esc_attr($btn_style); ?>">
+                            <a href="<?php echo esc_url($item['button_url']); ?>" class="button cgs-btn-<?php echo $i; ?>" target="<?php echo esc_attr( !empty($item['btn_target']) ? $item['btn_target'] : '_blank' ); ?>" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>" style="<?php echo esc_attr($btn_style); ?>">
                             <?php echo wp_kses_post($btn_content); ?>
                             </a>
                         <?php endif; ?>
@@ -744,7 +744,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                                     }
                                 }
                             ?>
-                            <a href="<?php echo esc_url($item['button_url']); ?>" class="button cgs-btn-<?php echo $i; ?>" target="_blank" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>" style="<?php echo esc_attr($btn_style); ?>">
+                            <a href="<?php echo esc_url($item['button_url']); ?>" class="button cgs-btn-<?php echo $i; ?>" target="<?php echo esc_attr( !empty($item['btn_target']) ? $item['btn_target'] : '_blank' ); ?>" rel="<?php echo esc_attr( !empty($item['btn_rel']) ? $item['btn_rel'] : 'noopener' ); ?>" style="<?php echo esc_attr($btn_style); ?>">
                             <?php echo wp_kses_post($btn_content); ?>
                             </a>
                         <?php endif; ?>

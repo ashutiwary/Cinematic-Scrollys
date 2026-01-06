@@ -224,6 +224,17 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                                 <input type="text" id="cgs_content_width" name="cgs_content_width" value="<?php echo esc_attr( $content_width ); ?>" placeholder="1200px">
                             </p>
                         </div>
+
+                        <div class="cgs-settings-section">
+                            <span class="cgs-settings-section-title"><?php esc_html_e( 'Navigation', 'cinematic-scroll' ); ?></span>
+                            <p class="cgs-meta-style-desc">
+                                <label>
+                                    <input type="checkbox" name="cgs_show_dots" value="1" <?php checked( get_post_meta( $post->ID, '_cgs_show_dots', true ), '1' ); ?>>
+                                    <?php esc_html_e( 'Show Dot Navigation', 'cinematic-scroll' ); ?>
+                                </label>
+                                <span style="display:block;color:#666;font-size:0.9em;margin-top:5px;"><?php esc_html_e( 'Display navigation dots at the bottom of the carousel (horizontal layout only)', 'cinematic-scroll' ); ?></span>
+                            </p>
+                        </div>
                     </div>
 
                     <!-- Tab: Typography -->
@@ -533,6 +544,8 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                 if ( isset( $_POST['cgs_content_width'] ) ) {
                     update_post_meta( $post_id, '_cgs_content_width', sanitize_text_field( $_POST['cgs_content_width'] ) );
                 }
+                // Save show dots checkbox
+                update_post_meta( $post_id, '_cgs_show_dots', isset( $_POST['cgs_show_dots'] ) ? '1' : '' );
                 
                 // Save Button Padding
                 foreach ( [ 'top', 'right', 'bottom', 'left' ] as $f ) {

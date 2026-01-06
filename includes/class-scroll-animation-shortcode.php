@@ -64,6 +64,8 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
       $img_position = get_post_meta($post_id, '_cgs_img_position', true) ?: 'left';
       $ver_img_position = get_post_meta($post_id, '_cgs_vert_img_position', true) ?: 'right';
       $content_width = get_post_meta($post_id, '_cgs_content_width', true) ?: '1200px';
+      $show_dots = get_post_meta($post_id, '_cgs_show_dots', true);
+      $card_count = count($items);
 
       // --- GOOGLE FONTS LOADING ---
       // We need to collect all fonts usage to build the request
@@ -349,7 +351,7 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
       ob_start();
       echo "<style scoped>{$css}</style>";
 ?>
-      <div class="cgs-carousel-outer" data-layout="<?php echo esc_attr($layout); ?>">
+      <div class="cgs-carousel-outer" data-layout="<?php echo esc_attr($layout); ?>" data-show-dots="<?php echo esc_attr($show_dots); ?>" data-card-count="<?php echo esc_attr($card_count); ?>">
         <!-- frontend design for horizontal carousel -->
         <?php if ('horizontal' === $layout) { ?>
           <div class="cgs-carousel-wrapper" id="<?php echo esc_attr($cid); ?>">
@@ -565,6 +567,13 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                 </div>
               <?php endforeach; ?>
             </div>
+            <?php if ($show_dots === '1') : ?>
+            <div class="cgs-carousel-dots">
+              <?php for ($d = 0; $d < $card_count; $d++) : ?>
+                <button class="cgs-dot<?php echo $d === 0 ? ' active' : ''; ?>" data-index="<?php echo $d; ?>" aria-label="<?php echo sprintf(esc_attr__('Go to slide %d', 'cinematic-scroll'), $d + 1); ?>"></button>
+              <?php endfor; ?>
+            </div>
+            <?php endif; ?>
           </div>
         <?php } else if ('vertical' === $layout) { ?>
           <!-- frontend design for vertical stack -->

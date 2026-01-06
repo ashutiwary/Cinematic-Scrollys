@@ -163,6 +163,10 @@ document.addEventListener("DOMContentLoaded", function () {
         // Pin when wrapper top hits viewport top (under header if present)
         var startPosition = headerHeight > 0 ? "top top+=" + headerHeight : "top top";
 
+        // Get dots for navigation
+        const dots = wrapper.querySelectorAll('.cgs-dot');
+        const totalSlides = cards.length;
+
         outer.st = ScrollTrigger.create({
           trigger: wrapper,
           start: startPosition,
@@ -177,8 +181,43 @@ document.addEventListener("DOMContentLoaded", function () {
             gsap.set(carousel, {
               x: -maxScroll * self.progress
             });
+
+            // Update active dot based on scroll progress
+            if (dots.length > 0 && totalSlides > 0) {
+              const activeIndex = Math.min(
+                Math.round(self.progress * (totalSlides - 1)),
+                totalSlides - 1
+              );
+              dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === activeIndex);
+              });
+            }
           },
         });
+
+        // Dot click navigation
+        if (dots.length > 0) {
+          // Store the pin start position for navigation
+          const pinStart = wrapper.getBoundingClientRect().top + window.scrollY - headerHeight;
+
+          dots.forEach((dot, index) => {
+            dot.addEventListener('click', (e) => {
+              e.preventDefault();
+              // Calculate target scroll position based on dot index
+              const progress = totalSlides > 1 ? index / (totalSlides - 1) : 0;
+              const targetScroll = pinStart + (maxScroll * progress);
+
+              // Re-enable smooth scroll temporarily for click navigation
+              document.documentElement.style.scrollBehavior = 'smooth';
+              window.scrollTo({ top: targetScroll, behavior: 'smooth' });
+
+              // Restore auto scroll behavior after scroll completes
+              setTimeout(() => {
+                document.documentElement.style.scrollBehavior = 'auto';
+              }, 1000);
+            });
+          });
+        }
       }
 
 

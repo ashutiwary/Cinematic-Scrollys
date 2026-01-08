@@ -66,6 +66,12 @@ document.addEventListener("DOMContentLoaded", function () {
       const spacer = 30; // Space between stacked cards
       const minScale = 0.9; // Cards scale down to 90% when stacked
 
+      // Store original card positions BEFORE pinning
+      const cardOffsets = [];
+      cards.forEach((card) => {
+        cardOffsets.push(card.getBoundingClientRect().top + window.scrollY);
+      });
+
       cards.forEach((card, index) => {
         // Pin each card at the top as user scrolls
         ScrollTrigger.create({
@@ -152,16 +158,15 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         });
 
-        // Click navigation for vertical dots
+        // Click navigation for vertical dots - use stored offsets
         verticalDots.forEach((dot, index) => {
           dot.addEventListener('click', (e) => {
             e.preventDefault();
             dot.blur();
 
-            // Scroll to the target card
-            const targetCard = cards[index];
-            if (targetCard) {
-              const targetY = targetCard.getBoundingClientRect().top + window.scrollY - headerHeight - 10;
+            // Use stored original offset instead of getBoundingClientRect
+            if (cardOffsets[index] !== undefined) {
+              const targetY = cardOffsets[index] - headerHeight - 10;
 
               document.documentElement.style.scrollBehavior = 'smooth';
               window.scrollTo({ top: targetY, behavior: 'smooth' });

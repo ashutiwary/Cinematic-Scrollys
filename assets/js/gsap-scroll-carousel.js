@@ -110,6 +110,69 @@ document.addEventListener("DOMContentLoaded", function () {
           ScrollTrigger.refresh(true);
         }, 200);
       });
+
+      // Vertical Dot Navigation
+      const dotsContainer = outer.querySelector('.cgs-carousel-dots-vertical');
+      const verticalDots = outer.querySelectorAll('.cgs-carousel-dots-vertical .cgs-dot');
+
+      if (dotsContainer && verticalDots.length > 0) {
+        // Show/hide dots based on first card reaching viewport top
+        ScrollTrigger.create({
+          trigger: cards[0],
+          start: `top top+=${headerHeight + 50}`,
+          endTrigger: cards[cards.length - 1],
+          end: `top top+=${headerHeight}`,
+          onEnter: () => dotsContainer.classList.add('is-visible'),
+          onLeave: () => dotsContainer.classList.remove('is-visible'),
+          onEnterBack: () => dotsContainer.classList.add('is-visible'),
+          onLeaveBack: () => dotsContainer.classList.remove('is-visible'),
+        });
+
+        // Update active dot based on scroll position
+        ScrollTrigger.create({
+          trigger: cards[0],
+          start: "top bottom",
+          endTrigger: cards[cards.length - 1],
+          end: "bottom top",
+          onUpdate: (self) => {
+            // Calculate which card is most visible
+            let activeIndex = 0;
+            cards.forEach((card, index) => {
+              const rect = card.getBoundingClientRect();
+              const viewportHeight = window.innerHeight;
+              // If card top is near the header area, it's the active one
+              if (rect.top <= headerHeight + 100 && rect.top >= headerHeight - viewportHeight / 2) {
+                activeIndex = index;
+              }
+            });
+
+            verticalDots.forEach((dot, i) => {
+              dot.classList.toggle('active', i === activeIndex);
+            });
+          }
+        });
+
+        // Click navigation for vertical dots
+        verticalDots.forEach((dot, index) => {
+          dot.addEventListener('click', (e) => {
+            e.preventDefault();
+            dot.blur();
+
+            // Scroll to the target card
+            const targetCard = cards[index];
+            if (targetCard) {
+              const targetY = targetCard.getBoundingClientRect().top + window.scrollY - headerHeight - 10;
+
+              document.documentElement.style.scrollBehavior = 'smooth';
+              window.scrollTo({ top: targetY, behavior: 'smooth' });
+
+              setTimeout(() => {
+                document.documentElement.style.scrollBehavior = 'auto';
+              }, 1000);
+            }
+          });
+        });
+      }
     });
 
 

@@ -465,3 +465,39 @@ html:has(.cgs-carousel-wrapper) {
     height: 10px;
   }
 }
+
+/* ===== VERTICAL LAYOUT DOTS (Right Side) ===== */
+.cgs-carousel-dots-vertical {
+  position: fixed;
+  right: 30px;
+  top: 50%;
+  left: auto;
+  bottom: auto;
+  transform: translateY(-50%);
+  flex-direction: column;
+  padding: 20px 10px;
+  border-radius: 30px;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+/* Show dots when vertical section is in view */
+.cgs-carousel-dots-vertical.is-visible {
+  opacity: 1;
+  visibility: visible;
+}
+
+/* Mobile vertical dots */
+@media (max-width: 768px) {
+  .cgs-carousel-dots-vertical {
+    right: 15px;
+    padding: 15px 8px;
+    gap: 8px;
+  }
+
+  .cgs-carousel-dots-vertical .cgs-dot {
+    width: 8px;
+    height: 8px;
+  }
+}

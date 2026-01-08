@@ -764,6 +764,13 @@ if (! class_exists('Cinematic_Scroll_Shortcode')) {
                 </div>
               <?php endforeach; ?>
             </div>
+            <?php if ($show_dots === '1') : ?>
+            <div class="cgs-carousel-dots cgs-carousel-dots-vertical" style="--dots-bg: <?php echo esc_attr($dots_bg_color); ?>; --dots-active: <?php echo esc_attr($dots_active_color); ?>;">
+              <?php for ($d = 0; $d < $card_count; $d++) : ?>
+                <button class="cgs-dot<?php echo $d === 0 ? ' active' : ''; ?>" data-index="<?php echo $d; ?>" aria-label="<?php echo sprintf(esc_attr__('Go to slide %d', 'cinematic-scroll'), $d + 1); ?>"></button>
+              <?php endfor; ?>
+            </div>
+            <?php endif; ?>
           </div>
         <?php } ?>
       </div>

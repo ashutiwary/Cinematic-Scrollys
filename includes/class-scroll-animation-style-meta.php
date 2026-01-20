@@ -232,7 +232,7 @@ if ( ! class_exists( 'Cinematic_Scroll_Style_Meta' ) ) {
                                     <input type="checkbox" name="cgs_show_dots" value="1" <?php checked( get_post_meta( $post->ID, '_cgs_show_dots', true ), '1' ); ?>>
                                     <?php esc_html_e( 'Show Dot Navigation', 'cinematic-scroll' ); ?>
                                 </label>
-                                <span style="display:block;color:#666;font-size:0.9em;margin-top:5px;"><?php esc_html_e( 'Display navigation dots at the bottom of the carousel (horizontal layout only)', 'cinematic-scroll' ); ?></span>
+                                <span style="display:block;color:#666;font-size:0.9em;margin-top:5px;"><?php esc_html_e( 'Display navigation dots (bottom for horizontal, right for vertical layout)', 'cinematic-scroll' ); ?></span>
                             </p>
                             <div style="display:flex;flex-wrap:wrap;gap:15px;margin-top:15px;">
                                 <p class="cgs-meta-style-desc" style="margin:0;">
